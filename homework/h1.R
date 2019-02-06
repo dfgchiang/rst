@@ -41,8 +41,8 @@ matrix1 <- rbind(row1, row2, row3)
 print(matrix1)
 # Q2.a
 colm3 <- c(matrix1[1,1], matrix1[2,1], matrix1[3,1])
-colm3 <- c(matrix1[,1])
-print(colm3) # 1,4,3
+colm3 <- c(matrix1[,3])
+print(colm3) # 3 9 9
 # Q2.b
 myelt <- c(matrix1[3,], matrix1[,2])
 myelt <- sum(matrix1[3,] + matrix1[,2])
