@@ -36,3 +36,4 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 3. [R Markdown Reference Guide pdf](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
 4. [Assignment Operators](https://csgillespie.wordpress.com/2010/11/16/assignment-operators-in-r-vs/)
 5. [R Program to Print the Fibonacci Sequence](https://www.datamentor.io/r-programming/examples/fibonacci-sequence/)
+6. [Standard Deviation](http://www.r-tutor.com/elementary-statistics/numerical-measures/standard-deviation)
