@@ -1,6 +1,6 @@
 # Stat 128 Homework 2
-# 20190211 dchiang
-# --------------------
+# 20190211 dchiang 20190219
+# ----------------------------
 ## Q1.a
 x <- c(-7,10,42,NA,7.6,100,NA,13)
 print(x)
@@ -177,11 +177,51 @@ print(sum.odd.fibs) # = 26658145586
 sum.odd.fibs.2 <- sum(fibs.vec[which(fibs.vec%%2 == 1)])
 print(sum.odd.fibs.2)
 # = 26658145586
-
+sum.odd.fibs.3 <- sum((fibs.vec%%2)*fibs.vec)
 
 # ---------------------------
-## Q7.
+## Q7. time and date for 100 meter freestyle world records for men
 library(rvest)
-mypage <- read_html('https://en.wikipedia.org/wiki/World_record_printogression_100_metres_freestyle')
+myurl <- 'https://en.wikipedia.org/wiki/World_record_progression_100_metres_freestyle'
+mypage <- read_html(myurl)
 mynodes <- html_nodes(mypage, 'td:nth-child(2)')
 wrtimes <- html_text(mynodes, trim = TRUE)
+print(wrtimes)
+wrltimes <- wrtimes[1:50]
+head(wrltimes)
+tail(wrltimes)
+length(wrltimes)
+getsecs <- function(x){
+  tt <- NULL
+  for (i in 1:length(x)){
+    if (regexpr(':', x[i]) > 0){
+      # mm <- as.numeric(unlist(strsplit(x[i], ':', fixed = TRUE))[1])
+      ssms <- as.numeric(unlist(strsplit(x[i], ':', fixed = TRUE))[2])
+      tt <- c(tt, (ssms + 60.0))
+      print(ssms + 60)
+    } else {
+      ssms <- as.numeric(x[i])
+      tt <- c(tt, ssms)
+      print(ssms)
+    }
+  }
+  return(tt)
+}
+times.vec <- getsecs(wrltimes)
+dnodes <- html_nodes(mypage, 'td:nth-child(6)')
+wrdates <- html_text(dnodes, trim = TRUE)
+print(wrdates)
+wrldates <- wrdates[1:50]
+getyears <- function(x){
+  yrs <- NULL
+  for (i in 1:length(x)){
+    yst <- unlist(strsplit(x[i], ' ', fixed = TRUE))[3]
+    year <- as.integer(yst)
+    cat(yst, '->', year)
+    yrs <- c(yrs, year)
+  }
+  return(yrs)
+}
+wrlyears <- getyears(wrldates)
+plot(wrlyears, times.vec)
+#eof
