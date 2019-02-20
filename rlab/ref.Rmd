@@ -37,3 +37,11 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 4. [Assignment Operators](https://csgillespie.wordpress.com/2010/11/16/assignment-operators-in-r-vs/)
 5. [R Program to Print the Fibonacci Sequence](https://www.datamentor.io/r-programming/examples/fibonacci-sequence/)
 6. [Standard Deviation](http://www.r-tutor.com/elementary-statistics/numerical-measures/standard-deviation)
+7. [Fibonacci numbers](https://en.wikipedia.org/wiki/Fibonacci_number)
+8. [How to prompt user input](https://stackoverflow.com/questions/44012056/r-how-do-i-prompt-the-user-for-input-from-the-console)
+9. [rvest: easy web scraping with R](https://blog.rstudio.com/2014/11/24/rvest-easy-web-scraping-with-r/)
+9. [magrittr](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
+10. [html_nodes](https://www.rdocumentation.org/packages/rvest/versions/0.3.2/topics/html_nodes)
+11. []()
+
+
