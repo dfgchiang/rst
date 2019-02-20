@@ -1,7 +1,7 @@
 # [Going Places with Spatial Analysis]
 (https://www.esri.com/training/mooc/player/57660f19bb54adb30c9454b0/5a2f24e0726c8053c5b95369/)
 
-Esri Training MOOC 
+Esri Training MOOC
 
 Feb 6, 2019 - Mar 20, 2019
 
@@ -26,7 +26,7 @@ Chad, 51.3
 Vatican City, 1.3
 
 
-### Step 7: Filter layer data to limit feature display 
+### Step 7: Filter layer data to limit feature display
 
 Filter: Rate_Increase >= 2
 
@@ -58,7 +58,7 @@ types = Unique Symbol
 
 7. What are two patterns that you notice on the resulting map?
 
-Low life expectancy in eastern Eurasia and Africa; 
+Low life expectancy in eastern Eurasia and Africa;
 higher life expectancy in North America and Europe.
 
 8. What is the lowest life expectancy in the color ranges?
@@ -66,3 +66,13 @@ higher life expectancy in North America and Europe.
 45-56
 
 ### Step 9: Classify the data
+
+9. What changes do you notice after classifying the data using the quantile method?
+
+Lowest category range has increased, as it covers more countries and area now.
+
+### Step 10: Explore the map metadata
+
+10. Where does the data come from?
+
+ArcGIS Online item https://analyze3.maps.arcgis.com/home/item.html?id=eb6d65c8481c49c78c86d7458e0c4575
