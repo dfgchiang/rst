@@ -1,0 +1,23 @@
+# UC1637 ArcGIS Pro Processing and Procedure Work Log 
+
+20190219 dchiang
+
+//20190219
+
+
+--Transfer completed intersected hex layer from deanbox biostmp.gdb to //deanlab/c/gis/pro/uc1637
+
+arcpy.conversion.FeatureClassToGeodatabase(r"C:\gis\pro\data\biostmp.gdb\ds525hexint", r"C:\gis\pro\uc1637\uc1637.gdb")
+
+--Export featureclass to shapefiles to see how much disk space it takes
+
+arcpy.conversion.FeatureClassToShapefile(r"C:\gis\pro\uc1637\uc1637.gdb\ds525hexint", r"C:\gis\pro\out")
+
+--All shapefiles combined total less than 5MB; when zipped less than 1MB.
+
+--Edit metadata for layer.
+
+--Signed in to AGOL and shared ds525hexint as web layer testhexint to Everyone.
+
+
+//
