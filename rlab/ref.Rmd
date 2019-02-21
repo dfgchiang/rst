@@ -29,6 +29,10 @@ plot(pressure)
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
+## To Run the Document
+
+Choose File/Knit Document... and then see the result in chosen output pane.
+
 ## References
 
 1. [R Markdown Introduction](https://rmarkdown.rstudio.com/lesson-1.html)

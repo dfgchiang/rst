@@ -114,7 +114,19 @@ print(eightcylinder)
 mean.manual.mpg <- mean(which(eightcylinder$am == 1))
 
 # ---------------------------
-## Q5. 
+## Q4.
+### Sample
+x.grid <- seq(from=0, to=20, by=0.01)
+y <- cos(x.grid) #look inside y, it is a vector
+print(y)
+plot(x.grid,y,type="l")
+### Q4.a. plot the function y = x3/(x + 1) from x = −4 to x = 3
+x.grid <- seq(from=-4, to=3, by=0.01)
+y <- (x.grid^3)/(x.grid + 1)
+plot(x.grid, y, type="l")
+
+# ---------------------------
+## Q5.
 x <- c(4,18,72,27,43,65)
 ### Q5.a.
 xcubed <- function(x) {
@@ -198,11 +210,11 @@ getsecs <- function(x){
       # mm <- as.numeric(unlist(strsplit(x[i], ':', fixed = TRUE))[1])
       ssms <- as.numeric(unlist(strsplit(x[i], ':', fixed = TRUE))[2])
       tt <- c(tt, (ssms + 60.0))
-      print(ssms + 60)
+      cat((ssms + 60), '|')
     } else {
       ssms <- as.numeric(x[i])
       tt <- c(tt, ssms)
-      print(ssms)
+      cat(ssms, '|')
     }
   }
   return(tt)
@@ -217,11 +229,11 @@ getyears <- function(x){
   for (i in 1:length(x)){
     yst <- unlist(strsplit(x[i], ' ', fixed = TRUE))[3]
     year <- as.integer(yst)
-    cat(yst, '->', year)
+    cat(year, ',')
     yrs <- c(yrs, year)
   }
   return(yrs)
 }
 wrlyears <- getyears(wrldates)
 plot(wrlyears, times.vec)
-#eof
+#fin
