@@ -1,4 +1,10 @@
-# github/dfgchiang/rst/a.txt
+# github/dfgchiang/rst/rlab/a.txt
+
+## Dir list
+
+* h3.R = homework 3 script //20190222
+* h3.Rmd = homework 3 notebook //20190222
+* h3.nb.html = auto created this notebook output file from above.
 
 ## 20190128 Test Inatall GIS Tools Package
 
