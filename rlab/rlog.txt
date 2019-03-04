@@ -78,4 +78,15 @@ The downloaded binary packages are in
 	/var/folders/zw/4l5c8wxn6m7_331_d_prmb340000gn/T//Rtmp1I7sLR/downloaded_packages
 
 
+//20190302
+> install.packages('corrplot', dependencies = TRUE)
+trying URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.5/corrplot_0.84.tgz'
+Content type 'application/x-gzip' length 5451964 bytes (5.2 MB)
+==================================================
+downloaded 5.2 MB
+
+
+The downloaded binary packages are in
+	/var/folders/zw/4l5c8wxn6m7_331_d_prmb340000gn/T//RtmpvTbXKl/downloaded_packages
+
 //
