@@ -14,9 +14,8 @@ View(doefund)
 View(state.x77)
 rownames(state.x77)
 row.names(state.x77)
-#?tapply
-rm(stx77edu)
 # stx77edu <- merge(doefund, state.x77, by = c('State or Other Area', rownames(state.x77)), all = FALSE)
+#rm(stx77edu)
 stx77edu <- merge(doefund, state.x77, by.x = 'State or Other Area', by.y = 'row.names', all.y = TRUE) # by.y = 'column 0', 
 View(stx77edu)
 
@@ -42,23 +41,23 @@ View(diabetes)
 # 2(b)
 summary(diabetes)
 # Remove nonsense value rows in column 2
-diabetes1 <- diabetes[c(which(diabetes[,2] > 0)),]
-View(diabetes1)
+df2 <- diabetes[c(which(diabetes[,2] > 0)),]
+View(df2)
 # Replace nonsense values in column 6 by NA
-diabetes1[c(which(diabetes1$BMI == 0)),]
-diabetes1$BMI <- replace(diabetes1$BMI, which(diabetes1$BMI == 0), NA)
+df2[c(which(df2$BMI == 0)),]
+df2$BMI <- replace(df2$BMI, which(df2$BMI == 0), NA)
 
 # 2(c)
-lm.bmit <- lm(diabetes1$BMI ~ diabetes1$SkinThickness)
-plot(diabetes1$BMI, diabetes1$SkinThickness)
+lm.bmit <- lm(df2$BMI ~ df2$SkinThickness)
+plot(df2$BMI, df2$SkinThickness)
 abline(lm.bmit)
 
 # 2(d)
 library(lattice)
-splom(diabetes1[c(1,2,3,4,5)])
+splom(df2[c(1,2,3,4,5)])
 
 # 2(e) Add column of age in days (what about Leap years?)
-diab2 <- cbind(diabetes1, AgeDays=diabetes1$Age*365)
+diab2 <- cbind(df2, AgeDays=df2$Age*365)
 View(diab2)
 
 # 3(a)
@@ -75,6 +74,7 @@ summary(ChickWeight)
 # rows where chicks at 21 days
 cw21 <- ChickWeight[which(ChickWeight$Time == 21),]
 cw21meanwt <- tapply(cw21$weight, cw21$Diet, function(x){mean(x)})
+cw21meanwt
 
 # 3(c)
 cwdf <- split(ChickWeight, ChickWeight$Diet)
@@ -83,3 +83,4 @@ cwdf <- split(ChickWeight, ChickWeight$Diet)
 gender <- c('F','F','M','F','M','M','M','M','F','M')
 oncampus <- c(1,1,0,0,1,0,1,0,0,0)
 tbl <- table(gender, oncampus)
+tbl

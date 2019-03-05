@@ -170,3 +170,24 @@ The downloaded binary packages are in
 	C:\Users\dchiang\AppData\Local\Temp\RtmpK6qAjL\downloaded_packages
 
 //
+> install.packages('ISLR', dependencies = TRUE)
+trying URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.5/ISLR_1.2.tgz'
+Content type 'application/x-gzip' length 2924917 bytes (2.8 MB)
+==================================================
+downloaded 2.8 MB
+
+
+The downloaded binary packages are in
+	/var/folders/zw/4l5c8wxn6m7_331_d_prmb340000gn/T//RtmpCPXuyh/downloaded_packages
+
+    > install.packages('tree', dependencies = TRUE)
+    trying URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.5/tree_1.0-39.tgz'
+    Content type 'application/x-gzip' length 178297 bytes (174 KB)
+    ==================================================
+    downloaded 174 KB
+
+
+    The downloaded binary packages are in
+    	/var/folders/zw/4l5c8wxn6m7_331_d_prmb340000gn/T//RtmpCPXuyh/downloaded_packages
+
+//
