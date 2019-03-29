@@ -1,0 +1,496 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>bios6ref</title>
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="dchiang">
+    <meta name="description" content="map app design, development, and modeling resferences and samples trieed">
+    <meta name="generator" content="biosgis-20190306-dfgchiang">
+    <meta name="robots" content="noindex, nofollow, noarchive, noodp" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.10/esri/css/main.css">
+    <script src="https://js.arcgis.com/4.10/"></script>
+    <!--<link rel="stylesheet" href="css/blist.css">-->
+    <script src="https://dfgchiang.github.io/js/abc.js"></script>
+    <style>
+        body {
+            font-family: monospace, Arial, sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+        aside {
+            position: relative;
+            background-color: white;
+            border: 1px solid silver;
+            box-shadow: gray -5px 5px 5px;
+            float: right;
+        }
+
+        code.cmd {
+            background-color: black;
+            border-left: 5px solid silver;
+            color: white;
+            padding: 2px 5px;
+        }
+
+        details {
+            border-bottom: 1px solid lavender;
+            margin: 1px 2px 3px 4px;
+            overflow: auto;
+            padding-left: 5px;
+        }
+
+            details > ol {
+                margin-left: 2%;
+            }
+
+        footer {
+            position: relative;
+            background-color: whitesmoke;
+            border-top: 1px solid silver;
+            padding: 5px;
+        }
+
+        header {
+            position: relative;
+            background-color: white;
+            border-bottom: 1px solid silver;
+            padding: 5px;
+        }
+
+        h1 {
+            position: relative;
+            margin-top: 0;
+        }
+        h2 {
+            position: relative;
+            background-color: steelblue;
+            border-bottom: 1px solid silver;
+            color: white;
+            margin: 0;
+            padding: 2px;
+        }
+        h3 {
+            position: relative;
+            background-color: lightsteelblue;
+            border-bottom: 1px solid silver;
+            margin-top: 0;
+            padding: 3px;
+        }
+        h4 {
+            position: relative;
+            background-color: ghostwhite;
+            border-bottom: 1px solid silver;
+            color: dimgray;
+            font-family: Arial, sans-serif;
+            margin-top: 0;
+            padding: 4px;
+        }
+        h5 {
+            position: relative;
+            background-color: navajowhite;
+            border-bottom: 1px solid silver;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 5px;
+        }
+
+        li {
+            line-height: 123%;
+        }
+
+        main {
+            position: relative;
+            border: 1px solid cornsilk;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            position: relative;
+            border-bottom: 1px solid silver;
+            background-color: white;
+        }
+
+            nav ul {
+                display: inline-block;
+                list-style: none;
+                margin: 5px;
+                padding: 0;
+            }
+
+                nav ul li {
+                    border-right: 1px solid silver;
+                    display: inline;
+                    list-style: none;
+                    margin: 0;
+                    padding: 2px 8px;
+                }
+
+        pre {
+            background-color: ghostwhite;
+            padding: 5px;
+        }
+        table {
+            border-collapse: collapse;
+            border: 1px solid silver;
+        }
+        th {
+            border: 2px solid silver;
+            padding: 2px 8px;
+        }
+        td {
+            border: 1px solid gray;
+            padding: 5px;
+        }
+        span.go {
+            border-right: 1px solid silver;
+            font-size: larger;
+            font-weight: bold;
+            padding: 4px 8px;
+        }
+        u {
+            color: slategray;
+        }
+        ul {
+            border-top: 1px solid lavender;
+        }
+        var {
+            color: steelblue;
+        }
+        .bug {
+            color: firebrick;
+            font-weight: bold;
+        }
+        .issue {
+            color: purple;
+            font-style: italic;
+        }
+        .bug {
+            color: red;
+            font-weight: bold;
+        }
+        .doing {
+            color: blue;
+        }
+        .done {
+            color: green;
+        }
+        .future {
+            color: darkmagenta;
+        }
+        .issue {
+            color: magenta;
+            font-style: italic;
+        }
+        .oandm {/*OperationAndMaintenance*/
+            color: teal;
+        }
+        .rule  {
+            color: maroon;
+        }
+        .todo  {
+            color: tomato;
+        }
+        .toggler {
+            border: 1px solid silver;
+            cursor: default;
+            font-size: larger;
+            font-weight: bolder;
+            padding: 5px;
+        }
+        .togl {
+            border: 1px solid silver;
+            cursor: default;
+            font-size: 200%;
+            padding: 0 8px;
+        }
+        .togl:hover {
+            background-color: aliceblue;
+        }
+        .dbar {
+            margin: 1%;
+        }
+        .maindiv {
+            position: relative;
+        }
+        .subdiv {
+            padding: 1%;
+        }
+        .alite {
+            color: lightgray;
+        }
+
+        #msgbar {
+            background-color: black;
+            border: 2px solid gray;
+            color: white;
+        }
+    </style>
+    <script>
+            window.addEventListener('load', function () {
+                let om = poplinks();
+            });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>
+            Map App Development References and Samples
+        </h1>
+        <div style="position: absolute; bottom: 5px; right: 5px;">
+            <script>
+                    document.write(document.lastModified);
+            </script>
+        </div>
+    </header>
+    <nav>
+        <h2>
+            Navigation and Menus
+        </h2>
+        <ol>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/index.html">
+                    Esri Icon Font (Calcite theme)
+                </a>
+            </li>
+        </ol>
+    </nav>
+    <main>
+        <div>
+            <h2>Scene View</h2>
+        </div>
+        <div>
+            <h2>Map View</h2>
+            <section>
+                <h3>
+                    Widgets
+                </h3>
+                <div class="subdiv">
+                    <ol>
+                        <li></li>
+                        <li>
+                            <a href="https://developers.arcgis.com/javascript/latest/sample-code/widgets-coordinateconversion/index.html">
+                                Coordinate Conversion widget
+                            </a> 20190310
+                        </li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+    </main>
+    <aside></aside>
+    <section>
+        <h2>
+            Catalog and Data Sources
+        </h2>
+        <div class="maindiv">
+            <article>
+                <h3>
+                    ArcGIS Online
+                </h3>
+                <ol>
+                    <li>
+                        <a href="https://www.arcgis.com/home/search.html?q=biosds&start=1&sortOrder=desc&sortField=relevance&num=20">
+                            biosds search result in AGOL
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/biosds69_fmu/FeatureServer/0">
+                            biosds69_fmu
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/BIOS_ManifestPro/FeatureServer">ManifestPro</a>
+                    </li>
+                    <li>
+                        <h5>BIOS Admin &amp; App Support</h5>
+                        <a href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/BIOS_ManifestPro/FeatureServer/0"></a>
+                        <a href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/biosbookmarks/FeatureServer/0"></a>
+                    </li>
+                    <li>
+                        <h5>BIOS Layers</h5>
+                        <a href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/"
+                           title="Feature services"></a>
+                        <a href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/biosds1234_fpu/FeatureServer/0"
+                           title="biosds1234_fpu (FeatureServer)/Owens Pupfish Range - FSSC [ds1234]"></a>
+                        <a href="https://tiles.arcgis.com/tiles/Uq9r85Potqm3MfRV/arcgis/rest/services/"
+                           title="Tile map services"></a>
+                        <a href="https://tiles.arcgis.com/tiles/Uq9r85Potqm3MfRV/arcgis/rest/services/biosds69_cmu/MapServer/0"
+                           title="biosds69_cmu (MapServer)/California Fish Passage Assessment Database [ds69](0) "></a>
+                    </li>
+                    <li>
+                        BIOS Bookmarks feature layer
+                        <a href="http://cdfw.maps.arcgis.com/home/item.html?id=d24af1ec880b4b6099c6019f5dfce24d">
+                            item
+                        </a>
+                        <a href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/biosbookmarks/FeatureServer/0">
+                            biosbookmarks
+                        </a>
+                    </li>
+                    <li>
+                        GIS Server and Data Portals
+                        <a href="https://www.arcgis.com/home/index.html">ArcGIS</a> -
+                        <a href="https://developers.arcgis.com/">Developer</a> -
+                        <a href="https://map.dfg.ca.gov/arcgis/rest/services" title="AGS">Server</a>
+                        <ul>
+                            <li><a href="https://data-cdfw.opendata.arcgis.com">CDFW Open Data</a></li>
+                            <li><a href="https://data.ca.gov/"></a></li>
+                            <li><a href="https://gis.ca.gov/"></a></li>
+                        </ul>
+                    </li>
+                </ol>
+            </article>
+        </div>
+    </section>
+    <section>
+        <h2>
+            Data View
+        </h2>
+        <article>
+            <details>
+                <summary>Table</summary>
+                <ol>
+                    <li>
+                        <a href="https://developers.google.com/chart/interactive/docs/gallery/table">
+                            Google Charts Visualization: Table
+                        </a>
+                    </li>
+                    <li>
+                        <a></a>
+                    </li>
+                    <li>
+                        <a></a>
+                    </li>
+                    <li>
+                        <a></a>
+                    </li>
+                </ol>
+            </details>
+        </article>
+    </section>
+    <section>
+        <h2>
+            Tools
+        </h2>
+        <article>
+            <h3>
+                Pick a Tool
+            </h3>
+            <ul>
+                <li></li>
+            </ul>
+        </article>
+    </section>
+    <section>
+        <h2>
+            Bookmark Tool
+        </h2>
+        <article>
+            <ol>
+                <li></li>
+                <li class="issue">
+                    featureForm will display all editable fields //20181116-ISSUE
+                </li>
+                <li class="todo">
+                    Scheduled script to delete old bookmark records daily //20181203-TODO
+                </li>
+                <li class="todo">
+                    Share bookmark to others by various means //20181120-TODO
+                </li>
+                <li class="todo">
+                    When loaded a bookmark again set LastUsed //20181205-TODO
+                </li>
+            </ol>
+        </article>
+    </section>
+    <section>
+        <h2>
+            Selection and Query Tool
+        </h2>
+        <article>
+            <h4>
+                Select by Point Buffer
+            </h4>
+            <ol>
+                <li>
+                    Point buffer radius selection tool uses geometry service
+                    <a href="https://map.dfg.ca.gov/arcgis/rest/services/Utilities/Geometry/GeometryServer"></a>
+                    <a href="https://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer"></a>
+                    <a href="https://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/Geometry/GeometryServer"></a>
+                </li>
+            </ol>
+        </article>
+    </section>
+    <section>
+        <h2>
+            Scheduled Tasks
+        </h2>
+        <details>
+            <summary>cron</summary>
+            <ol>
+                <li>
+                    Update BIOS_Manifest in ArcGIS Online daily
+                </li>
+                <li>
+                    TODO Clean up expired bookmark records in AGOL feature layer daily 20181207
+                </li>
+            </ol>
+        </details>
+    </section>
+    <section>
+        <h2>Messages</h2>
+        <article>
+            <a href="mail:biosgis@gmail.com" class="alite">biosgis</a>
+            <script>
+                document.write('&copy; ' + document.lastModified);
+                document.write(' &rect; Window Size: ' + window.innerWidth + 'x' + window.innerHeight);
+                document.write(' &marker; Screen Size: ' + window.screen.width + 'x' + window.screen.height);
+                document.write(' &diams; Browser Client: ' + navigator.userAgent + ' on ' + navigator.platform);
+                document.write(' &bull; URL Referer: ' + document.referrer);
+            </script>
+            <a href="./" style="text-decoration: none; color: silver;" target="_blank">&square;</a>
+            Build on
+            <a href="https://developers.arcgis.com/javascript/" class="alite">esri-arcgis-jsapi</a>
+        </article>
+    </section>
+    <section>
+        <h2>
+            Programs and Projects
+        </h2>
+        <article>
+            <h3>
+                Fishing
+            </h3>
+            <ol>
+                <li>
+                    <a href="https://www.wildlife.ca.gov/Fishing/Guide">Fishing Guide Home</a>
+                </li>
+            </ol>
+        </article>
+    </section>
+    <section>
+        <h2>
+            Deferred
+        </h2>
+        <details>
+            <summary>Future Projects and Refinement</summary>
+            <ol>
+                <li><a href="http://listjs.com/"></a></li>
+                <li><a href="http://taffydb.com/"></a></li>
+                <li><a href="http://lokijs.org/#/"></a></li>
+            </ol>
+        </details>
+    </section>
+    <footer></footer>
+</body>
+</html>
