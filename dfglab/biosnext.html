@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<!--
+    Copyright © 2019, State of [California Department of Fish and Wilfelife](https://wildlife.ca.gov/)
+    [CDFW Condition of Use](https://www.wildlife.ca.gov/Conditions-of-Use)
+    [open-license](https://project-open-data.cio.gov/open-licenses/)
+    [MIT License](https://mit-license.org/)
+    [GNU GPL v3](https://www.gnu.org/licenses/)
+    [BSD 3-Clause](https://opensource.org/licenses/BSD-3-Clause)
+    [FreeBSD License](https://www.freebsd.org/copyright/freebsd-license.html)
+    [OpenGov3](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)
+-->
+<html>
+<head>
+    <title>bios next</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="dfgchiang">
+    <meta name="description" content="">
+    <meta name="generator" content="biosgis-20190327">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.10/esri/css/main.css">
+    <script src="https://js.arcgis.com/4.10/"></script>
+    <script src="https://dfgchiang.github.io/js/abc.js"></script>
+    <style>
+        body {
+            font-family: Consolas, Monaco, Arial, monospace;
+            font-size: 133%;
+            line-height: 133%;
+        }
+        a {
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        aside {
+            position: relative;
+            background-color: white;
+            border: 1px solid silver;
+            box-shadow: gray -5px 5px 5px;
+            float: right;
+            padding: 1%;
+            z-index: 200;
+        }
+
+        details {
+            margin: 1px 2px 3px 4px;
+            padding-left: 1%;
+        }
+
+        summary {
+            font-size: larger;
+            font-weight: bold;
+        }
+
+        footer {
+            position: relative;
+            border-top: 1px solid silver;
+            font-size: smaller;
+            padding: 1%;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        h2 {
+            border-top: 1px solid khaki;
+            color: steelblue;
+        }
+        h3 {
+            border-top: 1px solid navajowhite;
+            color: slateblue;
+        }
+        h4 {
+            border-top: 1px solid beige;
+            color: slategray;
+        }
+
+        header {
+            position: relative;
+            border-bottom: 1px solid silver;
+            padding: 1%;
+        }
+
+        main {
+            position: relative;
+            border: 0px solid silver;
+            padding: 1%;
+        }
+
+        nav {
+            position: relative;
+            border-bottom: 1px solid silver;
+            padding: 1px;
+        }
+
+            nav ul {
+                display: inline;
+                margin: 0;
+                padding: 0;
+            }
+
+            nav li {
+                border-right: 1px solid silver;
+                display: inline;
+                margin: 0;
+                padding: 2px 8px;
+            }
+
+                nav li:hover {
+                    background-color: aliceblue;
+                }
+        pre {
+            background-color: ghostwhite;
+            border-left: 4px solid gainsboro;
+            font-size: smaller;
+            line-height: 110%;
+            padding: 5px;
+        }
+        table {
+            border: 1px solid gray;
+            border-collapse: collapse;
+            margin: 1% 0;
+        }
+        th {
+            border: 1px solid dimgray;
+            border-bottom: 2px solid dimgray;
+        }
+        td {
+            border: 1px solid silver;
+            padding: 2px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .togl {
+            background-color: floralwhite;
+            border: 1px solid silver;
+            cursor: default;
+            font-size: 200%;
+            padding: 0 8px;
+        }
+        .togl:hover {
+            background-color: aliceblue;
+        }
+    </style>
+    <script>
+        window.addEventListener('load', function () {
+            om = poplinks();
+            $('ocab').onkeyup = function (event) {
+                var kc = event.which || event.keyCode;
+                if (kc === 13) {
+                    gocab(parseInt($('ocab').value));
+                }
+            }
+        });
+        function gocab(id) {
+            window.open("https://cdfwsp.wildlife.ca.gov/sites/DTD/OCAB/Lists/Change%20Request/Custom_ReadOnly_DispForm2.aspx?ID=" + id, "ocabtab");
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>
+            BIOS - What's Next?
+        </h1>
+        <div style="position: absolute; bottom: 5px; right: 5px; font-size: smaller;">
+            <script>
+                    document.write(document.lastModified);
+            </script>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li>
+            </li>
+            <li class="esri-icon-menu">
+            </li>
+            <li>
+                <a href="https://portal.azure.com/#dashboard/">Azure</a>
+            </li>
+            <li>
+                <a href="https://dnn-dfginter.ad.dfg.ca.gov/Data/Dean">DNN</a>
+            </li>
+            <li>
+                <a href="https://ftp.wildlife.ca.gov/">FTP</a>
+            </li>
+            <li>
+                <a href="http://dfgintranet/portal/">Intranet</a>
+            </li>
+            <li>
+                <a href="https://cdfwsp.wildlife.ca.gov/sites/DTD/OCAB/SitePages/Home.aspx">OCAB</a>
+                <input type="text" id="ocab" value="">
+            </li>
+            <li>
+                <a href="https://cdfw-my.sharepoint.com/personal/dean_chiang_wildlife_ca_gov/_layouts/15/onedrive.aspx">
+                    OneDrive
+                </a>
+            </li>
+            <li>
+                <a href="https://outlook.office365.com/owa/" title="Mail">Outlook</a>
+            </li>
+            <li>
+                <a href="https://cdfw.sharepoint.com/SitePages/Home.aspx">SharePoint</a>
+            </li>
+            <li>
+                <a href="https://timereporting.ad.dfg.ca.gov/hrapp/admin/Home.aep">Timesheet</a>
+            </li>
+        </ul>
+    </nav>
+    <aside style="display: none;">
+        <a href="http://hqtfs:8080/tfs/appdev/BIOS/BIOS%20Team/_git/bios6" title="TFS"></a>
+        <a href="https://portal.azure.com/#@cdfw.onmicrosoft.com/dashboard" title="Azure"></a>
+        <a href="https://www.arcgis.com" title="AGOL"></a>
+        <a href="https://developers.arcgis.com" title="ArcDev"></a>
+        <a href="https://desktop.arcgis.com/en/" title="ArcDesktop"></a>
+        <a href="https://esri.github.io/" title="Esri on GitHub"></a>
+        <a href="https://r-arcgis.github.io/" title="R – ArcGIS"></a>
+        <a href="https://data-cdfw.opendata.arcgis.com/" title="CDFW Open Data"></a>
+        <a href="https://data.cnra.ca.gov/" title="CNRA Open Data"></a>
+        <a href="https://data.ca.gov/" data-title="California Open Data Portal"></a>
+        <a href="https://github.com/Office-of-Digital-Innovation" title="github/cdt.ca.gov"></a>
+    </aside>
+    <span class="togl" onclick="togglex(document.getElementsByTagName('aside')[0])" style="float: right; position: relative; z-index: 210;">&equiv;</span>
+    <main>
+        <section>
+            <h2>
+                BIOS Future
+            </h2>
+            <p>
+                What is the future of the Biogeographic Information and Observation System (BIOS)? 
+                Beyond just continuously growing biogeographic data collection 
+                and the viewer to browse for the datasets in the data catalog, 
+                what additional wildlife conservation use can we do with the library of data?
+            </p>
+        </section>
+        <section>
+            <h2>
+                BIOS Project
+            </h2>
+            <ol>
+                <li>Registry</li>
+                <li>Library</li>
+                <li>GIS Data Viewer</li>
+                <li>?</li>
+            </ol>
+            <article>
+                <h3>
+                    BIOS Registry
+                </h3>
+                <p>
+                    The BIOS Registry catalogs every biogeographic dataset that 
+                    is collected into the BIOS data library.
+                </p>
+                <h4>
+                    Next
+                </h4>
+                <p>
+                    Move the registry system to the web instead of desktop MS 
+                    Access front end with a local enterprise SQL Server back end.
+                </p>
+            </article>
+            <article>
+                <h3>
+                    BIOS Data Library
+                </h3>
+                <p>
+                    The BIOS Data Library is the store house for all the 
+                    biogeographic dataset collected and published to a web  
+                    platform on ArcGIS Server or ArcGIS Online.
+                </p>
+                <h4>
+                    Next
+                </h4>
+                <p>
+                    Migrate the entire data collection to a cloud such as ArcGIS Online.
+                </p>
+            </article>
+            <article>
+                <h3>
+                    BIOS Viewer
+                </h3>
+                <p>
+                    The BIOS map viewer on the web is an online map viewer for 
+                    search for BIOS data and use basic GIS tools to look at the 
+                    data.
+                </p>
+                <h4>
+                    Issue
+                </h4>
+                <p>
+                    Keeping up with every advancing web GIS technology and APIs 
+                    to maintain and enhance the in-house, custom web app is difficult. 
+                    Feels like as we keep having to migrate to a new platform or
+                    new version just as the older version is just becoming stable.
+                </p>
+                <h4>
+                    Next
+                </h4>
+                <p>
+                    How to maintain an online data catalog with search interface 
+                    and quick map view and also build and maintain special tools 
+                    for certain datasets without having to always migrate to the 
+                    next new language/platform? 
+                    Utilize growing web mapping platforms and application templates
+                </p>
+            </article>
+            <article>
+                <h3>
+                    Biogeographic Info Bank
+                </h3>
+                <p>
+                    A long term fish and wildlife monitoring and assessment program
+                </p>
+            </article>
+        </section>
+        <section>
+            <h2>
+                BIOS Project Legacy Documentation
+                <a href="https://bioslist.azurewebsites.net/">Features List</a>
+                <a href="http://localhost/apps/aiosgit/github/dfgchiang/bioslist/" class="esri-icon-right-arrow-circled go"></a>
+                <a href="biosplay.html" class="esri-icon-play go" title="BIOS Exercises"></a>
+            </h2>
+            <details>
+                <summary>Exercises, Issues, Tasks, User Stories, Boards and Wikis</summary>
+                <ul>
+                    <li><a title="BIOS Exercises" href="https://bioslist.azurewebsites.net/Bios5Exercises_v2.pdf"></a></li>
+                    <li><a title="Training Slides" href="https://bioslist.azurewebsites.net/BIOS_Training_PPT_Slides.pdf"></a></li>
+                    <li><a title="Bios6 Tasks XLS" href="https://cdfw-my.sharepoint.com/:x:/r/personal/steve_goldman_wildlife_ca_gov/_layouts/15/Doc.aspx?sourcedoc=%7BFA3C8DDA-4C64-4D33-9AEB-D1EDC5DB460A%7D&file=BIOS%206%20Task%20List.xlsx&action=default&mobileredirect=true"></a></li>
+                    <li><a title="TFS" href="http://hqtfs:8080/tfs/appdev/BIOS/_dashboards"></a></li>
+                    <li><a title="Backlog Features" href="http://hqtfs:8080/tfs/appdev/BIOS/_backlogs?level=Features&showParents=false&_a=backlog"></a></li>
+                    <li><a title="User Stories" href="http://hqtfs:8080/tfs/appdev/BIOS/_backlogs?level=Stories&showParents=false&_a=backlog"></a></li>
+                    <li><a title="Bitbucket Trello Board" href="https://bitbucket.org/dfgchiang/bios6/addon/trello/trello-board"></a></li>
+                    <li><a title="GitHub Issues" href="https://github.com/dfgchiang/bioslist/issues"></a></li>
+                </ul>
+            </details>
+            <details>
+                <summary>Developer documentation and User Guides</summary>
+                <ol>
+                    <li>
+                        Bios5 User Guide
+                        <a href="https://gisdev.ad.dfg.ca.gov/docs/biosdoc.html"></a>
+                    </li>
+                    <li>
+                        Bios5 URL Shortcuts
+                        <a href="bios5gist.html"></a>
+                    </li>
+                </ol>
+            </details>
+        </section>
+    </main>
+    <footer>
+        <a href="mail:bios@wildlife.ca.gov">bios</a>@<a href="https://www.wildlife.ca.gov/Data/GIS">wildlife.ca.gov</a>
+        <script>
+            document.write('&copy; ' + document.lastModified);
+            document.write(' &rect; Window Size: ' + window.innerWidth + 'x' + window.innerHeight);
+            document.write(' &marker; Screen Size: ' + window.screen.width + 'x' + window.screen.height);
+            document.write(' &diams; Browser Client: ' + navigator.userAgent + ' on ' + navigator.platform);
+            document.write(' &bull; URL Referer: ' + document.referrer);
+        </script>
+        <a href="./" style="text-decoration: none; color: silver;" target="_blank">&square;</a>
+        Build on
+        <a href="https://developers.arcgis.com/javascript/">esri-arcgis-jsapi</a>
+    </footer>
+</body>
+</html>
