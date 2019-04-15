@@ -1,0 +1,98 @@
+---
+title: "Stat 128 References 3 R Notebook"
+output: html_notebook
+---
+# Week 6 Machine Learning
+
+## MACHINE LEARNING
+
+### Supervised vs Unsupervised Training
+* y <- f(x)
+* y: Categorical: decision tree, find clusters
+* y: Numerical: regression
+* Decision = Binary split
+* Deviance = how messed up your data is 
+* c(0,1) does not give good prediction
+* Make 2 nodes each node homogeneous among 1 variable
+  * for K classes (categories) possible,
+  * each node or leaf splits into 2 groups with lowest possible deviance.
+
+## Graph of deviance without N
+```{r}
+fxn1 <- function(p){-2*(p*log(p)+(1-p)*log(1-p))}
+curve(fxn1(x), from=0.001, to=0.999)
+
+```
+
+## Hitters example
+```{r}
+library(ISLR)
+View(Hitters)
+class(Hitters)
+dim(Hitters)
+head(Hitters)
+summary(Hitters)
+str(Hitters)
+```
+
+## BINARY PARTITIONS
+(handout)
+- Training set = data used to build the predictive model
+- Test dataset = used to access the performance of your model
+
+### Data for Tree example
+```{r}
+library(MASS)
+?Pima.tr # Diabetes in Pima Indian Women
+dim(Pima.tr)
+head(Pima.tr)
+summary(Pima.tr)
+str(Pima.tr)
+
+```
+
+## Tree: create tree to predict diabetes Type (a factor in data frame)
+```{r}
+library(tree)
+pimatree <- tree(type~., data = Pima.tr) # type is already a factor
+plot(pimatree)
+text(pimatree)
+summary(pimatree)
+pimatree
+
+```
+
+### Prediction based on the tree done on a separate test dataset
+- Must start at the top and most important split
+
+```{r}
+class(Pima.te)
+Pima.te[1,]
+dim(Pima.te)
+head(Pima.te)
+tail(Pima.te)
+set.seed(223)
+pima.pred <- predict(pimatree, newdata = Pima.te, type = 'class')
+pima.pred
+
+```
+
+### Compare actual type to prediction
+```{r}
+cbind(Pima.te, pima.pred)
+rbind(pima.pred, Pima.te$type)
+```
+### Confusion Table
+```{r}
+table(pima.pred, Pima.te$type)
+```
+
+### Error Rate based on confusion table
+```{r}
+(44+50)/nrow(Pima.te)
+```
+
+# rseed <- set.seed(223) == NULL
+## Overfitting
+
+## Pruning - trimming values 
