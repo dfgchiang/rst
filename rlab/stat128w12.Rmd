@@ -1,0 +1,21 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Week 12 Exam 2
+
+## Course Default Project
+
+[Kaggle](https://www.kaggle.com/Madgrades/uw-madison-courses)
+
+database.sqlite3
+
+Use merge on CSV files to link from course to instructor etc.
+
+
+## R Markdownn Tutorial
+```{r}
+hist(mtcars$mpg)
+```
+
