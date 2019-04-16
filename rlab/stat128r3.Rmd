@@ -35,6 +35,7 @@ summary(Hitters)
 str(Hitters)
 ```
 
+# Data and Prediction Challenge
 ## BINARY PARTITIONS
 (handout)
 - Training set = data used to build the predictive model
@@ -46,12 +47,14 @@ library(MASS)
 ?Pima.tr # Diabetes in Pima Indian Women
 dim(Pima.tr)
 head(Pima.tr)
-summary(Pima.tr)
 str(Pima.tr)
+summary(Pima.tr)
 
 ```
 
-## Tree: create tree to predict diabetes Type (a factor in data frame)
+## First Tree: Construct a tree based on the training data Pima.tr to predict diabetes Type (a factor in data frame)
+- Must start at the top and most important split
+
 ```{r}
 library(tree)
 pimatree <- tree(type~., data = Pima.tr) # type is already a factor
@@ -62,8 +65,7 @@ pimatree
 
 ```
 
-### Prediction based on the tree done on a separate test dataset
-- Must start at the top and most important split
+### Test how well the tree classifies the test data, Pima.te 
 
 ```{r}
 class(Pima.te)
@@ -92,7 +94,94 @@ table(pima.pred, Pima.te$type)
 (44+50)/nrow(Pima.te)
 ```
 
-# rseed <- set.seed(223) == NULL
-## Overfitting
+## CROSS VALIDATION to determine optimal size of the tree - [cv.tree](https://www.rdocumentation.org/packages/tree/versions/1.0-39/topics/cv.tree)
+- cv.tree(object, rand, FUN = prune.tree, K = 10, ...)
+```{r}
+set.seed(561)
+pima.cv <- cv.tree(pimatree, , FUN=prune.misclass, K=10)
+pima.cv
+plot(pima.cv)
+# Plot of $size vs $dev
+```
+- dev = number of misclassification
+- to reduce number of terminal nodes
+- penalize overfitting or using too many variables
+- Choose $size to correspond to the smallest value of $dev
 
-## Pruning - trimming values 
+## The improved, Pruned Tree
+- Cross Validation is used to hep you find the size of the best pruned tree.
+```{r}
+pima.prune <- prune.misclass(pimatree,best = 5)
+# best is the number of terminals you want
+pima.prune
+summary(pima.prune)
+plot(pima.prune)
+text(pima.prune, pretty = T) # must run immediately after plot
+```
+### Predict test data using the pruned tree
+```{r}
+pima.prune.pred <- predict(pima.prune, newdata = Pima.te, type = 'class')
+table(pima.prune.pred, truth = Pima.te$type)
+pima.err2 <- (30+51)/nrow(Pima.te) #proportion misclassified with pruned tree on test data
+pima.err2
+```
+
+## Bootstrap Sample
+- holding part of data out as test set and use other subsets as training sets = bootstrapping
+
+```{r}
+ds <- c(3,8,7,6,3,2,9,10)
+set.seed(33)
+dsample1 <- sample(x=ds, size = length(ds), replace = T)
+dsample1
+```
+
+```{r}
+dsample2 <- sample(ds, size = length(ds), replace = T)
+dsample2
+```
+
+## Random Forest and Bagging (ISLR p.316-321)
+
+Try to improve our predictions by growing a forest of unpruned trees. Each tree is constructed by drawing a bootstrap sample, and then building a tree using the bootstrap sample.
+```{r}
+library(randomForest)
+set.seed(387)
+pimaForest <- randomForest(type~., data = Pima.tr)
+pimaForest
+```
+
+OOB = Out of Bag error = estimated misclassification rate
+
+We will use error from the test data to find the best value of mtry argument for the randomForest function.
+
+```{r}
+error.by.mtry <- numeric(7)
+oob.error <- numeric(7)
+for (i in 1:7) {
+  pimaForest2 <- randomForest(type~., data = Pima.tr, mtry = i, ntree = 400)
+  oob.error[i] <- pimaForest2$err.rate[400]
+  pred.mtry <- predict(pimaForest2, newdata = Pima.te, type = 'class')
+  num.misclassified <- sum(Pima.te$type!=pred.mtry) # number misclassified in test set
+  error.by.mtry[i] <- num.misclassified
+  print(i)
+}
+error.by.mtry
+error.by.mtry/332
+oob.error
+```
+
+```{r}
+plot(1:7, oob.error, col='blue', pch=19, type='b', ylim=c(0,.3))
+points(1:7, error.by.mtry/332, col='red', pch=19, type='b')
+```
+
+```{r}
+importance(pimaForest)
+```
+The larger the Gini Index, the more mixed the observation in each terminal node across the classes. The Gini Index is small when all the observations in each terminal node tend to be from the same class.
+
+```{r}
+varImpPlot(pimaForest)
+```
+

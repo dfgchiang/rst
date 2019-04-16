@@ -4,3 +4,5 @@
 pr <- function(s) {
   printint(s)
 }
+## Set random seed
+rseed <- set.seed(223) # NULL
