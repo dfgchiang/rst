@@ -245,34 +245,55 @@ $(document).ready(function () {
 <h2>Q1.</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShNQVNTKVxuP2JpcnRod3RcblZpZXcoYmlydGh3dClcbmNsYXNzKGJpcnRod3QpXG5kaW0oYmlydGh3dClcbiMgaGVhZChiaXJ0aHd0KVxuIyB0YWlsKGJpcnRod3QpXG5zdW1tYXJ5KGJpcnRod3QpXG5zdHIoYmlydGh3dClcblxuYGBgIn0= -->
-<pre class="r"><code>library(MASS)
-?birthwt
-View(birthwt)
-class(birthwt)
-dim(birthwt)
-# head(birthwt)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBoZWFkKGJpcnRod3QpXG4jIHRhaWwoYmlydGh3dClcbnN1bW1hcnkoYmlydGh3dClcblxuYGBgIn0= -->
+<pre class="r"><code># head(birthwt)
 # tail(birthwt)
 summary(birthwt)
-str(birthwt)
 </code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgbG93ICAgICAgICAgICAgICBhZ2UgICAgICAgICAgICAgbHd0ICAgICAgICAgICAgIHJhY2UgICAgICBcbiBNaW4uICAgOjAuMDAwMCAgIE1pbi4gICA6MTQuMDAgICBNaW4uICAgOiA4MC4wICAgTWluLiAgIDoxLjAwMCAgXG4gMXN0IFF1LjowLjAwMDAgICAxc3QgUXUuOjE5LjAwICAgMXN0IFF1LjoxMTAuMCAgIDFzdCBRdS46MS4wMDAgIFxuIE1lZGlhbiA6MC4wMDAwICAgTWVkaWFuIDoyMy4wMCAgIE1lZGlhbiA6MTIxLjAgICBNZWRpYW4gOjEuMDAwICBcbiBNZWFuICAgOjAuMzEyMiAgIE1lYW4gICA6MjMuMjQgICBNZWFuICAgOjEyOS44ICAgTWVhbiAgIDoxLjg0NyAgXG4gM3JkIFF1LjoxLjAwMDAgICAzcmQgUXUuOjI2LjAwICAgM3JkIFF1LjoxNDAuMCAgIDNyZCBRdS46My4wMDAgIFxuIE1heC4gICA6MS4wMDAwICAgTWF4LiAgIDo0NS4wMCAgIE1heC4gICA6MjUwLjAgICBNYXguICAgOjMuMDAwICBcbiAgICAgc21va2UgICAgICAgICAgICAgcHRsICAgICAgICAgICAgICAgaHQgICAgICAgICAgICAgICAgdWkgICAgICAgIFxuIE1pbi4gICA6MC4wMDAwICAgTWluLiAgIDowLjAwMDAgICBNaW4uICAgOjAuMDAwMDAgICBNaW4uICAgOjAuMDAwMCAgXG4gMXN0IFF1LjowLjAwMDAgICAxc3QgUXUuOjAuMDAwMCAgIDFzdCBRdS46MC4wMDAwMCAgIDFzdCBRdS46MC4wMDAwICBcbiBNZWRpYW4gOjAuMDAwMCAgIE1lZGlhbiA6MC4wMDAwICAgTWVkaWFuIDowLjAwMDAwICAgTWVkaWFuIDowLjAwMDAgIFxuIE1lYW4gICA6MC4zOTE1ICAgTWVhbiAgIDowLjE5NTggICBNZWFuICAgOjAuMDYzNDkgICBNZWFuICAgOjAuMTQ4MSAgXG4gM3JkIFF1LjoxLjAwMDAgICAzcmQgUXUuOjAuMDAwMCAgIDNyZCBRdS46MC4wMDAwMCAgIDNyZCBRdS46MC4wMDAwICBcbiBNYXguICAgOjEuMDAwMCAgIE1heC4gICA6My4wMDAwICAgTWF4LiAgIDoxLjAwMDAwICAgTWF4LiAgIDoxLjAwMDAgIFxuICAgICAgZnR2ICAgICAgICAgICAgICBid3QgICAgICBcbiBNaW4uICAgOjAuMDAwMCAgIE1pbi4gICA6IDcwOSAgXG4gMXN0IFF1LjowLjAwMDAgICAxc3QgUXUuOjI0MTQgIFxuIE1lZGlhbiA6MC4wMDAwICAgTWVkaWFuIDoyOTc3ICBcbiBNZWFuICAgOjAuNzkzNyAgIE1lYW4gICA6Mjk0NSAgXG4gM3JkIFF1LjoxLjAwMDAgICAzcmQgUXUuOjM0ODcgIFxuIE1heC4gICA6Ni4wMDAwICAgTWF4LiAgIDo0OTkwICBcbiJ9 -->
+<pre><code>      low              age             lwt             race      
+ Min.   :0.0000   Min.   :14.00   Min.   : 80.0   Min.   :1.000  
+ 1st Qu.:0.0000   1st Qu.:19.00   1st Qu.:110.0   1st Qu.:1.000  
+ Median :0.0000   Median :23.00   Median :121.0   Median :1.000  
+ Mean   :0.3122   Mean   :23.24   Mean   :129.8   Mean   :1.847  
+ 3rd Qu.:1.0000   3rd Qu.:26.00   3rd Qu.:140.0   3rd Qu.:3.000  
+ Max.   :1.0000   Max.   :45.00   Max.   :250.0   Max.   :3.000  
+     smoke             ptl               ht                ui        
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.00000   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.0000  
+ Median :0.0000   Median :0.0000   Median :0.00000   Median :0.0000  
+ Mean   :0.3915   Mean   :0.1958   Mean   :0.06349   Mean   :0.1481  
+ 3rd Qu.:1.0000   3rd Qu.:0.0000   3rd Qu.:0.00000   3rd Qu.:0.0000  
+ Max.   :1.0000   Max.   :3.0000   Max.   :1.00000   Max.   :1.0000  
+      ftv              bwt      
+ Min.   :0.0000   Min.   : 709  
+ 1st Qu.:0.0000   1st Qu.:2414  
+ Median :0.0000   Median :2977  
+ Mean   :0.7937   Mean   :2945  
+ 3rd Qu.:1.0000   3rd Qu.:3487  
+ Max.   :6.0000   Max.   :4990  </code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <div id="a" class="section level3">
 <h3>1.a</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShnZ3Bsb3QyKVxuYGBgIn0= -->
-<pre class="r"><code>library(ggplot2)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShnZ3Bsb3QyKVxuXG5gYGAifQ== -->
+<pre class="r"><code>library(ggplot2)
+</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gbGlicmFyeShnZ3Bsb3QyKSA6IHRoZXJlIGlzIG5vIHBhY2thZ2UgY2FsbGVkIOKAmGdncGxvdDLigJlcbiJ9 -->
+<pre><code>Error in library(ggplot2) : there is no package called ‘ggplot2’</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlN0YXQgMTI4IEhvbWV3b3JrIDUgUiBOb3RlYm9vayINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KYXV0aG9yOiAnRGVhbiBDaGlhbmcnDQotLS0NCg0KIyMgUTEuDQoNCmBgYHtyfQ0KbGlicmFyeShNQVNTKQ0KP2JpcnRod3QNClZpZXcoYmlydGh3dCkNCmNsYXNzKGJpcnRod3QpDQpkaW0oYmlydGh3dCkNCiMgaGVhZChiaXJ0aHd0KQ0KIyB0YWlsKGJpcnRod3QpDQpzdW1tYXJ5KGJpcnRod3QpDQpzdHIoYmlydGh3dCkNCg0KYGBgDQoNCiMjIyAxLmENCmBgYHtyfQ0KbGlicmFyeShnZ3Bsb3QyKQ0KYGBgDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlN0YXQgMTI4IEhvbWV3b3JrIDUgUiBOb3RlYm9vayINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KYXV0aG9yOiAnRGVhbiBDaGlhbmcnDQotLS0NCg0KIyMgUTEuDQoNCmBgYHtyfQ0KbGlicmFyeShNQVNTKQ0KP2JpcnRod3QNClZpZXcoYmlydGh3dCkNCmNsYXNzKGJpcnRod3QpDQpkaW0oYmlydGh3dCkNCiMgaGVhZChiaXJ0aHd0KQ0KIyB0YWlsKGJpcnRod3QpDQpzdW1tYXJ5KGJpcnRod3QpDQpzdHIoYmlydGh3dCkNCg0KYGBgDQoNCiMjIyAxLmENCmBgYHtyfQ0KbGlicmFyeShnZ3Bsb3QyKQ0KcDFhIDwtIGdncGxvdChkYXRhID0gYmlydGh3dCwgYWVzKHg9Ynd0KSkNCmBgYA0KDQo=</div>
 
 
 

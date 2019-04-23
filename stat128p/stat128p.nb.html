@@ -11,6 +11,7 @@
 
 <meta name="author" content="Dean Chiang" />
 
+<meta name="date" content="2019-04-22" />
 
 <title>Stat 128 Project R Notebook</title>
 
@@ -211,7 +212,7 @@ $(document).ready(function () {
 </style>
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("sta128pp.Rmd");
+  window.initializeSourceEmbed("stat128p.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
@@ -236,13 +237,12 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Stat 128 Project R Notebook</h1>
 <h4 class="author"><em>Dean Chiang</em></h4>
+<h4 class="date"><em>April 22, 2019</em></h4>
 
 </div>
 
 
 <!-- rnb-text-begin -->
-<p>This is an <a href="http://rmarkdown.rstudio.com">R Markdown</a> Notebook. When you execute code within the notebook, the results appear beneath the code.</p>
-<p>Try executing this chunk by clicking the <em>Run</em> button within the chunk or by placing your cursor inside it and pressing <em>Cmd+Shift+Enter</em>.</p>
 <div id="stat-128-spring-2019-student-project-dchiang" class="section level1">
 <h1>Stat 128 Spring 2019 Student Project Dchiang</h1>
 <p>Data source</p>
@@ -262,21 +262,52 @@ $(document).ready(function () {
 <li><a href="https://opendata.arcgis.com/datasets/1df90a95e4c348f1bd06326fd96ced78_0.geojson">GeoJSON</a></li>
 <li>Data downloaded as <a href="C:/Users/dchiang/Downloads/California_Fish_Passage_Assessment_Database_ds69.csv">csv</a> and <a href="~/Downloads/California_Fish_Passage_Assessment_Database_ds69.zip">shapefile</a></li>
 </ul>
+<div id="load-the-data-from-the-internet" class="section level2">
+<h2>Load the Data from the Internet</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZWFkcilcblxuYGBgIn0= -->
-<pre class="r"><code>library(readr)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGltKGJpb3NkczY5KVxuXG5gYGAifQ== -->
+<pre class="r"><code>dim(biosds69)
 </code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gbGlicmFyeShyZWFkcikgOiB0aGVyZSBpcyBubyBwYWNrYWdlIGNhbGxlZCDigJhyZWFkcuKAmVxuIn0= -->
-<pre><code>Error in library(readr) : there is no package called ‘readr’</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI1NDM5ICAgIDQ2XG4ifQ== -->
+<pre><code>[1] 25439    46</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="download-and-import-data-file" class="section level2">
+<h2>Download and Import Data File</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZWFkcilcbiMgYmlvc2RzNjkgPC0gcmVhZF9jc3YoXCJDOi9Vc2Vycy9kY2hpYW5nL0Rvd25sb2Fkcy9iaW9zZHM2OS5jc3ZcIilcblZpZXcoYmlvc2RzNjkpXG5cbmBgYCJ9 -->
+<pre class="r"><code>library(readr)
+# biosds69 &lt;- read_csv(&quot;C:/Users/dchiang/Downloads/biosds69.csv&quot;)
+View(biosds69)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="check-the-data" class="section level3">
+<h3>Check the data</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2xhc3MoYmlvc2RzNjkpXG5oZWFkKGJpb3NkczY5KVxudGFpbChiaW9zZHM2OSlcbnN0cihiaW9zZHM2OSlcbnN1bW1hcnkoYmlvc2RzNjkpXG5kaW0oYmlvc2RzNjkpXG5gYGAifQ== -->
+<pre class="r"><code>class(biosds69)
+head(biosds69)
+tail(biosds69)
+str(biosds69)
+summary(biosds69)
+dim(biosds69)</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
+</div>
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlN0YXQgMTI4IFByb2plY3QgUiBOb3RlYm9vayINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KYXV0aG9yOiAnRGVhbiBDaGlhbmcnDQotLS0NCg0KVGhpcyBpcyBhbiBbUiBNYXJrZG93bl0oaHR0cDovL3JtYXJrZG93bi5yc3R1ZGlvLmNvbSkgTm90ZWJvb2suIFdoZW4geW91IGV4ZWN1dGUgY29kZSB3aXRoaW4gdGhlIG5vdGVib29rLCB0aGUgcmVzdWx0cyBhcHBlYXIgYmVuZWF0aCB0aGUgY29kZS4gDQoNClRyeSBleGVjdXRpbmcgdGhpcyBjaHVuayBieSBjbGlja2luZyB0aGUgKlJ1biogYnV0dG9uIHdpdGhpbiB0aGUgY2h1bmsgb3IgYnkgcGxhY2luZyB5b3VyIGN1cnNvciBpbnNpZGUgaXQgYW5kIHByZXNzaW5nICpDbWQrU2hpZnQrRW50ZXIqLiANCg0KIyBTdGF0IDEyOCBTcHJpbmcgMjAxOSBTdHVkZW50IFByb2plY3QgRGNoaWFuZw0KDQpEYXRhIHNvdXJjZQ0KDQotIFsyMCBNb3N0IFJlY2VudCBQdWJsaWMgQklPUyBEYXRhIExheWVyc10oaHR0cHM6Ly93d3cud2lsZGxpZmUuY2EuZ292L0RhdGEvQklPUy9MYXRlc3QtRGF0YXNldHMpDQotIFtIVE1MIG1ldGFkYXRhXShodHRwczovL21hcC5kZmcuY2EuZ292L21ldGFkYXRhL2RzMDA2OS5odG1sKSAtIGJ1dCB0aGlzIGRvd25sb2FkIGlzIGZvciBmaWxlIGdlb2RhdGFiYXNlIGFuZCBMWVIgZmlsZSBvbmx5DQotIFtDTlJBIG9wZW4gZGF0YSBwYWdlXShodHRwczovL2RhdGEuY25yYS5jYS5nb3Yvb3JnYW5pemF0aW9uL2NhbGlmb3JuaWEtZGVwYXJ0bWVudC1vZi1maXNoLWFuZC13aWxkbGlmZS9wb3J0YWwvZGF0YSkNCi0gW0NERlcgQXJjR0lTIG9wZW4gZGF0YSBwYWdlXShodHRwOi8vZGF0YS1jZGZ3Lm9wZW5kYXRhLmFyY2dpcy5jb20vZGF0YXNldHMvY2FsaWZvcm5pYS1maXNoLXBhc3NhZ2UtYXNzZXNzbWVudC1kYXRhYmFzZS1kczY5LTEpIHdoZXJlIHRoZSBkYXRhIGNhbiBiZSBkb3dubG9hZGVkIGFzIHNoYXBlZmlsZSAgKGluY2x1ZGUgZGJmKSBvciBjc3YuDQotIFtjc3YgZG93bmxvYWQgbGlua10oaHR0cDovL2RhdGEtY2Rmdy5vcGVuZGF0YS5hcmNnaXMuY29tL2RhdGFzZXRzLzFkZjkwYTk1ZTRjMzQ4ZjFiZDA2MzI2ZmQ5NmNlZDc4XzApDQotIFtPcGVuIERhdGFHZW9TZXJ2aWNlXShodHRwczovL3RpbGVzLmFyY2dpcy5jb20vdGlsZXMvVXE5cjg1UG90cW0zTWZSVi9hcmNnaXMvcmVzdC9zZXJ2aWNlcy9iaW9zZHM2OV9jbXUvTWFwU2VydmVyLzAvcXVlcnk/b3V0RmllbGRzPSomd2hlcmU9MSUzRDEpDQotIFtPcGVuIERhdGEgR2VvSlNPTl0oaHR0cHM6Ly9vcGVuZGF0YS5hcmNnaXMuY29tL2RhdGFzZXRzL2IxMGY0ZDM5OTMyZjRjMThiNjE5MDAzMDM4YzY1ODVhXzAuZ2VvanNvbikNCi0gW0FHT0wgRmVhdHVyZSBMYXllciBpdGVtXShodHRwczovL3d3dy5hcmNnaXMuY29tL2hvbWUvaXRlbS5odG1sP2lkPTFkZjkwYTk1ZTRjMzQ4ZjFiZDA2MzI2ZmQ5NmNlZDc4KQ0KLSBbQUdPTCBGZWF0dXJlU2VydmVyXShodHRwczovL3NlcnZpY2VzMi5hcmNnaXMuY29tL1VxOXI4NVBvdHFtM01mUlYvYXJjZ2lzL3Jlc3Qvc2VydmljZXMvYmlvc2RzNjlfZm11L0ZlYXR1cmVTZXJ2ZXIvMCkNCi0gW0FHT0wgVGlsZSBMYXllciBpdGVtXShodHRwczovL3d3dy5hcmNnaXMuY29tL2hvbWUvaXRlbS5odG1sP2lkPWIxMGY0ZDM5OTMyZjRjMThiNjE5MDAzMDM4YzY1ODVhKQ0KLSBbQUdPTCBDYWNoZWQgTWFwU2VydmVyXShodHRwczovL3RpbGVzLmFyY2dpcy5jb20vdGlsZXMvVXE5cjg1UG90cW0zTWZSVi9hcmNnaXMvcmVzdC9zZXJ2aWNlcy9iaW9zZHM2OV9jbXUvTWFwU2VydmVyKQ0KLSBbR2VvIHNlcnZpY2VdKGh0dHBzOi8vc2VydmljZXMyLmFyY2dpcy5jb20vVXE5cjg1UG90cW0zTWZSVi9hcmNnaXMvcmVzdC9zZXJ2aWNlcy9iaW9zZHM2OV9mbXUvRmVhdHVyZVNlcnZlci8wL3F1ZXJ5P291dEZpZWxkcz0qJndoZXJlPTElM0QxKQ0KLSBbR2VvSlNPTl0oaHR0cHM6Ly9vcGVuZGF0YS5hcmNnaXMuY29tL2RhdGFzZXRzLzFkZjkwYTk1ZTRjMzQ4ZjFiZDA2MzI2ZmQ5NmNlZDc4XzAuZ2VvanNvbikNCi0gRGF0YSBkb3dubG9hZGVkIGFzIFtjc3ZdKEM6L1VzZXJzL2RjaGlhbmcvRG93bmxvYWRzL0NhbGlmb3JuaWFfRmlzaF9QYXNzYWdlX0Fzc2Vzc21lbnRfRGF0YWJhc2VfZHM2OS5jc3YpIGFuZCBbc2hhcGVmaWxlXSh+L0Rvd25sb2Fkcy9DYWxpZm9ybmlhX0Zpc2hfUGFzc2FnZV9Bc3Nlc3NtZW50X0RhdGFiYXNlX2RzNjkuemlwKQ0KDQpgYGB7cn0NCmxpYnJhcnkocmVhZHIpDQpiaW9zZHM2OSA8LSByZWFkX2Nzdigifi9Eb3dubG9hZHMvYmlvc2RzNjkuY3N2IikNClZpZXcoYmlvc2RzNjkpDQpjbGFzcyhiaW9zZHM2OSkNCmhlYWQoYmlvc2RzNjkpDQp0YWlsKGJpb3NkczY5KQ0Kc3RyKGJpb3NkczY5KQ0Kc3VtbWFyeShiaW9zZHM2OSkNCmRpbShiaW9zZHM2OSkNCmBgYA0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlN0YXQgMTI4IFByb2plY3QgUiBOb3RlYm9vayINCmF1dGhvcjogJ0RlYW4gQ2hpYW5nJw0KZGF0ZTogIkFwcmlsIDIyLCAyMDE5Ig0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KDQojIFN0YXQgMTI4IFNwcmluZyAyMDE5IFN0dWRlbnQgUHJvamVjdCBEY2hpYW5nDQoNCkRhdGEgc291cmNlDQoNCi0gWzIwIE1vc3QgUmVjZW50IFB1YmxpYyBCSU9TIERhdGEgTGF5ZXJzXShodHRwczovL3d3dy53aWxkbGlmZS5jYS5nb3YvRGF0YS9CSU9TL0xhdGVzdC1EYXRhc2V0cykNCi0gW0hUTUwgbWV0YWRhdGFdKGh0dHBzOi8vbWFwLmRmZy5jYS5nb3YvbWV0YWRhdGEvZHMwMDY5Lmh0bWwpIC0gYnV0IHRoaXMgZG93bmxvYWQgaXMgZm9yIGZpbGUgZ2VvZGF0YWJhc2UgYW5kIExZUiBmaWxlIG9ubHkNCi0gW0NOUkEgb3BlbiBkYXRhIHBhZ2VdKGh0dHBzOi8vZGF0YS5jbnJhLmNhLmdvdi9vcmdhbml6YXRpb24vY2FsaWZvcm5pYS1kZXBhcnRtZW50LW9mLWZpc2gtYW5kLXdpbGRsaWZlL3BvcnRhbC9kYXRhKQ0KLSBbQ0RGVyBBcmNHSVMgb3BlbiBkYXRhIHBhZ2VdKGh0dHA6Ly9kYXRhLWNkZncub3BlbmRhdGEuYXJjZ2lzLmNvbS9kYXRhc2V0cy9jYWxpZm9ybmlhLWZpc2gtcGFzc2FnZS1hc3Nlc3NtZW50LWRhdGFiYXNlLWRzNjktMSkgd2hlcmUgdGhlIGRhdGEgY2FuIGJlIGRvd25sb2FkZWQgYXMgc2hhcGVmaWxlICAoaW5jbHVkZSBkYmYpIG9yIGNzdi4NCi0gW2NzdiBkb3dubG9hZCBsaW5rXShodHRwOi8vZGF0YS1jZGZ3Lm9wZW5kYXRhLmFyY2dpcy5jb20vZGF0YXNldHMvMWRmOTBhOTVlNGMzNDhmMWJkMDYzMjZmZDk2Y2VkNzhfMCkNCi0gW09wZW4gRGF0YUdlb1NlcnZpY2VdKGh0dHBzOi8vdGlsZXMuYXJjZ2lzLmNvbS90aWxlcy9VcTlyODVQb3RxbTNNZlJWL2FyY2dpcy9yZXN0L3NlcnZpY2VzL2Jpb3NkczY5X2NtdS9NYXBTZXJ2ZXIvMC9xdWVyeT9vdXRGaWVsZHM9KiZ3aGVyZT0xJTNEMSkNCi0gW09wZW4gRGF0YSBHZW9KU09OXShodHRwczovL29wZW5kYXRhLmFyY2dpcy5jb20vZGF0YXNldHMvYjEwZjRkMzk5MzJmNGMxOGI2MTkwMDMwMzhjNjU4NWFfMC5nZW9qc29uKQ0KLSBbQUdPTCBGZWF0dXJlIExheWVyIGl0ZW1dKGh0dHBzOi8vd3d3LmFyY2dpcy5jb20vaG9tZS9pdGVtLmh0bWw/aWQ9MWRmOTBhOTVlNGMzNDhmMWJkMDYzMjZmZDk2Y2VkNzgpDQotIFtBR09MIEZlYXR1cmVTZXJ2ZXJdKGh0dHBzOi8vc2VydmljZXMyLmFyY2dpcy5jb20vVXE5cjg1UG90cW0zTWZSVi9hcmNnaXMvcmVzdC9zZXJ2aWNlcy9iaW9zZHM2OV9mbXUvRmVhdHVyZVNlcnZlci8wKQ0KLSBbQUdPTCBUaWxlIExheWVyIGl0ZW1dKGh0dHBzOi8vd3d3LmFyY2dpcy5jb20vaG9tZS9pdGVtLmh0bWw/aWQ9YjEwZjRkMzk5MzJmNGMxOGI2MTkwMDMwMzhjNjU4NWEpDQotIFtBR09MIENhY2hlZCBNYXBTZXJ2ZXJdKGh0dHBzOi8vdGlsZXMuYXJjZ2lzLmNvbS90aWxlcy9VcTlyODVQb3RxbTNNZlJWL2FyY2dpcy9yZXN0L3NlcnZpY2VzL2Jpb3NkczY5X2NtdS9NYXBTZXJ2ZXIpDQotIFtHZW8gc2VydmljZV0oaHR0cHM6Ly9zZXJ2aWNlczIuYXJjZ2lzLmNvbS9VcTlyODVQb3RxbTNNZlJWL2FyY2dpcy9yZXN0L3NlcnZpY2VzL2Jpb3NkczY5X2ZtdS9GZWF0dXJlU2VydmVyLzAvcXVlcnk/b3V0RmllbGRzPSomd2hlcmU9MSUzRDEpDQotIFtHZW9KU09OXShodHRwczovL29wZW5kYXRhLmFyY2dpcy5jb20vZGF0YXNldHMvMWRmOTBhOTVlNGMzNDhmMWJkMDYzMjZmZDk2Y2VkNzhfMC5nZW9qc29uKQ0KLSBEYXRhIGRvd25sb2FkZWQgYXMgW2Nzdl0oQzovVXNlcnMvZGNoaWFuZy9Eb3dubG9hZHMvQ2FsaWZvcm5pYV9GaXNoX1Bhc3NhZ2VfQXNzZXNzbWVudF9EYXRhYmFzZV9kczY5LmNzdikgYW5kIFtzaGFwZWZpbGVdKH4vRG93bmxvYWRzL0NhbGlmb3JuaWFfRmlzaF9QYXNzYWdlX0Fzc2Vzc21lbnRfRGF0YWJhc2VfZHM2OS56aXApDQoNCiMjIExvYWQgdGhlIERhdGEgZnJvbSB0aGUgSW50ZXJuZXQNCmBgYHtyfQ0KYmlvc2RzNjkgPC0gcmVhZC5jc3YoJ2h0dHBzOi8vb3BlbmRhdGEuYXJjZ2lzLmNvbS9kYXRhc2V0cy8xZGY5MGE5NWU0YzM0OGYxYmQwNjMyNmZkOTZjZWQ3OF8wLmNzdicpDQpWaWV3KGJpb3NkczY5KQ0KZGltKGJpb3NkczY5KQ0KYGBgDQoNCiMjIERvd25sb2FkIGFuZCBJbXBvcnQgRGF0YSBGaWxlDQpgYGB7cn0NCmxpYnJhcnkocmVhZHIpDQojIGJpb3NkczY5IDwtIHJlYWRfY3N2KCJDOi9Vc2Vycy9kY2hpYW5nL0Rvd25sb2Fkcy9iaW9zZHM2OS5jc3YiKQ0KVmlldyhiaW9zZHM2OSkNCg0KYGBgDQoNCiMjIyBDaGVjayB0aGUgZGF0YQ0KYGBge3J9DQpjbGFzcyhiaW9zZHM2OSkNCmhlYWQoYmlvc2RzNjkpDQp0YWlsKGJpb3NkczY5KQ0Kc3RyKGJpb3NkczY5KQ0Kc3VtbWFyeShiaW9zZHM2OSkNCmRpbShiaW9zZHM2OSkNCmBgYA0KDQo=</div>
 
 
 

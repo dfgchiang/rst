@@ -22,5 +22,6 @@ str(birthwt)
 ### 1.a
 ```{r}
 library(ggplot2)
+p1a <- ggplot(data = birthwt, aes(x=bwt))
 ```
 
