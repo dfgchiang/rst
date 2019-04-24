@@ -262,13 +262,26 @@ $(document).ready(function () {
 <li><a href="https://opendata.arcgis.com/datasets/1df90a95e4c348f1bd06326fd96ced78_0.geojson">GeoJSON</a></li>
 <li>Data downloaded as <a href="C:/Users/dchiang/Downloads/California_Fish_Passage_Assessment_Database_ds69.csv">csv</a> and <a href="~/Downloads/California_Fish_Passage_Assessment_Database_ds69.zip">shapefile</a></li>
 </ul>
-<div id="load-the-data-from-the-internet" class="section level2">
-<h2>Load the Data from the Internet</h2>
+<div id="download-and-import-data-file" class="section level2">
+<h2>Download and Import Data File</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGltKGJpb3NkczY5KVxuXG5gYGAifQ== -->
-<pre class="r"><code>dim(biosds69)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZWFkcilcbiMgYmlvc2RzNjkgPC0gcmVhZF9jc3YoXCJDOi9Vc2Vycy9kY2hpYW5nL0Rvd25sb2Fkcy9iaW9zZHM2OS5jc3ZcIilcbiMgVmlldyhiaW9zZHM2OSlcbmBgYCJ9 -->
+<pre class="r"><code>library(readr)
+# biosds69 &lt;- read_csv(&quot;C:/Users/dchiang/Downloads/biosds69.csv&quot;)
+# View(biosds69)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="load-the-data-directly-from-the-internet" class="section level2">
+<h2>Load the Data directly from the Internet</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYmlvc2RzNjkgPC0gcmVhZC5jc3YoJ2h0dHBzOi8vb3BlbmRhdGEuYXJjZ2lzLmNvbS9kYXRhc2V0cy8xZGY5MGE5NWU0YzM0OGYxYmQwNjMyNmZkOTZjZWQ3OF8wLmNzdicpXG5WaWV3KGJpb3NkczY5KVxuZGltKGJpb3NkczY5KVxuYGBgIn0= -->
+<pre class="r"><code>biosds69 &lt;- read.csv('https://opendata.arcgis.com/datasets/1df90a95e4c348f1bd06326fd96ced78_0.csv')
+View(biosds69)
+dim(biosds69)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI1NDM5ICAgIDQ2XG4ifQ== -->
 <pre><code>[1] 25439    46</code></pre>
@@ -276,30 +289,275 @@ $(document).ready(function () {
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
-<div id="download-and-import-data-file" class="section level2">
-<h2>Download and Import Data File</h2>
+<div id="check-data" class="section level2">
+<h2>Check data</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZWFkcilcbiMgYmlvc2RzNjkgPC0gcmVhZF9jc3YoXCJDOi9Vc2Vycy9kY2hpYW5nL0Rvd25sb2Fkcy9iaW9zZHM2OS5jc3ZcIilcblZpZXcoYmlvc2RzNjkpXG5cbmBgYCJ9 -->
-<pre class="r"><code>library(readr)
-# biosds69 &lt;- read_csv(&quot;C:/Users/dchiang/Downloads/biosds69.csv&quot;)
-View(biosds69)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RyKGJpb3NkczY5KVxuXG5gYGAifQ== -->
+<pre class="r"><code>str(biosds69)
 </code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiJ2RhdGEuZnJhbWUnOlx0MjU0Mzkgb2JzLiBvZiAgNDYgdmFyaWFibGVzOlxuICQgw68uLlggICAgICAgICAgOiBudW0gIC0xMjEgLTEyMSAtMTIxIC0xMjEgLTEyMiAuLi5cbiAkIFkgICAgICAgICAgICAgOiBudW0gIDM3LjYgMzcuNiAzNy42IDM3LjYgMzggLi4uXG4gJCBPQkpFQ1RJRCAgICAgIDogaW50ICAxMDAxIDEwMDIgMTAwMyAxMDA0IDEwMDUgMTAwNiAxMDA3IDEwMDggMTAwOSAxMDEwIC4uLlxuICQgUEFEX0lEICAgICAgICA6IGludCAgNzAxMDI1IDcwMTAyNiA3MDEwMjcgNzAxMDI4IDcwMTAyOSA3MDEwMzAgNzAxMDMxIDcwMTAzMiA3MDEwMzMgNzAxMDM0IC4uLlxuICQgUGFzc2FnZUlEICAgICA6IGludCAgMTE1MCAxMTUxIDExNTIgMTE1MyAxMTU0IDExNTUgMTE1NiAxMTU3IDExNTggMTE1OSAuLi5cbiAkIFN0cmVhbU5hbWUgICAgOiBGYWN0b3Igdy8gNDMwNiBsZXZlbHMgXCJcIixcIiBcIixcIlxcdENhbmFkaWFuIENyZWVrXCIsLi46IDM2MDIgMzYwMiAzMTc2IDMxNzYgMzE3NiA0MTkzIDc0NiA3NDYgMjMzNSAyMzM1IC4uLlxuICQgVHJpYnV0YXJ5VCAgICA6IEZhY3RvciB3LyAxODA3IGxldmVscyBcIlwiLFwiIFwiLFwiIExvcyBNb2xpbm9zIENyZWVrXCIsLi46IDEgMSAxMzA2IDEzMDYgMTMwNiAxIDEgMSAxIDEgLi4uXG4gJCBTaXRlTmFtZSAgICAgIDogRmFjdG9yIHcvIDEwNjUzIGxldmVscyBcIiBFc3RpbWF0ZWQgSHd5IDE4MCBYaW5nXCIsLi46IDEwMDI1IDEwMDI1IDkwMjAgNDc4OCA1ODEwIDY2OTAgNjY5MCA2NjkwIDY2OTAgNjY5MCAuLi5cbiAkIFNpdGVUeXBlICAgICAgOiBGYWN0b3Igdy8gMTUgbGV2ZWxzIFwiRGFtXCIsXCJEaXZlcnNpb25cIiwuLjogMiAyIDIgMiAyIDIgMiAyIDIgMiAuLi5cbiAkIEJhclN0YXR1cyAgICAgOiBGYWN0b3Igdy8gMTQgbGV2ZWxzIFwiTm90IGEgYmFycmllclwiLC4uOiAxNCAxNCAxNCAxNCAxNCAxNCAxNCAxNCAxNCAxNCAuLi5cbiAkIFNwZWNpZXNCbG9ja2VkOiBGYWN0b3Igdy8gMTYgbGV2ZWxzIFwiXCIsXCJBbWVyaWNhbiBzaGFkXCIsLi46IDEgMSAxIDEgMSAxIDEgMSAxIDEgLi4uXG4gJCBOdW1TdHJ1Y3R1cmVzIDogaW50ICBOQSBOQSBOQSBOQSBOQSBOQSBOQSBOQSBOQSBOQSAuLi5cbiAkIFByb3RvY29sICAgICAgOiBGYWN0b3Igdy8gMTYgbGV2ZWxzIFwiXCIsXCJDYWx0cmFucyBEZXRhaWxlZCBQcm90b2NvbFwiLC4uOiAxMCAxMCAxMCAxMCAxMCAxMCAxMCAxMCAxMCAxMCAuLi5cbiAkIEFzc2Vzc2VkQnkgICAgOiBGYWN0b3Igdy8gMTUwIGxldmVscyBcIlwiLFwiQUVDT01cIixcIkFsYW1lZGEgQ291bnR5IEZsb29kIENvbnRyb2wgYW5kIFdhdGVyIENvbnNlcnZhdGlvbiBEaXN0cmljdFwiLC4uOiAxNyAxNyAxNyAxNyAxNyAxNyAxNyAxNyAxNyAxNyAuLi5cbiAkIFN1cnZleURhdGUgICAgOiBGYWN0b3Igdy8gMTE2OSBsZXZlbHMgXCJcIixcIiBcIixcIjAzLzIwMDBcIiwuLjogMTQzIDE0MyAxMjQgMTI0IDQyMiA0MjIgNDIyIDQyMiA0MjIgNDIyIC4uLlxuICQgVHJ0U3RhdHVzICAgICA6IEZhY3RvciB3LyA4IGxldmVscyBcIlwiLFwiQ29tcGxldGVkXCIsLi46IDggOCA4IDggOCA4IDggOCA4IDggLi4uXG4gJCBZclRyZWF0ZWQgICAgIDogaW50ICBOQSBOQSBOQSBOQSBOQSBOQSBOQSBOQSBOQSBOQSAuLi5cbiAkIFRyZWF0ZWRCeSAgICAgOiBGYWN0b3Igdy8gNjAgbGV2ZWxzIFwiXCIsXCJBbGFtZWRhIENvdW50eSBXYXRlciBEaXN0cmljdFwiLC4uOiAxIDEgMSAxIDEgMSAxIDEgMSAxIC4uLlxuICQgU3RydWN0T3duZXIgICA6IEZhY3RvciB3LyA4NzMgbGV2ZWxzIFwiXCIsXCI0UyBLRUxXT09EIEdFTkVSQUwgUEFSVE5FUlNISVBcIiwuLjogMSAxIDYwOSA2MDkgNDEzIDQxMyA0MTMgNDEzIDQxMyA0MTMgLi4uXG4gJCBMYW5kT3duZXIgICAgIDogRmFjdG9yIHcvIDE0MCBsZXZlbHMgXCJcIixcIkFpbnNsZXkgQ29ycC5cIiwuLjogMSAxIDEgMSAxIDEgMSAxIDEgMSAuLi5cbiAkIE5vdGVzICAgICAgICAgOiBGYWN0b3Igdy8gODYzNyBsZXZlbHMgXCJcIixcIic4J2ggeCAxMCd3LCA4MCcgbG9uZywgMTMnIG91dGxldCBhcHJvbiwgMTAnIGlubGV0IGFwcm9uLiBTbG9wZSB0aHJvdWdoIHRoZSBjdWx2ZXJ0IGlzIDAuNyUgYW5kIHNsb3BlcyBvZiB0aGUgYVwifCBfX3RydW5jYXRlZF9fLC4uOiAxIDEgMSAxIDEgMSAxIDEgMSAxIC4uLlxuICQgRmlzaFdheVR5cGUgICA6IEZhY3RvciB3LyAxMyBsZXZlbHMgXCJcIixcIkN1bHZlcnQgaXMgZGVzaWduZWQgZm9yIGZpc2ggcGFzc2FnZSAoQ3VsdmVydCB3aXRoIGJhZmZsZXMgb3Igb3RoZXJ3aXNlIGRlc2lnbmVkIGZvciBpbXByb3ZlZCBmaXNoIHBhc3NhZ2UsIEN1bFwifCBfX3RydW5jYXRlZF9fLC4uOiAxIDEgMSAxIDEgMSAxIDEgMSAxIC4uLlxuICQgRmlzaFdheVN0YXR1cyA6IEZhY3RvciB3LyA5IGxldmVscyBcIlwiLFwiQWJhbmRvbmVkIGZpc2h3YXkgLSBubyBsb25nZXIgbmVlZGVkXCIsLi46IDEgMSAxIDEgMSAxIDEgMSAxIDEgLi4uXG4gJCBUcnRSZWNvbSAgICAgIDogRmFjdG9yIHcvIDE1NTUgbGV2ZWxzIFwiXCIsXCInU3RlcCB1cCcgdGhlIHN0cmVhbSBjaGFubmVsIGJ5IHRha2luZyBhZHZhbnRhZ2Ugb2YgZXhpc3Rpbmcgcm9jayBmb3JtYXRpb25zIGFzc29jaWF0ZWQgd2l0aCB0aGUgZmFsbHMuIEEgc2VyaWVcInwgX190cnVuY2F0ZWRfXywuLjogMSAxIDEgMSAxIDEgMSAxIDEgMSAuLi5cbiAkIFdhdGVyc2hlZCAgICAgOiBGYWN0b3Igdy8gMTM2IGxldmVscyBcIlwiLFwiQWxpc28tU2FuIE9ub2ZyZVwiLC4uOiA0NCA0NCA0NCA0NCA3OSA3OSA3OSA3OSA3OSA3OSAuLi5cbiAkIENvdW50eSAgICAgICAgOiBGYWN0b3Igdy8gNjMgbGV2ZWxzIFwiXCIsXCJBbGFtZWRhXCIsXCJBbHBpbmVcIiwuLjogNTUgNTUgNTUgNTUgNDQgNDQgNDQgNDQgNDQgNDQgLi4uXG4gJCBDYWxXYXRIUiAgICAgIDogRmFjdG9yIHcvIDExIGxldmVscyBcIlwiLFwiQ2VudHJhbCBDb2FzdFwiLC4uOiA4IDggOCA4IDggOCA4IDggOCA4IC4uLlxuICQgQ2FsV2F0SFUgICAgICA6IEZhY3RvciB3LyAxNDEgbGV2ZWxzIFwiXCIsXCJBRE9CRVwiLFwiQUhXQUhORUVcIiwuLjogMzAgMzAgOTMgOTMgOTEgOTEgOTEgOTEgOTEgOTEgLi4uXG4gJCBDYWxXYXRIQSAgICAgIDogRmFjdG9yIHcvIDM5OSBsZXZlbHMgXCJcIixcIkFjYWRlbXlcIixcIkFndWEgSGVkaW9uZGFcIiwuLjogMjUwIDI1MCAzNTQgMzU0IDM1NiAzNTYgMzU2IDM1NiAzNTYgMzU2IC4uLlxuICQgQ2FsV2F0SFNBICAgICA6IEZhY3RvciB3LyA3MTIgbGV2ZWxzIFwiXCIsXCJBY2FkZW15XCIsXCJBY3RvblwiLC4uOiA0NjIgNDYyIDYzNiA2MzYgNTIzIDUyMyA1MjMgNTIzIDUyMyA1MjMgLi4uXG4gJCBDYWxXYXRObyAgICAgIDogaW50ICA2NTQxMTAgNjU0MTEwIDY1MzU1MCA2NTM1NTAgNjU0NDAwIDY1NDQwMCA2NTQ0MDAgNjU0NDAwIDY1NDQwMCA2NTQ0MDAgLi4uXG4gJCBOSERDT01JRCAgICAgIDogaW50ICAxNDUwMTUyMzQgMTQ1MDE1MjM0IDE0NTAxNDU0OSAxNDUwMTQ1NjAgTkEgTkEgTkEgTkEgTkEgTkEgLi4uXG4gJCBOSERDb21NZWFzICAgIDogbnVtICAxNy4xIDE3LjEgODUuMSA0My4zIE5BIC4uLlxuICQgTExJRCAgICAgICAgICA6IG51bSAgTkEgTkEgMS4yMWUrMTIgMS4yMmUrMTIgMS4yMmUrMTIgLi4uXG4gJCBCZWdGdCAgICAgICAgIDogaW50ICBOQSBOQSA5NTQ4IDQ3MTA3NSAxMjcxNjUgMzgyMyA3NTE5IDEyMDUyIDEyODU2IDEwNjI4IC4uLlxuICQgUm91dGUgICAgICAgICA6IEZhY3RvciB3LyA4ODEgbGV2ZWxzIFwiXCIsXCIgXCIsXCIgQTEwOVwiLC4uOiAxIDEgMSAxIDEgMSAxIDEgMSAxIC4uLlxuICQgUG9zdE1pbGUgICAgICA6IG51bSAgTkEgTkEgTkEgTkEgTkEgTkEgTkEgTkEgTkEgTkEgLi4uXG4gJCBEaXZPcGVyICAgICAgIDogRmFjdG9yIHcvIDQgbGV2ZWxzIFwiXCIsXCJOb1wiLFwiVW5rbm93blwiLC4uOiAxIDEgMSAxIDEgMSAxIDEgMSAxIC4uLlxuICQgRGl2TW9iaWxlICAgICA6IEZhY3RvciB3LyAzIGxldmVscyBcIlwiLFwiTm9cIixcIlllc1wiOiAxIDEgMSAxIDEgMSAxIDEgMSAxIC4uLlxuICQgVXBkYXRlZCAgICAgICA6IEZhY3RvciB3LyA0NjUgbGV2ZWxzIFwiXCIsXCIyMDA2LTAxLTAxVDAwOjAwOjAwLjAwMFpcIiwuLjogMTkyIDE5MiAxOTIgMTkyIDE5MiAxOTIgMTkyIDE5MiAxOTIgMTkyIC4uLlxuICQgU291cmNlICAgICAgICA6IEZhY3RvciB3LyA0NDggbGV2ZWxzIFwiXCIsXCIgNUNcIixcIiA1QywgQVIsIERGR1wiLC4uOiAyNTEgMjUxIDI1MSAyNTEgMjUxIDI1MSAyNTEgMjUxIDI1MSAyNTEgLi4uXG4gJCBXZWJMZWdlbmQgICAgIDogRmFjdG9yIHcvIDEwIGxldmVscyBcIk5hdHVyYWwgUGFydGlhbCBCYXJyaWVyXCIsLi46IDEwIDEwIDEwIDEwIDEwIDEwIDEwIDEwIDEwIDEwIC4uLlxuICQgUG9pbnRfWCAgICAgICA6IG51bSAgLTEyMSAtMTIxIC0xMjEgLTEyMSAtMTIyIC4uLlxuICQgUG9pbnRfWSAgICAgICA6IG51bSAgMzcuNiAzNy42IDM3LjYgMzcuNiAzOCAuLi5cbiAkIFBob3RvICAgICAgICAgOiBGYWN0b3Igdy8gMzE1MiBsZXZlbHMgXCJcIixcImh0dHA6Ly9tYXAuZGZnLmNhLmdvdi9waG90b3MvMTEzL3YxL0ROXzEwMV9NMDAtNDVPdXRsZXQuanBnXCIsLi46IDEgMSAxIDEgMSAxIDEgMSAxIDEgLi4uXG4gJCBNaWxlc19VcHN0ICAgIDogbnVtICBOQSBOQSBOQSBOQSBOQSBOQSBOQSBOQSBOQSBOQSAuLi5cbiJ9 -->
+<pre><code>'data.frame':   25439 obs. of  46 variables:
+ $ ï..X          : num  -121 -121 -121 -121 -122 ...
+ $ Y             : num  37.6 37.6 37.6 37.6 38 ...
+ $ OBJECTID      : int  1001 1002 1003 1004 1005 1006 1007 1008 1009 1010 ...
+ $ PAD_ID        : int  701025 701026 701027 701028 701029 701030 701031 701032 701033 701034 ...
+ $ PassageID     : int  1150 1151 1152 1153 1154 1155 1156 1157 1158 1159 ...
+ $ StreamName    : Factor w/ 4306 levels &quot;&quot;,&quot; &quot;,&quot;\tCanadian Creek&quot;,..: 3602 3602 3176 3176 3176 4193 746 746 2335 2335 ...
+ $ TributaryT    : Factor w/ 1807 levels &quot;&quot;,&quot; &quot;,&quot; Los Molinos Creek&quot;,..: 1 1 1306 1306 1306 1 1 1 1 1 ...
+ $ SiteName      : Factor w/ 10653 levels &quot; Estimated Hwy 180 Xing&quot;,..: 10025 10025 9020 4788 5810 6690 6690 6690 6690 6690 ...
+ $ SiteType      : Factor w/ 15 levels &quot;Dam&quot;,&quot;Diversion&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
+ $ BarStatus     : Factor w/ 14 levels &quot;Not a barrier&quot;,..: 14 14 14 14 14 14 14 14 14 14 ...
+ $ SpeciesBlocked: Factor w/ 16 levels &quot;&quot;,&quot;American shad&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ NumStructures : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ Protocol      : Factor w/ 16 levels &quot;&quot;,&quot;Caltrans Detailed Protocol&quot;,..: 10 10 10 10 10 10 10 10 10 10 ...
+ $ AssessedBy    : Factor w/ 150 levels &quot;&quot;,&quot;AECOM&quot;,&quot;Alameda County Flood Control and Water Conservation District&quot;,..: 17 17 17 17 17 17 17 17 17 17 ...
+ $ SurveyDate    : Factor w/ 1169 levels &quot;&quot;,&quot; &quot;,&quot;03/2000&quot;,..: 143 143 124 124 422 422 422 422 422 422 ...
+ $ TrtStatus     : Factor w/ 8 levels &quot;&quot;,&quot;Completed&quot;,..: 8 8 8 8 8 8 8 8 8 8 ...
+ $ YrTreated     : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ TreatedBy     : Factor w/ 60 levels &quot;&quot;,&quot;Alameda County Water District&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ StructOwner   : Factor w/ 873 levels &quot;&quot;,&quot;4S KELWOOD GENERAL PARTNERSHIP&quot;,..: 1 1 609 609 413 413 413 413 413 413 ...
+ $ LandOwner     : Factor w/ 140 levels &quot;&quot;,&quot;Ainsley Corp.&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ Notes         : Factor w/ 8637 levels &quot;&quot;,&quot;'8'h x 10'w, 80' long, 13' outlet apron, 10' inlet apron. Slope through the culvert is 0.7% and slopes of the a&quot;| __truncated__,..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ FishWayType   : Factor w/ 13 levels &quot;&quot;,&quot;Culvert is designed for fish passage (Culvert with baffles or otherwise designed for improved fish passage, Cul&quot;| __truncated__,..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ FishWayStatus : Factor w/ 9 levels &quot;&quot;,&quot;Abandoned fishway - no longer needed&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ TrtRecom      : Factor w/ 1555 levels &quot;&quot;,&quot;'Step up' the stream channel by taking advantage of existing rock formations associated with the falls. A serie&quot;| __truncated__,..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ Watershed     : Factor w/ 136 levels &quot;&quot;,&quot;Aliso-San Onofre&quot;,..: 44 44 44 44 79 79 79 79 79 79 ...
+ $ County        : Factor w/ 63 levels &quot;&quot;,&quot;Alameda&quot;,&quot;Alpine&quot;,..: 55 55 55 55 44 44 44 44 44 44 ...
+ $ CalWatHR      : Factor w/ 11 levels &quot;&quot;,&quot;Central Coast&quot;,..: 8 8 8 8 8 8 8 8 8 8 ...
+ $ CalWatHU      : Factor w/ 141 levels &quot;&quot;,&quot;ADOBE&quot;,&quot;AHWAHNEE&quot;,..: 30 30 93 93 91 91 91 91 91 91 ...
+ $ CalWatHA      : Factor w/ 399 levels &quot;&quot;,&quot;Academy&quot;,&quot;Agua Hedionda&quot;,..: 250 250 354 354 356 356 356 356 356 356 ...
+ $ CalWatHSA     : Factor w/ 712 levels &quot;&quot;,&quot;Academy&quot;,&quot;Acton&quot;,..: 462 462 636 636 523 523 523 523 523 523 ...
+ $ CalWatNo      : int  654110 654110 653550 653550 654400 654400 654400 654400 654400 654400 ...
+ $ NHDCOMID      : int  145015234 145015234 145014549 145014560 NA NA NA NA NA NA ...
+ $ NHDComMeas    : num  17.1 17.1 85.1 43.3 NA ...
+ $ LLID          : num  NA NA 1.21e+12 1.22e+12 1.22e+12 ...
+ $ BegFt         : int  NA NA 9548 471075 127165 3823 7519 12052 12856 10628 ...
+ $ Route         : Factor w/ 881 levels &quot;&quot;,&quot; &quot;,&quot; A109&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ PostMile      : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ DivOper       : Factor w/ 4 levels &quot;&quot;,&quot;No&quot;,&quot;Unknown&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ DivMobile     : Factor w/ 3 levels &quot;&quot;,&quot;No&quot;,&quot;Yes&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+ $ Updated       : Factor w/ 465 levels &quot;&quot;,&quot;2006-01-01T00:00:00.000Z&quot;,..: 192 192 192 192 192 192 192 192 192 192 ...
+ $ Source        : Factor w/ 448 levels &quot;&quot;,&quot; 5C&quot;,&quot; 5C, AR, DFG&quot;,..: 251 251 251 251 251 251 251 251 251 251 ...
+ $ WebLegend     : Factor w/ 10 levels &quot;Natural Partial Barrier&quot;,..: 10 10 10 10 10 10 10 10 10 10 ...
+ $ Point_X       : num  -121 -121 -121 -121 -122 ...
+ $ Point_Y       : num  37.6 37.6 37.6 37.6 38 ...
+ $ Photo         : Factor w/ 3152 levels &quot;&quot;,&quot;http://map.dfg.ca.gov/photos/113/v1/DN_101_M00-45Outlet.jpg&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ Miles_Upst    : num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<div id="check-the-data" class="section level3">
-<h3>Check the data</h3>
+<div id="data-summary" class="section level3">
+<h3>Data Summary</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2xhc3MoYmlvc2RzNjkpXG5oZWFkKGJpb3NkczY5KVxudGFpbChiaW9zZHM2OSlcbnN0cihiaW9zZHM2OSlcbnN1bW1hcnkoYmlvc2RzNjkpXG5kaW0oYmlvc2RzNjkpXG5gYGAifQ== -->
-<pre class="r"><code>class(biosds69)
-head(biosds69)
-tail(biosds69)
-str(biosds69)
-summary(biosds69)
-dim(biosds69)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShiaW9zZHM2OSlcblxuYGBgIn0= -->
+<pre class="r"><code>summary(biosds69)
+</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgw68uLlggICAgICAgICAgICAgIFkgICAgICAgICAgICBPQkpFQ1RJRCAgICAgICAgIFBBRF9JRCAgICAgIFxuIE1pbi4gICA6LTEyNC40ICAgTWluLiAgIDozMi41NiAgIE1pbi4gICA6ICAgIDEgICBNaW4uICAgOjcwMDAwMSAgXG4gMXN0IFF1LjotMTIyLjkgICAxc3QgUXUuOjM3LjE5ICAgMXN0IFF1LjogNjM2MCAgIDFzdCBRdS46NzA2NzUyICBcbiBNZWRpYW4gOi0xMjEuOCAgIE1lZGlhbiA6MzguMjggICBNZWRpYW4gOjEyNzIwICAgTWVkaWFuIDo3MTk1MDkgIFxuIE1lYW4gICA6LTEyMS43ICAgTWVhbiAgIDozOC4yNSAgIE1lYW4gICA6MTI3MjAgICBNZWFuICAgOjcyNzc1MCAgXG4gM3JkIFF1LjotMTIwLjggICAzcmQgUXUuOjM5Ljg4ICAgM3JkIFF1LjoxOTA4MCAgIDNyZCBRdS46NzU4NDc4ICBcbiBNYXguICAgOi0xMTQuMSAgIE1heC4gICA6NDIuOTggICBNYXguICAgOjI1NDM5ICAgTWF4LiAgIDo3NjQ5MzEgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gICBQYXNzYWdlSUQgICAgICAgICAgICAgICAgICBTdHJlYW1OYW1lICAgXG4gTWluLiAgIDogICAgIDYgICBVbm5hbWVkICAgICAgICAgIDogNDgzNyAgXG4gMXN0IFF1LjogIDgxMzggICAgICAgICAgICAgICAgICAgIDogMTM4OSAgXG4gTWVkaWFuIDogMjYxMDIgICBTYWNyYW1lbnRvIFJpdmVyIDogIDg4NiAgXG4gTWVhbiAgIDoxMjk1ODggICAgICAgICAgICAgICAgICAgIDogIDg3MCAgXG4gM3JkIFF1Ljo0MDAzNjAgICBTYW4gSm9hcXVpbiBSaXZlcjogIDUxMiAgXG4gTWF4LiAgIDo0MTM2MDQgICBUcmluaXR5IFJpdmVyICAgIDogIDIyMyAgXG4gICAgICAgICAgICAgICAgICAoT3RoZXIpICAgICAgICAgIDoxNjcyMiAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIFRyaWJ1dGFyeVQgICAgICAgICAgICAgICAgU2l0ZU5hbWUgICAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOiA1MDI2ICAgUHVtcCAgICAgICAgICAgIDogIDQ4MyAgXG4gUGFjaWZpYyBPY2VhbiAgICAgICAgICAgICAgICAgICAgOiAyMTg4ICAgQ3VsdmVydCAgICAgICAgIDogIDM2NiAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOiAxOTg1ICAgSHd5IDEgWGluZyAgICAgIDogIDMzNSAgXG4gU2FjcmFtZW50byBSaXZlciAgICAgICAgICAgICAgICAgOiAxMDQ2ICAgQ2VudHJpZnVnYWwgUHVtcDogIDMyNSAgXG4gUGFjaWZpYyBPY2VhbiAoU2FuIEZyYW5jaXNjbyBCYXkpOiAgODcwICAgSHd5IDEwMSBYaW5nICAgIDogIDI4MCAgXG4gU2FuIEpvYXF1aW4gUml2ZXIgICAgICAgICAgICAgICAgOiAgODQwICAgSHd5IDI5OSBYaW5nICAgIDogIDI3NyAgXG4gKE90aGVyKSAgICAgICAgICAgICAgICAgICAgICAgICAgOjEzNDg0ICAgKE90aGVyKSAgICAgICAgIDoyMzM3MyAgXG4gICAgICAgICAgICAgICAgICAgICBTaXRlVHlwZSAgICAgICAgICAgICBCYXJTdGF0dXMgICBcbiBSb2FkIGNyb3NzaW5nICAgICAgICAgICA6MTI0NjggICBVbmFzc2Vzc2VkICAgOjY4NDcgIFxuIERpdmVyc2lvbiAgICAgICAgICAgICAgIDogNTY3NSAgIFVuc2NyZWVuZWQgICA6NDk1OSAgXG4gRGFtICAgICAgICAgICAgICAgICAgICAgOiAzMjk5ICAgVW5rbm93biAgICAgIDozODMxICBcbiBOb24tc3RydWN0dXJhbCAgICAgICAgICA6IDI4MDkgICBUb3RhbCAgICAgICAgOjMzNDQgIFxuIExvZyBEZWJyaXMgQWNjdW11bGF0aW9uczogIDQwMyAgIE5vdCBhIGJhcnJpZXI6MjM0NyAgXG4gR3JhZGUgY29udHJvbCAgICAgICAgICAgOiAgMTcyICAgUGFydGlhbCAgICAgIDoxNzQyICBcbiAoT3RoZXIpICAgICAgICAgICAgICAgICA6ICA2MTMgICAoT3RoZXIpICAgICAgOjIzNjkgIFxuICAgICAgICAgICAgICAgICAgICAgICBTcGVjaWVzQmxvY2tlZCAgTnVtU3RydWN0dXJlcyAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICA6MTkwMzEgICBNaW4uICAgOjAuMDAwICBcbiBNdWx0aXBsZSBBbmFkcm9tb3VzIFNhbG1vbmlkczogNDQ4MyAgIDFzdCBRdS46MS4wMDAgIFxuIG5vbiBhbmFkcm9tb3VzICAgICAgICAgICAgICAgOiAgNzU1ICAgTWVkaWFuIDoxLjAwMCAgXG4gU3RlZWxoZWFkICAgICAgICAgICAgICAgICAgICA6ICA3NDEgICBNZWFuICAgOjEuMTM3ICBcbiBSYWluYm93IFRyb3V0ICAgICAgICAgICAgICAgIDogIDI0OCAgIDNyZCBRdS46MS4wMDAgIFxuIENvaG8gc2FsbW9uICAgICAgICAgICAgICAgICAgOiAgIDY1ICAgTWF4LiAgIDo4LjAwMCAgXG4gKE90aGVyKSAgICAgICAgICAgICAgICAgICAgICA6ICAxMTYgICBOQSdzICAgOjI0MTc2ICBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUHJvdG9jb2wgICBcbiBQcm9mZXNzaW9uYWwgSnVkZ2VtZW50ICAgICAgICAgIDo2NTM4ICBcbiBGaWVsZCBTdXJ2ZXkgICAgICAgICAgICAgICAgICAgIDo2MTkxICBcbiBHSVMgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDo1MzAyICBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDoyMjIzICBcbiBDYWx0cmFucyBSZWNvbm5haXNzYW5jZSBQcm90b2NvbDoxNTk3ICBcbiBGaXNoWGluZyBTb2Z0d2FyZSAgICAgICAgICAgICAgIDogOTk3ICBcbiAoT3RoZXIpICAgICAgICAgICAgICAgICAgICAgICAgIDoyNTkxICBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQXNzZXNzZWRCeSAgICAgU3VydmV5RGF0ZSAgIFxuIENhbGlmb3JuaWEgRGVwYXJ0bWVudCBvZiBGaXNoIGFuZCBXaWxkbGlmZTo4NjQyICAgICAgICAgIDogNzk5MiAgXG4gUGFjaWZpYyBTdGF0ZXMgTWFyaW5lIEZpc2hlcmllcyBDb21taXNzaW9uOjQ5MTIgICAyMDAyICAgOiAyMzM2ICBcbiBDYWxpZm9ybmlhIERlcGFydG1lbnQgb2YgV2F0ZXIgUmVzb3VyY2VzICA6MTg1OSAgIDIwMDMgICA6IDEyNzcgIFxuIEhEUiBFbmdpbmVlcmluZywgSW5jLiAgICAgICAgICAgICAgICAgICAgIDoxNTAwICAgMjAwNSAgIDogIDk1NyAgXG4gVS5TLiBGb3Jlc3QgU2VydmljZSAgICAgICAgICAgICAgICAgICAgICAgOjEyNzcgICAyMDA3ICAgOiAgNzc5ICBcbiBSb3NzIFRheWxvciBhbmQgQXNzb2NpYXRlcyAgICAgICAgICAgICAgICA6MTI0OSAgIDIwMDEgICA6ICA3MDggIFxuIChPdGhlcikgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDo2MDAwICAgKE90aGVyKToxMTM5MCAgXG4gICAgIFRydFN0YXR1cyAgICAgICBZclRyZWF0ZWQgICAgXG4gICAgICAgICAgOjE1NTY1ICAgTWluLiAgIDoxOTU0ICAgXG4gVW5rbm93biAgOiA4MzczICAgMXN0IFF1LjoyMDAzICAgXG4gQ29tcGxldGVkOiAgOTg3ICAgTWVkaWFuIDoyMDA3ICAgXG4gUGxhbm5lZCAgOiAgMzMyICAgTWVhbiAgIDoyMDA3ICAgXG4gT25nb2luZyAgOiAgIDUzICAgM3JkIFF1LjoyMDEyICAgXG4gUHJvcG9zZWQgOiAgIDQ4ICAgTWF4LiAgIDoyMDE4ICAgXG4gKE90aGVyKSAgOiAgIDgxICAgTkEncyAgIDoyNDU5NiAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFRyZWF0ZWRCeSAgICBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA6MjQ0OTMgIFxuIE5vdCBzcGVjaWZpZWQgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDogIDU4NiAgXG4gQ291bnR5IG9mIFNhbnRhIENydXogICAgICAgICAgICAgICAgICAgICAgOiAgIDg0ICBcbiBVLlMuIEZvcmVzdCBTZXJ2aWNlICAgICAgICAgICAgICAgICAgICAgICA6ICAgNjYgIFxuIFUuUy4gRmlzaCBhbmQgV2lsZGxpZmUgU2VydmljZSAgICAgICAgICAgIDogICA0MSAgXG4gQ2FsaWZvcm5pYSBEZXBhcnRtZW50IG9mIEZpc2ggYW5kIFdpbGRsaWZlOiAgIDM1ICBcbiAoT3RoZXIpICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA6ICAxMzQgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFN0cnVjdE93bmVyICBcbiBDYWxpZm9ybmlhIERlcGFydG1lbnQgb2YgVHJhbnNwb3J0YXRpb246ODE5OCAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOjc0MjQgIFxuIFByaXZhdGUgbGFuZG93bmVyKHMpIChub24tY29ycG9yYXRlKSAgIDoyMTU4ICBcbiBOL0EgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA6MTQyMSAgXG4gTXVsdGlwbGUgT3duZXJzICAgICAgICAgICAgICAgICAgICAgICAgOjExNzAgIFxuIFUuUy4gRm9yZXN0IFNlcnZpY2UgICAgICAgICAgICAgICAgICAgIDoxMDE2ICBcbiAoT3RoZXIpICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA6NDA1MiAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTGFuZE93bmVyICAgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOjIwNjMyICBcbiBOL0EgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDogMjMwMSAgXG4gVS5TLiBGb3Jlc3QgU2VydmljZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA6ICA4NTAgIFxuIFByaXZhdGUgbGFuZG93bmVyKHMpIChub24tY29ycG9yYXRlKSAgICAgICAgICAgICAgOiAgMjkzICBcbiBVLlMuIEZvcmVzdCBTZXJ2aWNlIFNoYXN0YS1UcmluaXR5IE5hdGlvbmFsIEZvcmVzdDogIDE3MyAgXG4gTWVuZG9jaW5vIFJlZHdvb2QgQ29tcGFueSAgICAgICAgICAgICAgICAgICAgICAgICA6ICAxNjYgIFxuIChPdGhlcikgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOiAxMDI0ICBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTm90ZXMgICAgICBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOjEwNzU4ICBcbiBFc3RpbWF0ZWQgaGlnaHdheSB4aW5nLiBUaGUgeGluZyBuZWVkcyB2ZXJpZmljYXRpb24gYW5kIGEgZmlzaCBwYXNzYWdlIGFzc2Vzc21lbnQuICAgOiAzMzYxICBcbiBSZXF1aXJlcyBhIGRldGFpbGVkIHN1cnZleSBwZXIgdGhlIHJlc3VsdHMgb2YgdGhlIGZpcnN0LXBhc3MgKHJlY29ubmFpc3NhbmNlKSBzdXJ2ZXkuOiAgMTg5ICBcbiBEZXJpdmVkIGZyb20gQ2FsVHJhbnMgR0lTIGxheWVyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOiAgMTU5ICBcbiBTaXBob24gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOiAgIDk3ICBcbiBDaXJjdWxhciAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOiAgIDg2ICBcbiAoT3RoZXIpICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOjEwNzg5ICBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEZpc2hXYXlUeXBlICAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA6MjQ1MjggIFxuIE5vbmUgKEZpc2h3YXkga25vd24gdG8gYmUgYWJzZW50KSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOiAgMzUxICBcbiBEb3duc3RyZWFtIGJ5cGFzcyBzeXN0ZW0gKEd1aWRhbmNlIG5ldCwgVHVyYmluZSBpbnRha2Ugc2NyZWVuLCBMb3V2ZXJzLCBCYXIgcmFja3MsIEJ5cGFzcyBwaXBlL2NoYW5uZWwsIGNodXRlL3NsdWljZXdheSwgU3VyZmFjZSBjb2xsZWN0b3IsIERpdmVyc2lvbiByZXR1cm4gcGlwZS9jaGFubmVsKTogIDIzNiAgXG4gUG9vbCBhbmQgd2VpciAoUG9vbCBhbmQgd2VpciB3aXRob3V0IG9yaWZpY2UsIFBvb2wgYW5kIHdlaXIgd2l0aCBvcmlmaWNlLCBQb29sIGFuZCB3ZWlyIGJlbG93IGN1bHZlcnQpICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA6ICAgODAgIFxuIFVuc3BlY2lmaWVkIGZpc2h3YXkgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOiAgIDc0ICBcbiBDdWx2ZXJ0IGlzIGRlc2lnbmVkIGZvciBmaXNoIHBhc3NhZ2UgKEN1bHZlcnQgd2l0aCBiYWZmbGVzIG9yIG90aGVyd2lzZSBkZXNpZ25lZCBmb3IgaW1wcm92ZWQgZmlzaCBwYXNzYWdlLCBDdWx2ZXJ0IHdpdGggcm91Z2hlbmVkIGNoYW5uZWwgaW5zaWRlLCBldGMuKSAgICAgICAgICAgICAgICAgIDogICA2OCAgXG4gKE90aGVyKSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA6ICAxMDIgIFxuICAgICAgICAgICAgICAgICAgICAgICAgIEZpc2hXYXlTdGF0dXMgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA6MjQ4MjQgIFxuIEJhcnJpZXIgaGFzIG5vIGtub3duIGZpc2h3YXkgICA6ICAyOTggIFxuIFByZXNlbnQsIHN0YXR1cyB1bmtub3duICAgICAgICA6ICAxMzMgIFxuIEZpc2h3YXkgcHJlc2VudCBidXQgbmVlZHMgd29yayA6ICAgNzggIFxuIEZpc2h3YXkgcHJlc2VudCBhbmQgZnVuY3Rpb25pbmc6ICAgNjcgIFxuIFVua25vd24gICAgICAgICAgICAgICAgICAgICAgICA6ICAgMzEgIFxuIChPdGhlcikgICAgICAgICAgICAgICAgICAgICAgICA6ICAgIDggIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVHJ0UmVjb20gICAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOjIzMzE4ICBcbiBObyByZWNvbW1lbmRlZCBhY3Rpb24gZm9yIHRoaXMgbmF0dXJhbCBmZWF0dXJlLiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA6ICAgNTYgIFxuIFNpdGVDb21tZW50cyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDogICA1MiAgXG4gTmVlZHMgc2NyZWVuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOiAgIDUxICBcbiBBZGRpdGlvbmFsIHN1cnZleWluZyBlZmZvcnRzIHNob3VsZCBiZSBjb25kdWN0ZWQgdG8gYWNjdXJhdGVseSBkZXRlcm1pbmUgdGhlIHNwZWNpZmljIG5hdHVyYWwgdXBzdHJlYW0gbGltaXQgdG8gc3RlZWxoZWFkIG1pZ3JhdGlvbi46ICAgMjYgIFxuIERlbW9saXNoICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDogICAyMiAgXG4gKE90aGVyKSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOiAxOTE0ICBcbiAgICAgICAgICAgICBXYXRlcnNoZWQgICAgICAgICAgICAgICBDb3VudHkgICAgIFxuIFNhbiBKb2FxdWluIERlbHRhOiAxMzk5ICAgSHVtYm9sZHQgICAgIDogMTkzNyAgXG4gUnVzc2lhbiAgICAgICAgICA6IDExNTYgICBTYW4gSm9hcXVpbiAgOiAxNzQwICBcbiBNYWQtUmVkd29vZCAgICAgIDogIDkxNSAgIE1lbmRvY2lubyAgICA6IDE1MjAgIFxuIFNhbiBQYWJsbyBCYXkgICAgOiAgOTE0ICAgU29ub21hICAgICAgIDogMTI0MSAgXG4gTG93ZXIgU2FjcmFtZW50byA6ICA4ODggICBTYW50YSBCYXJiYXJhOiAxMTc5ICBcbiBUcmluaXR5ICAgICAgICAgIDogIDgwOCAgIFRyaW5pdHkgICAgICA6IDExNzEgIFxuIChPdGhlcikgICAgICAgICAgOjE5MzU5ICAgKE90aGVyKSAgICAgIDoxNjY1MSAgXG4gICAgICAgICAgICAgIENhbFdhdEhSICAgICAgICAgICAgICAgICBDYWxXYXRIVSAgICBcbiBOb3J0aCBDb2FzdCAgICAgIDo3MzE5ICAgU0FOIEpPQVFVSU4gREVMVEE6IDE1NDkgIFxuIFNhY3JhbWVudG8gUml2ZXIgOjQ2ODEgICBLTEFNQVRIIFJJVkVSICAgIDogMTM1NiAgXG4gU2FuIEpvYXF1aW4gICAgICA6NDA4OCAgIFRSSU5JVFkgUklWRVIgICAgOiAxMjIzICBcbiBDZW50cmFsIENvYXN0ICAgIDozNDExICAgUlVTU0lBTiBSSVZFUiAgICA6IDExNTYgIFxuIFNhbiBGcmFuY2lzY28gQmF5OjI4ODEgICBFRUwgUklWRVIgICAgICAgIDogMTA3MiAgXG4gU291dGggQ29hc3QgICAgICA6MjA3MiAgIFNBQ1JBTUVOVE8gREVMVEEgOiAgOTM1ICBcbiAoT3RoZXIpICAgICAgICAgIDogOTg3ICAgKE90aGVyKSAgICAgICAgICA6MTgxNDggIFxuICAgICAgICAgICAgICAgICBDYWxXYXRIQSAgICAgICAgICAgICAgICAgQ2FsV2F0SFNBICAgIFxuIHVuZGVmaW5lZCAgICAgICAgICAgOiAzNjAwICAgU0FOIEpPQVFVSU4gREVMVEE6IDE1NDkgIFxuIFNhbnRhIENydXogICAgICAgICAgOiAgNjIwICAgU0FDUkFNRU5UTyBERUxUQSA6ICA5MzUgIFxuIE1pZGRsZSBSdXNzaWFuIFJpdmVyOiAgNTM4ICAgRVVSRUtBIFBMQUlOICAgICA6ICA0NTMgIFxuIE1pZGRsZSBLbGFtYXRoIFJpdmVyOiAgNTA4ICAgTmFwYSBSaXZlciAgICAgICA6ICAzNTcgIFxuIEZhaXJmaWVsZCAgICAgICAgICAgOiAgNDc5ICAgU2FuIExvcmVuem8gICAgICA6ICAzNDYgIFxuIExvd2VyIFRyaW5pdHkgUml2ZXIgOiAgNDI3ICAgVWtpYWggICAgICAgICAgICA6ICAzMjAgIFxuIChPdGhlcikgICAgICAgICAgICAgOjE5MjY3ICAgKE90aGVyKSAgICAgICAgICA6MjE0NzkgIFxuICAgIENhbFdhdE5vICAgICAgICAgIE5IRENPTUlEICAgICAgICAgICBOSERDb21NZWFzICAgICAgIFxuIE1pbi4gICA6IDExMDEwMCAgIE1pbi4gICA6ICAgICAgICAwICAgTWluLiAgIDowLjAwMGUrMDAgIFxuIDFzdCBRdS46IDExMTQxMSAgIDFzdCBRdS46IDQxNjY5NDY2ICAgMXN0IFF1LjoxLjMwMGUrMDEgIFxuIE1lZGlhbiA6IDMzMTQyMCAgIE1lZGlhbiA6MTEwMTc3NDExICAgTWVkaWFuIDozLjcwMGUrMDEgIFxuIE1lYW4gICA6IDM3MzY4MCAgIE1lYW4gICA6IDkzOTYyODc5ICAgTWVhbiAgIDoxLjU2MGUrMDggIFxuIDNyZCBRdS46IDU1MTkxMSAgIDNyZCBRdS46MTI5OTI3MjI0ICAgM3JkIFF1Ljo2LjgwMGUrMDEgIFxuIE1heC4gICA6MTA3MjcwMCAgIE1heC4gICA6NzEyMjYxMzAzICAgTWF4LiAgIDozLjQ1OWUrMTIgIFxuIE5BJ3MgICA6MjIyICAgICAgIE5BJ3MgICA6MzQ0MSAgICAgICAgTkEncyAgIDozMjY1ICAgICAgIFxuICAgICAgTExJRCAgICAgICAgICAgICAgIEJlZ0Z0ICAgICAgICAgICAgIFJvdXRlICAgICAgICAgIFBvc3RNaWxlICAgICBcbiBNaW4uICAgOjAuMDAwZSswMCAgIE1pbi4gICA6ICAgICAgMCAgICAgICAgICA6MTYwOTcgICBNaW4uICAgOiAgMC4wMCAgXG4gMXN0IFF1LjoxLjIxNWUrMTIgICAxc3QgUXUuOiAgIDMyNjUgICAxMDEgICAgOiAgOTMzICAgMXN0IFF1LjogIDYuMzAgIFxuIE1lZGlhbiA6MS4yMTllKzEyICAgTWVkaWFuIDogIDEzNjA3ICAgMSAgICAgIDogIDg5NiAgIE1lZGlhbiA6IDE3LjUzICBcbiBNZWFuICAgOjEuMjIwZSsxMiAgIE1lYW4gICA6ICA5MjA4NCAgIDUgICAgICA6ICA0NDIgICBNZWFuICAgOiAyNi42MSAgXG4gM3JkIFF1LjoxLjIzMWUrMTIgICAzcmQgUXUuOiAgNjU0ODQgICAyOTkgICAgOiAgMzY4ICAgM3JkIFF1LjogMzUuNDAgIFxuIE1heC4gICA6MS4yNDRlKzEyICAgTWF4LiAgIDoxNjg4MDU2ICAgOTYgICAgIDogIDM0NCAgIE1heC4gICA6MjY3LjI3ICBcbiBOQSdzICAgOjEyMTY3ICAgICAgIE5BJ3MgICA6MTE5ODkgICAgIChPdGhlcik6IDYzNTkgICBOQSdzICAgOjE2NDUyICAgXG4gICAgRGl2T3BlciAgICAgIERpdk1vYmlsZSAgICAgICAgICAgICAgICAgICAgICAgVXBkYXRlZCAgICBcbiAgICAgICAgOjI0MzI1ICAgICAgOjI0MjcxICAgMjAxMy0wMS0xOFQwMDowMDowMC4wMDBaOjQ1MjkgIFxuIE5vICAgICA6ICAyNDggICBObyA6ICA4NjQgICAyMDEzLTEyLTE3VDAwOjAwOjAwLjAwMFo6NDM4NyAgXG4gVW5rbm93bjogIDEyNyAgIFllczogIDMwNCAgIDIwMTctMDctMDVUMDA6MDA6MDAuMDAwWjoxOTE4ICBcbiBZZXMgICAgOiAgNzM5ICAgICAgICAgICAgICAgMjAxMy0wMS0xN1QwMDowMDowMC4wMDBaOjE5MTcgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAyMDA2LTAxLTAxVDAwOjAwOjAwLjAwMFo6MTkxMiAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIDIwMTgtMDItMjdUMDA6MDA6MDAuMDAwWjoxNjc1ICBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKE90aGVyKSAgICAgICAgICAgICAgICAgOjkxMDEgIFxuICAgICAgIFNvdXJjZSAgICAgICAgICAgICAgICAgICAgICBXZWJMZWdlbmQgICAgICAgUG9pbnRfWCAgICAgIFxuICAgICAgICAgIDo3NTM4ICAgVW5hc3Nlc3NlZCAgICAgICAgICAgIDo2ODQ3ICAgTWluLiAgIDotMTI0LjQgIFxuICBERkcgICAgIDo3MzI4ICAgVW5zY3JlZW5lZCBEaXZlcnNpb24gIDo0OTU5ICAgMXN0IFF1LjotMTIyLjkgIFxuICBDYWx0cmFuczoxODU1ICAgVW5rbm93biBQYXNzYWdlIFN0YXR1czozOTU5ICAgTWVkaWFuIDotMTIxLjggIFxuICBSVEEgICAgIDoxMDUwICAgUGFydGlhbCBCYXJyaWVyICAgICAgIDoyNDU3ICAgTWVhbiAgIDotMTIxLjcgIFxuICBVU0FDRSAgIDogOTkwICAgTm90IGEgQmFycmllciAgICAgICAgIDoyMzQ5ICAgM3JkIFF1LjotMTIwLjggIFxuICBDRFdSICAgIDogNjc5ICAgVG90YWwgQmFycmllciAgICAgICAgIDoyMDE0ICAgTWF4LiAgIDotMTE0LjEgIFxuIChPdGhlcikgIDo1OTk5ICAgKE90aGVyKSAgICAgICAgICAgICAgIDoyODU0ICAgICAgICAgICAgICAgICAgIFxuICAgIFBvaW50X1kgICAgIFxuIE1pbi4gICA6MzIuNTYgIFxuIDFzdCBRdS46MzcuMTkgIFxuIE1lZGlhbiA6MzguMjggIFxuIE1lYW4gICA6MzguMjUgIFxuIDNyZCBRdS46MzkuODggIFxuIE1heC4gICA6NDIuOTggIFxuICAgICAgICAgICAgICAgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBob3RvICAgICAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOjIyMjczICBcbiBodHRwOi8vbWFwLmRmZy5jYS5nb3YvcGhvdG9zLzY5LzIxLmpwZyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA6ICAgIDQgIFxuIGh0dHA6Ly9tYXAuZGZnLmNhLmdvdi9waG90b3MvNjkvUEFEMTAwNi5qcGcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDogICAgMyAgXG4gaHR0cDovL21hcC5kZmcuY2EuZ292L3Bob3Rvcy8xMTMvdjEvSFVNXzEwMV9NMTM2LTM2T3V0bGV0KGFsc29PdXRsZXR0bzEzNi0yMykuanBnOiAgICAyICBcbiBodHRwOi8vbWFwLmRmZy5jYS5nb3YvcGhvdG9zLzY5LzEzMi5qcGcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA6ICAgIDIgIFxuIGh0dHA6Ly9tYXAuZGZnLmNhLmdvdi9waG90b3MvNjkvMi5qcGcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDogICAgMiAgXG4gKE90aGVyKSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOiAzMTUzICBcbiAgIE1pbGVzX1Vwc3QgICAgIFxuIE1pbi4gICA6ICAwLjAwMCAgXG4gMXN0IFF1LjogIDAuMTA4ICBcbiBNZWRpYW4gOiAgMC43MDAgIFxuIE1lYW4gICA6ICAzLjE0OCAgXG4gM3JkIFF1LjogIDIuMDAwICBcbiBNYXguICAgOjE2OS45MjIgIFxuIE5BJ3MgICA6MjQ2MDYgICAgXG4ifQ== -->
+<pre><code>      ï..X              Y            OBJECTID         PAD_ID      
+ Min.   :-124.4   Min.   :32.56   Min.   :    1   Min.   :700001  
+ 1st Qu.:-122.9   1st Qu.:37.19   1st Qu.: 6360   1st Qu.:706752  
+ Median :-121.8   Median :38.28   Median :12720   Median :719509  
+ Mean   :-121.7   Mean   :38.25   Mean   :12720   Mean   :727750  
+ 3rd Qu.:-120.8   3rd Qu.:39.88   3rd Qu.:19080   3rd Qu.:758478  
+ Max.   :-114.1   Max.   :42.98   Max.   :25439   Max.   :764931  
+                                                                  
+   PassageID                  StreamName   
+ Min.   :     6   Unnamed          : 4837  
+ 1st Qu.:  8138                    : 1389  
+ Median : 26102   Sacramento River :  886  
+ Mean   :129588                    :  870  
+ 3rd Qu.:400360   San Joaquin River:  512  
+ Max.   :413604   Trinity River    :  223  
+                  (Other)          :16722  
+                             TributaryT                SiteName    
+                                  : 5026   Pump            :  483  
+ Pacific Ocean                    : 2188   Culvert         :  366  
+                                  : 1985   Hwy 1 Xing      :  335  
+ Sacramento River                 : 1046   Centrifugal Pump:  325  
+ Pacific Ocean (San Francisco Bay):  870   Hwy 101 Xing    :  280  
+ San Joaquin River                :  840   Hwy 299 Xing    :  277  
+ (Other)                          :13484   (Other)         :23373  
+                     SiteType             BarStatus   
+ Road crossing           :12468   Unassessed   :6847  
+ Diversion               : 5675   Unscreened   :4959  
+ Dam                     : 3299   Unknown      :3831  
+ Non-structural          : 2809   Total        :3344  
+ Log Debris Accumulations:  403   Not a barrier:2347  
+ Grade control           :  172   Partial      :1742  
+ (Other)                 :  613   (Other)      :2369  
+                       SpeciesBlocked  NumStructures  
+                              :19031   Min.   :0.000  
+ Multiple Anadromous Salmonids: 4483   1st Qu.:1.000  
+ non anadromous               :  755   Median :1.000  
+ Steelhead                    :  741   Mean   :1.137  
+ Rainbow Trout                :  248   3rd Qu.:1.000  
+ Coho salmon                  :   65   Max.   :8.000  
+ (Other)                      :  116   NA's   :24176  
+                             Protocol   
+ Professional Judgement          :6538  
+ Field Survey                    :6191  
+ GIS                             :5302  
+                                 :2223  
+ Caltrans Reconnaissance Protocol:1597  
+ FishXing Software               : 997  
+ (Other)                         :2591  
+                                      AssessedBy     SurveyDate   
+ California Department of Fish and Wildlife:8642          : 7992  
+ Pacific States Marine Fisheries Commission:4912   2002   : 2336  
+ California Department of Water Resources  :1859   2003   : 1277  
+ HDR Engineering, Inc.                     :1500   2005   :  957  
+ U.S. Forest Service                       :1277   2007   :  779  
+ Ross Taylor and Associates                :1249   2001   :  708  
+ (Other)                                   :6000   (Other):11390  
+     TrtStatus       YrTreated    
+          :15565   Min.   :1954   
+ Unknown  : 8373   1st Qu.:2003   
+ Completed:  987   Median :2007   
+ Planned  :  332   Mean   :2007   
+ Ongoing  :   53   3rd Qu.:2012   
+ Proposed :   48   Max.   :2018   
+ (Other)  :   81   NA's   :24596  
+                                      TreatedBy    
+                                           :24493  
+ Not specified                             :  586  
+ County of Santa Cruz                      :   84  
+ U.S. Forest Service                       :   66  
+ U.S. Fish and Wildlife Service            :   41  
+ California Department of Fish and Wildlife:   35  
+ (Other)                                   :  134  
+                                  StructOwner  
+ California Department of Transportation:8198  
+                                        :7424  
+ Private landowner(s) (non-corporate)   :2158  
+ N/A                                    :1421  
+ Multiple Owners                        :1170  
+ U.S. Forest Service                    :1016  
+ (Other)                                :4052  
+                                              LandOwner    
+                                                   :20632  
+ N/A                                               : 2301  
+ U.S. Forest Service                               :  850  
+ Private landowner(s) (non-corporate)              :  293  
+ U.S. Forest Service Shasta-Trinity National Forest:  173  
+ Mendocino Redwood Company                         :  166  
+ (Other)                                           : 1024  
+                                                                                   Notes      
+                                                                                      :10758  
+ Estimated highway xing. The xing needs verification and a fish passage assessment.   : 3361  
+ Requires a detailed survey per the results of the first-pass (reconnaissance) survey.:  189  
+ Derived from CalTrans GIS layer                                                      :  159  
+ Siphon                                                                               :   97  
+ Circular                                                                             :   86  
+ (Other)                                                                              :10789  
+                                                                                                                                                                     FishWayType   
+                                                                                                                                                                           :24528  
+ None (Fishway known to be absent)                                                                                                                                         :  351  
+ Downstream bypass system (Guidance net, Turbine intake screen, Louvers, Bar racks, Bypass pipe/channel, chute/sluiceway, Surface collector, Diversion return pipe/channel):  236  
+ Pool and weir (Pool and weir without orifice, Pool and weir with orifice, Pool and weir below culvert)                                                                    :   80  
+ Unspecified fishway                                                                                                                                                       :   74  
+ Culvert is designed for fish passage (Culvert with baffles or otherwise designed for improved fish passage, Culvert with roughened channel inside, etc.)                  :   68  
+ (Other)                                                                                                                                                                   :  102  
+                         FishWayStatus  
+                                :24824  
+ Barrier has no known fishway   :  298  
+ Present, status unknown        :  133  
+ Fishway present but needs work :   78  
+ Fishway present and functioning:   67  
+ Unknown                        :   31  
+ (Other)                        :    8  
+                                                                                                                                 TrtRecom    
+                                                                                                                                     :23318  
+ No recommended action for this natural feature.                                                                                     :   56  
+ SiteComments                                                                                                                        :   52  
+ Needs screen                                                                                                                        :   51  
+ Additional surveying efforts should be conducted to accurately determine the specific natural upstream limit to steelhead migration.:   26  
+ Demolish                                                                                                                            :   22  
+ (Other)                                                                                                                             : 1914  
+             Watershed               County     
+ San Joaquin Delta: 1399   Humboldt     : 1937  
+ Russian          : 1156   San Joaquin  : 1740  
+ Mad-Redwood      :  915   Mendocino    : 1520  
+ San Pablo Bay    :  914   Sonoma       : 1241  
+ Lower Sacramento :  888   Santa Barbara: 1179  
+ Trinity          :  808   Trinity      : 1171  
+ (Other)          :19359   (Other)      :16651  
+              CalWatHR                 CalWatHU    
+ North Coast      :7319   SAN JOAQUIN DELTA: 1549  
+ Sacramento River :4681   KLAMATH RIVER    : 1356  
+ San Joaquin      :4088   TRINITY RIVER    : 1223  
+ Central Coast    :3411   RUSSIAN RIVER    : 1156  
+ San Francisco Bay:2881   EEL RIVER        : 1072  
+ South Coast      :2072   SACRAMENTO DELTA :  935  
+ (Other)          : 987   (Other)          :18148  
+                 CalWatHA                 CalWatHSA    
+ undefined           : 3600   SAN JOAQUIN DELTA: 1549  
+ Santa Cruz          :  620   SACRAMENTO DELTA :  935  
+ Middle Russian River:  538   EUREKA PLAIN     :  453  
+ Middle Klamath River:  508   Napa River       :  357  
+ Fairfield           :  479   San Lorenzo      :  346  
+ Lower Trinity River :  427   Ukiah            :  320  
+ (Other)             :19267   (Other)          :21479  
+    CalWatNo          NHDCOMID           NHDComMeas       
+ Min.   : 110100   Min.   :        0   Min.   :0.000e+00  
+ 1st Qu.: 111411   1st Qu.: 41669466   1st Qu.:1.300e+01  
+ Median : 331420   Median :110177411   Median :3.700e+01  
+ Mean   : 373680   Mean   : 93962879   Mean   :1.560e+08  
+ 3rd Qu.: 551911   3rd Qu.:129927224   3rd Qu.:6.800e+01  
+ Max.   :1072700   Max.   :712261303   Max.   :3.459e+12  
+ NA's   :222       NA's   :3441        NA's   :3265       
+      LLID               BegFt             Route          PostMile     
+ Min.   :0.000e+00   Min.   :      0          :16097   Min.   :  0.00  
+ 1st Qu.:1.215e+12   1st Qu.:   3265   101    :  933   1st Qu.:  6.30  
+ Median :1.219e+12   Median :  13607   1      :  896   Median : 17.53  
+ Mean   :1.220e+12   Mean   :  92084   5      :  442   Mean   : 26.61  
+ 3rd Qu.:1.231e+12   3rd Qu.:  65484   299    :  368   3rd Qu.: 35.40  
+ Max.   :1.244e+12   Max.   :1688056   96     :  344   Max.   :267.27  
+ NA's   :12167       NA's   :11989     (Other): 6359   NA's   :16452   
+    DivOper      DivMobile                       Updated    
+        :24325      :24271   2013-01-18T00:00:00.000Z:4529  
+ No     :  248   No :  864   2013-12-17T00:00:00.000Z:4387  
+ Unknown:  127   Yes:  304   2017-07-05T00:00:00.000Z:1918  
+ Yes    :  739               2013-01-17T00:00:00.000Z:1917  
+                             2006-01-01T00:00:00.000Z:1912  
+                             2018-02-27T00:00:00.000Z:1675  
+                             (Other)                 :9101  
+       Source                      WebLegend       Point_X      
+          :7538   Unassessed            :6847   Min.   :-124.4  
+  DFG     :7328   Unscreened Diversion  :4959   1st Qu.:-122.9  
+  Caltrans:1855   Unknown Passage Status:3959   Median :-121.8  
+  RTA     :1050   Partial Barrier       :2457   Mean   :-121.7  
+  USACE   : 990   Not a Barrier         :2349   3rd Qu.:-120.8  
+  CDWR    : 679   Total Barrier         :2014   Max.   :-114.1  
+ (Other)  :5999   (Other)               :2854                   
+    Point_Y     
+ Min.   :32.56  
+ 1st Qu.:37.19  
+ Median :38.28  
+ Mean   :38.25  
+ 3rd Qu.:39.88  
+ Max.   :42.98  
+                
+                                                                               Photo      
+                                                                                  :22273  
+ http://map.dfg.ca.gov/photos/69/21.jpg                                           :    4  
+ http://map.dfg.ca.gov/photos/69/PAD1006.jpg                                      :    3  
+ http://map.dfg.ca.gov/photos/113/v1/HUM_101_M136-36Outlet(alsoOutletto136-23).jpg:    2  
+ http://map.dfg.ca.gov/photos/69/132.jpg                                          :    2  
+ http://map.dfg.ca.gov/photos/69/2.jpg                                            :    2  
+ (Other)                                                                          : 3153  
+   Miles_Upst     
+ Min.   :  0.000  
+ 1st Qu.:  0.108  
+ Median :  0.700  
+ Mean   :  3.148  
+ 3rd Qu.:  2.000  
+ Max.   :169.922  
+ NA's   :24606    </code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
@@ -307,7 +565,7 @@ dim(biosds69)</code></pre>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlN0YXQgMTI4IFByb2plY3QgUiBOb3RlYm9vayINCmF1dGhvcjogJ0RlYW4gQ2hpYW5nJw0KZGF0ZTogIkFwcmlsIDIyLCAyMDE5Ig0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KDQojIFN0YXQgMTI4IFNwcmluZyAyMDE5IFN0dWRlbnQgUHJvamVjdCBEY2hpYW5nDQoNCkRhdGEgc291cmNlDQoNCi0gWzIwIE1vc3QgUmVjZW50IFB1YmxpYyBCSU9TIERhdGEgTGF5ZXJzXShodHRwczovL3d3dy53aWxkbGlmZS5jYS5nb3YvRGF0YS9CSU9TL0xhdGVzdC1EYXRhc2V0cykNCi0gW0hUTUwgbWV0YWRhdGFdKGh0dHBzOi8vbWFwLmRmZy5jYS5nb3YvbWV0YWRhdGEvZHMwMDY5Lmh0bWwpIC0gYnV0IHRoaXMgZG93bmxvYWQgaXMgZm9yIGZpbGUgZ2VvZGF0YWJhc2UgYW5kIExZUiBmaWxlIG9ubHkNCi0gW0NOUkEgb3BlbiBkYXRhIHBhZ2VdKGh0dHBzOi8vZGF0YS5jbnJhLmNhLmdvdi9vcmdhbml6YXRpb24vY2FsaWZvcm5pYS1kZXBhcnRtZW50LW9mLWZpc2gtYW5kLXdpbGRsaWZlL3BvcnRhbC9kYXRhKQ0KLSBbQ0RGVyBBcmNHSVMgb3BlbiBkYXRhIHBhZ2VdKGh0dHA6Ly9kYXRhLWNkZncub3BlbmRhdGEuYXJjZ2lzLmNvbS9kYXRhc2V0cy9jYWxpZm9ybmlhLWZpc2gtcGFzc2FnZS1hc3Nlc3NtZW50LWRhdGFiYXNlLWRzNjktMSkgd2hlcmUgdGhlIGRhdGEgY2FuIGJlIGRvd25sb2FkZWQgYXMgc2hhcGVmaWxlICAoaW5jbHVkZSBkYmYpIG9yIGNzdi4NCi0gW2NzdiBkb3dubG9hZCBsaW5rXShodHRwOi8vZGF0YS1jZGZ3Lm9wZW5kYXRhLmFyY2dpcy5jb20vZGF0YXNldHMvMWRmOTBhOTVlNGMzNDhmMWJkMDYzMjZmZDk2Y2VkNzhfMCkNCi0gW09wZW4gRGF0YUdlb1NlcnZpY2VdKGh0dHBzOi8vdGlsZXMuYXJjZ2lzLmNvbS90aWxlcy9VcTlyODVQb3RxbTNNZlJWL2FyY2dpcy9yZXN0L3NlcnZpY2VzL2Jpb3NkczY5X2NtdS9NYXBTZXJ2ZXIvMC9xdWVyeT9vdXRGaWVsZHM9KiZ3aGVyZT0xJTNEMSkNCi0gW09wZW4gRGF0YSBHZW9KU09OXShodHRwczovL29wZW5kYXRhLmFyY2dpcy5jb20vZGF0YXNldHMvYjEwZjRkMzk5MzJmNGMxOGI2MTkwMDMwMzhjNjU4NWFfMC5nZW9qc29uKQ0KLSBbQUdPTCBGZWF0dXJlIExheWVyIGl0ZW1dKGh0dHBzOi8vd3d3LmFyY2dpcy5jb20vaG9tZS9pdGVtLmh0bWw/aWQ9MWRmOTBhOTVlNGMzNDhmMWJkMDYzMjZmZDk2Y2VkNzgpDQotIFtBR09MIEZlYXR1cmVTZXJ2ZXJdKGh0dHBzOi8vc2VydmljZXMyLmFyY2dpcy5jb20vVXE5cjg1UG90cW0zTWZSVi9hcmNnaXMvcmVzdC9zZXJ2aWNlcy9iaW9zZHM2OV9mbXUvRmVhdHVyZVNlcnZlci8wKQ0KLSBbQUdPTCBUaWxlIExheWVyIGl0ZW1dKGh0dHBzOi8vd3d3LmFyY2dpcy5jb20vaG9tZS9pdGVtLmh0bWw/aWQ9YjEwZjRkMzk5MzJmNGMxOGI2MTkwMDMwMzhjNjU4NWEpDQotIFtBR09MIENhY2hlZCBNYXBTZXJ2ZXJdKGh0dHBzOi8vdGlsZXMuYXJjZ2lzLmNvbS90aWxlcy9VcTlyODVQb3RxbTNNZlJWL2FyY2dpcy9yZXN0L3NlcnZpY2VzL2Jpb3NkczY5X2NtdS9NYXBTZXJ2ZXIpDQotIFtHZW8gc2VydmljZV0oaHR0cHM6Ly9zZXJ2aWNlczIuYXJjZ2lzLmNvbS9VcTlyODVQb3RxbTNNZlJWL2FyY2dpcy9yZXN0L3NlcnZpY2VzL2Jpb3NkczY5X2ZtdS9GZWF0dXJlU2VydmVyLzAvcXVlcnk/b3V0RmllbGRzPSomd2hlcmU9MSUzRDEpDQotIFtHZW9KU09OXShodHRwczovL29wZW5kYXRhLmFyY2dpcy5jb20vZGF0YXNldHMvMWRmOTBhOTVlNGMzNDhmMWJkMDYzMjZmZDk2Y2VkNzhfMC5nZW9qc29uKQ0KLSBEYXRhIGRvd25sb2FkZWQgYXMgW2Nzdl0oQzovVXNlcnMvZGNoaWFuZy9Eb3dubG9hZHMvQ2FsaWZvcm5pYV9GaXNoX1Bhc3NhZ2VfQXNzZXNzbWVudF9EYXRhYmFzZV9kczY5LmNzdikgYW5kIFtzaGFwZWZpbGVdKH4vRG93bmxvYWRzL0NhbGlmb3JuaWFfRmlzaF9QYXNzYWdlX0Fzc2Vzc21lbnRfRGF0YWJhc2VfZHM2OS56aXApDQoNCiMjIExvYWQgdGhlIERhdGEgZnJvbSB0aGUgSW50ZXJuZXQNCmBgYHtyfQ0KYmlvc2RzNjkgPC0gcmVhZC5jc3YoJ2h0dHBzOi8vb3BlbmRhdGEuYXJjZ2lzLmNvbS9kYXRhc2V0cy8xZGY5MGE5NWU0YzM0OGYxYmQwNjMyNmZkOTZjZWQ3OF8wLmNzdicpDQpWaWV3KGJpb3NkczY5KQ0KZGltKGJpb3NkczY5KQ0KYGBgDQoNCiMjIERvd25sb2FkIGFuZCBJbXBvcnQgRGF0YSBGaWxlDQpgYGB7cn0NCmxpYnJhcnkocmVhZHIpDQojIGJpb3NkczY5IDwtIHJlYWRfY3N2KCJDOi9Vc2Vycy9kY2hpYW5nL0Rvd25sb2Fkcy9iaW9zZHM2OS5jc3YiKQ0KVmlldyhiaW9zZHM2OSkNCg0KYGBgDQoNCiMjIyBDaGVjayB0aGUgZGF0YQ0KYGBge3J9DQpjbGFzcyhiaW9zZHM2OSkNCmhlYWQoYmlvc2RzNjkpDQp0YWlsKGJpb3NkczY5KQ0Kc3RyKGJpb3NkczY5KQ0Kc3VtbWFyeShiaW9zZHM2OSkNCmRpbShiaW9zZHM2OSkNCmBgYA0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlN0YXQgMTI4IFByb2plY3QgUiBOb3RlYm9vayINCmF1dGhvcjogJ0RlYW4gQ2hpYW5nJw0KZGF0ZTogIkFwcmlsIDIyLCAyMDE5Ig0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KDQojIFN0YXQgMTI4IFNwcmluZyAyMDE5IFN0dWRlbnQgUHJvamVjdCBEY2hpYW5nDQoNCkRhdGEgc291cmNlDQoNCi0gWzIwIE1vc3QgUmVjZW50IFB1YmxpYyBCSU9TIERhdGEgTGF5ZXJzXShodHRwczovL3d3dy53aWxkbGlmZS5jYS5nb3YvRGF0YS9CSU9TL0xhdGVzdC1EYXRhc2V0cykNCi0gW0hUTUwgbWV0YWRhdGFdKGh0dHBzOi8vbWFwLmRmZy5jYS5nb3YvbWV0YWRhdGEvZHMwMDY5Lmh0bWwpIC0gYnV0IHRoaXMgZG93bmxvYWQgaXMgZm9yIGZpbGUgZ2VvZGF0YWJhc2UgYW5kIExZUiBmaWxlIG9ubHkNCi0gW0NOUkEgb3BlbiBkYXRhIHBhZ2VdKGh0dHBzOi8vZGF0YS5jbnJhLmNhLmdvdi9vcmdhbml6YXRpb24vY2FsaWZvcm5pYS1kZXBhcnRtZW50LW9mLWZpc2gtYW5kLXdpbGRsaWZlL3BvcnRhbC9kYXRhKQ0KLSBbQ0RGVyBBcmNHSVMgb3BlbiBkYXRhIHBhZ2VdKGh0dHA6Ly9kYXRhLWNkZncub3BlbmRhdGEuYXJjZ2lzLmNvbS9kYXRhc2V0cy9jYWxpZm9ybmlhLWZpc2gtcGFzc2FnZS1hc3Nlc3NtZW50LWRhdGFiYXNlLWRzNjktMSkgd2hlcmUgdGhlIGRhdGEgY2FuIGJlIGRvd25sb2FkZWQgYXMgc2hhcGVmaWxlICAoaW5jbHVkZSBkYmYpIG9yIGNzdi4NCi0gW2NzdiBkb3dubG9hZCBsaW5rXShodHRwOi8vZGF0YS1jZGZ3Lm9wZW5kYXRhLmFyY2dpcy5jb20vZGF0YXNldHMvMWRmOTBhOTVlNGMzNDhmMWJkMDYzMjZmZDk2Y2VkNzhfMCkNCi0gW09wZW4gRGF0YUdlb1NlcnZpY2VdKGh0dHBzOi8vdGlsZXMuYXJjZ2lzLmNvbS90aWxlcy9VcTlyODVQb3RxbTNNZlJWL2FyY2dpcy9yZXN0L3NlcnZpY2VzL2Jpb3NkczY5X2NtdS9NYXBTZXJ2ZXIvMC9xdWVyeT9vdXRGaWVsZHM9KiZ3aGVyZT0xJTNEMSkNCi0gW09wZW4gRGF0YSBHZW9KU09OXShodHRwczovL29wZW5kYXRhLmFyY2dpcy5jb20vZGF0YXNldHMvYjEwZjRkMzk5MzJmNGMxOGI2MTkwMDMwMzhjNjU4NWFfMC5nZW9qc29uKQ0KLSBbQUdPTCBGZWF0dXJlIExheWVyIGl0ZW1dKGh0dHBzOi8vd3d3LmFyY2dpcy5jb20vaG9tZS9pdGVtLmh0bWw/aWQ9MWRmOTBhOTVlNGMzNDhmMWJkMDYzMjZmZDk2Y2VkNzgpDQotIFtBR09MIEZlYXR1cmVTZXJ2ZXJdKGh0dHBzOi8vc2VydmljZXMyLmFyY2dpcy5jb20vVXE5cjg1UG90cW0zTWZSVi9hcmNnaXMvcmVzdC9zZXJ2aWNlcy9iaW9zZHM2OV9mbXUvRmVhdHVyZVNlcnZlci8wKQ0KLSBbQUdPTCBUaWxlIExheWVyIGl0ZW1dKGh0dHBzOi8vd3d3LmFyY2dpcy5jb20vaG9tZS9pdGVtLmh0bWw/aWQ9YjEwZjRkMzk5MzJmNGMxOGI2MTkwMDMwMzhjNjU4NWEpDQotIFtBR09MIENhY2hlZCBNYXBTZXJ2ZXJdKGh0dHBzOi8vdGlsZXMuYXJjZ2lzLmNvbS90aWxlcy9VcTlyODVQb3RxbTNNZlJWL2FyY2dpcy9yZXN0L3NlcnZpY2VzL2Jpb3NkczY5X2NtdS9NYXBTZXJ2ZXIpDQotIFtHZW8gc2VydmljZV0oaHR0cHM6Ly9zZXJ2aWNlczIuYXJjZ2lzLmNvbS9VcTlyODVQb3RxbTNNZlJWL2FyY2dpcy9yZXN0L3NlcnZpY2VzL2Jpb3NkczY5X2ZtdS9GZWF0dXJlU2VydmVyLzAvcXVlcnk/b3V0RmllbGRzPSomd2hlcmU9MSUzRDEpDQotIFtHZW9KU09OXShodHRwczovL29wZW5kYXRhLmFyY2dpcy5jb20vZGF0YXNldHMvMWRmOTBhOTVlNGMzNDhmMWJkMDYzMjZmZDk2Y2VkNzhfMC5nZW9qc29uKQ0KLSBEYXRhIGRvd25sb2FkZWQgYXMgW2Nzdl0oQzovVXNlcnMvZGNoaWFuZy9Eb3dubG9hZHMvQ2FsaWZvcm5pYV9GaXNoX1Bhc3NhZ2VfQXNzZXNzbWVudF9EYXRhYmFzZV9kczY5LmNzdikgYW5kIFtzaGFwZWZpbGVdKH4vRG93bmxvYWRzL0NhbGlmb3JuaWFfRmlzaF9QYXNzYWdlX0Fzc2Vzc21lbnRfRGF0YWJhc2VfZHM2OS56aXApDQoNCg0KIyMgRG93bmxvYWQgYW5kIEltcG9ydCBEYXRhIEZpbGUNCmBgYHtyfQ0KbGlicmFyeShyZWFkcikNCiMgYmlvc2RzNjkgPC0gcmVhZF9jc3YoIkM6L1VzZXJzL2RjaGlhbmcvRG93bmxvYWRzL2Jpb3NkczY5LmNzdiIpDQojIFZpZXcoYmlvc2RzNjkpDQpgYGANCg0KIyMgTG9hZCB0aGUgRGF0YSBkaXJlY3RseSBmcm9tIHRoZSBJbnRlcm5ldA0KYGBge3J9DQpiaW9zZHM2OSA8LSByZWFkLmNzdignaHR0cHM6Ly9vcGVuZGF0YS5hcmNnaXMuY29tL2RhdGFzZXRzLzFkZjkwYTk1ZTRjMzQ4ZjFiZDA2MzI2ZmQ5NmNlZDc4XzAuY3N2JykNClZpZXcoYmlvc2RzNjkpDQpkaW0oYmlvc2RzNjkpDQpgYGANCg0KIyMgQ2hlY2sgZGF0YQ0KYGBge3J9DQpjbGFzcyhiaW9zZHM2OSkNCnN0cihiaW9zZHM2OSkNCmBgYA0KDQojIyMgRGF0YSBTdW1tYXJ5DQpgYGB7cn0NCnN1bW1hcnkoYmlvc2RzNjkpDQpgYGANCg0KDQo=</div>
 
 
 
