@@ -1,0 +1,12 @@
+---
+title: "Stat 128 Homework 6 R Notebook"
+output: html_notebook
+author: "Dean Chiang"
+---
+
+## 1.a - let x = number of 
+```{r}
+dbinom(x = 5, size = 30, prob = 0.10)
+
+```
+

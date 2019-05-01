@@ -1,0 +1,160 @@
+---
+title: "Stat 128 Week 13 Class Lesson R Notebook"
+output: html_notebook
+author: "Dean Chiang"
+---
+
+# Homework Questions
+
+```{r}
+# h6 q1
+probs1 <- dbinom(0:10, size = 10, p=0.5)
+plot(0:10, probs1, type = "h")
+```
+
+## h6 q4
+
+```{r}
+factorial(3)
+v1 <- 0:100
+v2 <- 1/factorial(0:100)
+head(v2)
+head(cumsum(v2), 20)
+```
+
+## h6 q3
+number of simulated values > 2/10000
+
+prob sum is 7 when toss pair fair dice 
+should be 1/6=.1666667
+
+```{r}
+mydicetosses = sample(1:6, 2000, replace=T)
+mydicetoss.mat = matrix(mydicetosses, nrow=1000, ncol=2)
+View(mydicetoss.mat)
+sumofdice = apply(mydicetoss.mat, MARGIN = 1, sum)
+results <- cbind(mydicetoss.mat, sumofdice)
+View(results)
+sum(sumofdice==7)
+est.prob.seven = sum(sumofdice==7)/10000
+est.prob.seven
+```
+
+## R Commands
+```{r}
+head(mtcars)
+searchpaths()
+head(mtcars$mpg)
+attach(mtcars)
+mpg
+```
+
+# Intro to Matrices in R
+
+```{r}
+mat1 <- matrix(1:9, nrow = 3, ncol = 3) # fill by columns
+mat1
+mat2 <- matrix(1:9, nrow = 3, byrow = T) # fill by row
+mat2
+mat3 <- matrix(NA, nrow = 3, ncol = 3)
+mat3[1,1] <- 5
+mat3
+mat4 <- cbind(mat1, c(10, 11, 12))
+mat4
+```
+
+## Matrix Arithmatic
+```{r}
+y <- matrix(c(2,4,3,1), nrow = 2)
+y
+x <- matrix(c(3,2,0,1), nrow = 2)
+x
+x+y
+y*x
+x/y
+x^2
+x^x
+xy <- x %*% y
+xy
+transx <- t(x)
+transx
+detx <- det(x)
+detx
+# if a matrix is invertable then it can have an identity matrix
+invx <- solve(x) # mult inverse of x, x^(-1)
+invx
+idmat <- diag(2)
+idmat %*% x
+x %*% solve(x)
+```
+
+### Extract Submatrix
+```{r}
+submat1 <- mat1[2:3, 2:3]
+submat1
+```
+
+### Matrix Product
+```{r}
+apply(mat1, MARGIN = 2, prod)
+```
+
+
+
+# Intro to RSQLite
+
+- [uwm data](https://www.kaggle.com/Madgrades/uw-madison-courses)
+downlaoded to [folder](file:///Users/dean/Downloads/uw-madison-courses)
+- [SQL tutorial](https://www.w3schools.com/sql/default.asp)
+- [RSQLite ref](https://www.r-project.org/nosvn/pandoc/RSQLite.html)
+- [RStudio SQLite](https://db.rstudio.com/databases/sqlite/)
+- [RSQLite doc](https://www.rdocumentation.org/packages/RSQLite/versions/2.1.1)
+
+
+## Download data and sql package
+```{r}
+# install.packages('RSQLite', dependencies = T) # DONE-20190429
+# also installing the dependencies ‘bit’, ‘bit64’, ‘blob’, ‘DBItest’
+library(RSQLite)
+myconn = dbConnect(drv = SQLite(), ":memory")
+str(myconn)
+dbDisconnect(myconn)
+```
+
+## RSQLite 
+```{r}
+myconn2 <- dbConnect(drv = SQLite(), dbname = '/Users/dean/Downloads/uw-madison-courses/database.sqlite3')
+str(myconn2)
+```
+
+### List tables
+```{r}
+dbListTables(myconn2)
+```
+
+### Query table
+```{r}
+dbListFields(myconn2, 'sections')
+```
+
+### Query table
+```{r}
+sections <- dbGetQuery(myconn2, "SELECT * FROM sections")
+View(sections) # lots of NA
+section.teach <- dbGetQuery(myconn2, "SELECT * FROM sections
+                            INNER JOIN teachings
+                            ON sections.uuid=teachings.section_uuid")
+View(section.teach)
+section.teach$instructor_id <- factor(section.teach$instructor_id)
+library(plyr)
+num.sections.by.instr <- count(section.teach, "instructor_id")
+str(num.sections.by.instr$freq)
+hist(num.sections.by.instr$freq)
+```
+
+## Exercise
+```{r}
+# Graph Year vs Number of Sections
+
+```
+
