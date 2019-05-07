@@ -1,0 +1,80 @@
+---
+title: "Stat 128 Homework 7 R Notebook"
+output: html_notebook
+author: "Dean Chiang"
+---
+
+## 1.
+```{r}
+D <- rbind(c(2,3,10),c(5,-1,8),c(10,-3,50))
+D
+D <- matrix(NA, ncol = 3, nrow = 3)
+D
+D[,1] <- c(2,5,10)
+D[,2] <- c(3,-1,0-3)
+D[,3] <- c(10,8,50)
+D
+b <- matrix(c(5,1.2,11), ncol = 1, nrow = 3)
+b
+```
+
+## 1.a
+Solvin by [Cramer's Rule](https://en.wikipedia.org/wiki/Cramer%27s_rule)
+
+```{r}
+c1 <-c(2,5,10)
+c2 <- c(3,-1,-3)
+c3 <- c(10,8,50)
+c4 <- c(5, 1.2, 11)
+m <- cbind(c1, c2, c3)
+m
+x1 <- cbind(c4, c2, c3)
+x1
+x <- det(x1)/det(m)
+x #= -0.04575163
+y1 <- cbind(c1, c4, c3)
+y1
+y <- det(y1)/det(m)
+y #= 0.7777778
+z1 <- cbind(c1, c2, c4)
+z <- det(z1)/det(m)
+z #= 0.275817
+print ('x,y,z = -.0457, 0.7778, 0.2758')
+
+```
+
+## 1.b Linear Algebra method
+```{r}
+invd <- solve(D)
+xyz <- invd %*% c4
+xyz
+```
+
+## 1.c Verify solution
+```{r}
+eq1 <- sum(c(2,3,10)*c(x,y,z))
+eq1
+eq2 <- sum(m[2,]*c(x,y,z))
+eq2
+eq3 <- sum(m[3,]*c(x,y,z))
+eq3
+```
+
+## 1.d Matrix Arithmatic and Commands Practice
+### 1.d.i) Standard Deviation of each column of D
+```{r}
+dev1 <- sd(c1)
+dev2 <- sd(c2)
+dev3 <- sd(c3)
+cat(dev1, dev2, dev3)
+
+```
+
+### 1.d.ii) Matrix Multiplication Element-wise
+```{r}
+E <- matrix(c(2,4,6,8,10,12,14,16,18), ncol = 3, nrow = 3)
+emd <- E*D
+emd
+```
+
+//eof
