@@ -1,0 +1,101 @@
+---
+title: "Stat 128 Project Metadata R Notebook"
+output: html_notebook
+author: 'Dean Chiang'
+---
+
+```{r}
+date()
+```
+
+## 1. Download Data
+
+1. Download data from
+[UW Madison Courses and Grades 2006-2017](https://www.kaggle.com/Madgrades/uw-madison-courses)
+(login required)
+2. Local database: [sqlite](/Users/dean/Downloads/data/uwm/database.sqlite3)
+3. Local data files: [csv](/Users/dean/Downloads/data/uw-madison-courses)
+
+## 2. Load Data
+
+```{r}
+require(RSQLite)
+myconn = dbConnect(drv=SQLite(), dbname='/Users/dean/Downloads/data/uwm/database.sqlite3')
+str(myconn)
+```
+
+### List of Tables and Fields
+```{r}
+tbls <- dbListTables(myconn)
+# class(tbls) # 'character'
+for (t in tbls) { print(t) }
+```
+```{r}
+# dbListFields(myconn, 'course_offerings')
+i <- 0
+for (t in tbls) {
+  i <- i + 1
+  print('========')
+  print(tbls[i])
+  print('----------------')
+  fields <- dbListFields(myconn, tbls[i])
+  print(fields)
+}
+```
+
+## Join Sections to Teachers
+```{r}
+sqlwhere <- 'SELECT * FROM sections \
+INNER JOIN teachings \
+ON sections.uuid=teachings.section_uuid'
+section.teachers <- dbGetQuery(myconn, sqlwhere)
+str(section.teachers)
+```
+
+[R function count()](https://www.rdocumentation.org/packages/plyr/versions/1.8.4/topics/count)
+
+```{r}
+library(plyr)
+sections.per.teacher <- count(section_teachers, 'instructor_id')
+str(sections.per.teacher)
+```
+```{r}
+hist(sections.per.teacher$freq)
+
+```
+
+## Sections Per Term
+### Join Course Offerings into Sections to Append Terms
+```{r}
+sqlwhere2 <- 'SELECT * FROM sections INNER JOIN course_offerings \
+ON sections.course_offering_uuid=course_offerings.uuid'
+section.courses <- dbGetQuery(myconn, sqlwhere2)
+str(section.courses)
+```
+
+### Calculate Sections per Term
+```{r}
+sections.per.term <- count(section.courses, 'term_code')# vars = c('uuid', 'term_code'))
+str(sections.per.term)
+```
+```{r}
+#hist(sections.per.term$freq)
+plot(sections.per.term$term_code, sections.per.term$freq)
+```
+
+## Determine number of courses over entire time period taught in each subject code
+
+### Join Section and Grades
+```{r}
+sqlwhere3 <- 'SELECT * FROM grade_distributions INNER JOIN subject_memberships \
+ON grade_distributions.course_offering_uuid=subject_memberships.course_offering_uuid'
+grade.subject <- dbGetQuery(myconn, sqlwhere3)
+str(grade.subject)
+```
+
+### Count Frequency of Courses per Subject code
+```{r}
+course.per.subject <- count(grade.subject, 'subject_code')
+str(course.per.subject)
+```
+
