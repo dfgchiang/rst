@@ -97,5 +97,6 @@ str(grade.subject)
 ```{r}
 course.per.subject <- count(grade.subject, 'subject_code')
 str(course.per.subject)
+View(course.per.subject)
 ```
 
