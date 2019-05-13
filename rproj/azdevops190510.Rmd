@@ -1,0 +1,190 @@
+---
+title: "Azure DevOps Training 20190510 R Notebook"
+output: html_notebook
+author: "Dean Chiang"
+---
+
+## Software Requirements
+
+### [Microsoft Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest)
+
+[azure cli doc](https://docs.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?view=azure-cli-latest)
+```
+Windows Azure SDK Shell
+
+C:\Program Files\Microsoft SDKs\Azure\.NET SDK\v2.9>az login
+
+Note, we have launched a browser for you to login. For old experience with device code, use "az login --use-device-code"
+You have logged in. Now let us find all the subscriptions to which you have access...
+[
+  {
+    "cloudName": "AzureCloud",
+    "id": "f883313b-f4a8-433e-ba0f-b73b470445ff",
+    "isDefault": true,
+    "name": "Azure Pass - Sponsorship",
+    "state": "Enabled",
+    "tenantId": "ea218dc4-4078-457a-947e-b7ce195cd066",
+    "user": {
+      "name": "klassdummy@outlook.com",
+      "type": "user"
+    }
+  }
+]
+
+```
+
+[az login](https://login.microsoftonline.com/common/oauth2/authorize?response_type=code&client_id=04b07795-8ddb-461a-bbee-02f9e1bf7b46&redirect_uri=http://localhost:8400&state=nbqyh063xqeqe2281kjf&resource=https://management.core.windows.net/&prompt=select_account)
+
+### [Visual Studio 2017]()
+
+## Azure DevOps Setup
+
+20190510 dchiang
+
+### Create temporary non-enterprise email account
+
+[outlook.com](//outlook.com)
+
+### Virtual Machine Activation
+
+Sign up or login at 
+[Directions](https://dt.labsonline.it)
+
+lab key: KKFOSA
+
+VM lab: AZ-400t01
+
+AZ-400T01 - Microsoft Azure Architect DevOps - Implementing DevOps Development Processes
+
+### Class Free Online Credits
+
+[Voucher](https://onedrive.live.com/view.aspx?resid=F3EAAD85402A388!151369&ithint=file%2cxlsx&authkey=!ACWaKdT3Ms56tG4)
+
+voucher=QK830DBBJSJCOQ2P9K
+
+good for $100 credit or 30 days
+
+Redeem vouchert at [Azure Portal Pass](https;//www.microsoftazurepass.com)
+
+### Go to [portal.azure.com](https://portal.azure.com/#home)
+
+
+## AZ-400.1 Module 1 Source Control
+
+CI/CD: Continuous Integration and Delivery and Deployment
+
+Collaboration Stages
+1. Plan
+2. Code
+3. Build
+4. Test
+5. Release
+6. Deploy
+7. Operate
+
+## Lesson 02. Benefit of Source Control
+
+- Make small changes
+- Link code changes to work items
+
+[10866 3 Git Hello World Final](//youtube.com/?10866+3+Git+Hello+World+Final)
+
+## Lab 1
+
+1. Sign in to Azure DevOps 
+
+[dev.azure.com](https://dev.azure.com/klassdummy/907930bb-fc7b-4ea3-bd27-cc4560b79dd2)
+
+2. Create New Project
+- name: azlab1
+- repotype: Git
+[azlab1](https://dev.azure.com/klassdummy/_git/azlab1)
+
+3. Clone to local repo
+```
+git clone https://klassdummy@dev.azure.com/klassdummy/azlab1/_git/azlab1 /c/code/azlab1
+```
+from within VS2017
+
+CLI git clone from vsts seems to fail even with login
+```
+C:\Program Files\Microsoft SDKs\Azure\.NET SDK\v2.9>git clone https://klassdummy@dev.azure.com/klassdummy/azlab1/_git/azlab1 C:\code\azure\azlab1
+Cloning into 'C:\code\azure\azlab1'...
+fatal: Authentication failed for 'https://klassdummy@dev.azure.com/klassdummy/azlab1/_git/azlab1/'
+```
+
+
+4. Create new VS2017 ASP.NET Web Application Project C# Web MVC reference with solution in directory /c/code/azlab1
+
+5. Stage changes (253 files)... taking a *LONG* time
+
+
+## Git Flow Process
+
+- Alll feature development should take place in a dedicated branch instead of the master branch
+- Share a feature with others without touching any official code
+
+1. Create branch
+2. Add commit 
+3. OPen a pull request
+4. Code review and discussion
+5. Deploy
+6. Merge
+
+Q: How big is a feature?
+
+
+## Module 2. Scaling Git for Enterprise DevOps
+
+VS2017 published to azure new app service 
+with existing dubgroup1 and dubplan1 to 
+[azlab1.azurewebsites.net](http://azlab1.azurewebsites.net)
+
+New publishing profile: `azlab1 - Web Deploy`
+
+- site url: http://azlab1.azurewebsites.net
+- resource group: dubgroup1
+- Configuration: Release
+- Username: $azlab1
+- Password: **********
+
+Create and checkout branch
+
+Modify feature
+Send pull request
+Review feature
+Commit feature 
+Merge back to master branch
+
+
+
+## Module 3. Pipelines in DevOps
+
+1. Build automation and continous integration
+2. Test automation 
+3. Deployment automation 
+
+### [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/)
+
+Terminology
+
+- Agents
+- Agent Pools
+- deafult pool - self hosted agents
+- Parallel jobs - purchased at the org level, shared by all projects
+
+KMT: humans cannot avoid using pre-existing physical and cultural concepts 
+in computing lingo. 
+
+
+## Lab: Configuring a CD pipeline for your Jenkins CI
+
+2 methods for integrating Jenkin: 
+
+1. run CI jobs in Jenkins separately
+2. wrap a Jenkins CI job inside Azure pipeline
+  - Configure Jenkins to work with Maven and Azure DevOps
+  - Create a build job in Jenkins
+
+
+//
