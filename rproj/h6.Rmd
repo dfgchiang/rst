@@ -4,9 +4,35 @@ output: html_notebook
 author: "Dean Chiang"
 ---
 
-## 1.a - let x = number of 
+## 1.a Probability of left handed people in 30 random selection 
 ```{r}
-dbinom(x = 5, size = 30, prob = 0.10)
+h61a <- dbinom(x = 5, size = 30, prob = 0.10)
+h61a
 
+```
+
+## 1.b Calculate prob distrib of lefties
+```{r}
+h61b <- pbinom(q = 5, size = 30, prob = 0.10)
+h61b
+```
+
+```{r}
+pd <- c(NA)
+for (i in 1:30) {
+  pd[i] <- pbinom(i, size = 30, prob = 0.10)
+}
+pd
+```
+
+## 1.c. Graph of Prob Distrib from part b
+```{r}
+plot(pd, type = 'h')
+```
+
+## 1.d. Prob 3 desks in classroom that holds 30 will be enough
+```{r}
+h61d <- pbinom(3, size = 30, prob = 0.10)
+h61d #= 0.6474392
 ```
 

@@ -241,8 +241,8 @@ $(document).ready(function () {
 
 
 <!-- rnb-text-begin -->
-<div id="section" class="section level2">
-<h2>1.</h2>
+<div id="a-system-of-3-equations-and-3-unknowns" class="section level2">
+<h2>1. A system of 3 equations and 3 unknowns</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRCA8LSByYmluZChjKDIsMywxMCksYyg1LC0xLDgpLGMoMTAsLTMsNTApKVxuRFxuYGBgIn0= -->
@@ -255,6 +255,10 @@ D</code></pre>
 [2,]    5   -1    8
 [3,]   10   -3   50</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRCA8LSBtYXRyaXgoTkEsIG5jb2wgPSAzLCBucm93ID0gMylcbkRcbmBgYCJ9 -->
 <pre class="r"><code>D &lt;- matrix(NA, ncol = 3, nrow = 3)
 D</code></pre>
@@ -277,6 +281,10 @@ D</code></pre>
 [2,]    5   -1    8
 [3,]   10   -3   50</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYiA8LSBtYXRyaXgoYyg1LDEuMiwxMSksIG5jb2wgPSAxLCBucm93ID0gMylcbmJcbmBgYCJ9 -->
 <pre class="r"><code>b &lt;- matrix(c(5,1.2,11), ncol = 1, nrow = 3)
 b</code></pre>
@@ -309,6 +317,10 @@ m</code></pre>
 [2,]  5 -1  8
 [3,] 10 -3 50</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueDEgPC0gY2JpbmQoYzQsIGMyLCBjMylcbngxXG5gYGAifQ== -->
 <pre class="r"><code>x1 &lt;- cbind(c4, c2, c3)
 x1</code></pre>
@@ -326,6 +338,10 @@ x #= -0.04575163</code></pre>
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIC0wLjA0NTc1MTYzXG4ifQ== -->
 <pre><code>[1] -0.04575163</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueTEgPC0gY2JpbmQoYzEsIGM0LCBjMylcbnkxXG5gYGAifQ== -->
 <pre class="r"><code>y1 &lt;- cbind(c1, c4, c3)
 y1</code></pre>
@@ -343,9 +359,22 @@ y #= 0.7777778</code></pre>
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNzc3Nzc3OFxuIn0= -->
 <pre><code>[1] 0.7777778</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuejEgPC0gY2JpbmQoYzEsIGMyLCBjNClcbnogPC0gZGV0KHoxKS9kZXQobSlcbnogIz0gMC4yNzU4MTdcbmBgYCJ9 -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuejEgPC0gY2JpbmQoYzEsIGMyLCBjNClcbnoxXG5gYGAifQ== -->
 <pre class="r"><code>z1 &lt;- cbind(c1, c2, c4)
-z &lt;- det(z1)/det(m)
+z1</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICBjMSBjMiAgIGM0XG5bMSxdICAyICAzICA1LjBcblsyLF0gIDUgLTEgIDEuMlxuWzMsXSAxMCAtMyAxMS4wXG4ifQ== -->
+<pre><code>     c1 c2   c4
+[1,]  2  3  5.0
+[2,]  5 -1  1.2
+[3,] 10 -3 11.0</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueiA8LSBkZXQoejEpL2RldChtKVxueiAjPSAwLjI3NTgxN1xuYGBgIn0= -->
+<pre class="r"><code>z &lt;- det(z1)/det(m)
 z #= 0.275817</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuMjc1ODE3XG4ifQ== -->
@@ -389,6 +418,10 @@ eq1</code></pre>
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDVcbiJ9 -->
 <pre><code>[1] 5</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZXEyIDwtIHN1bShtWzIsXSpjKHgseSx6KSlcbmVxMlxuYGBgIn0= -->
 <pre class="r"><code>eq2 &lt;- sum(m[2,]*c(x,y,z))
 eq2</code></pre>
@@ -396,6 +429,10 @@ eq2</code></pre>
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEuMlxuIn0= -->
 <pre><code>[1] 1.2</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZXEzIDwtIHN1bShtWzMsXSpjKHgseSx6KSlcbmVxM1xuYGBgIn0= -->
 <pre class="r"><code>eq3 &lt;- sum(m[3,]*c(x,y,z))
 eq3</code></pre>
@@ -412,9 +449,29 @@ eq3</code></pre>
 <h3>1.d.i) Standard Deviation of each column of D</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2F0KGRldjEsIGRldjIsIGRldjMpXG5cbmBgYCJ9 -->
-<pre class="r"><code>cat(dev1, dev2, dev3)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGV2MSA8LSBzZChjMSlcbmRldjFcbmBgYCJ9 -->
+<pre class="r"><code>dev1 &lt;- sd(c1)
+dev1</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDQuMDQxNDUyXG4ifQ== -->
+<pre><code>[1] 4.041452</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGV2MiA8LSBzZChjMilcbmRldjJcbmBgYCJ9 -->
+<pre class="r"><code>dev2 &lt;- sd(c2)
+dev2</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDMuMDU1MDVcbiJ9 -->
+<pre><code>[1] 3.05505</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGV2MyA8LSBzZChjMylcbmRldjNcbmBgYCJ9 -->
+<pre class="r"><code>dev3 &lt;- sd(c3)
+dev3</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDIzLjY5MjQ3XG4ifQ== -->
+<pre><code>[1] 23.69247</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2F0KGRldjEsIGRldjIsIGRldjMpXG5gYGAifQ== -->
+<pre class="r"><code>cat(dev1, dev2, dev3)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiNC4wNDE0NTIgMy4wNTUwNSAyMy42OTI0N1xuIn0= -->
 <pre><code>4.041452 3.05505 23.69247</code></pre>
@@ -444,7 +501,7 @@ emd</code></pre>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlN0YXQgMTI4IEhvbWV3b3JrIDcgUiBOb3RlYm9vayINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KYXV0aG9yOiAiRGVhbiBDaGlhbmciDQotLS0NCg0KIyMgMS4NCmBgYHtyfQ0KRCA8LSByYmluZChjKDIsMywxMCksYyg1LC0xLDgpLGMoMTAsLTMsNTApKQ0KRA0KRCA8LSBtYXRyaXgoTkEsIG5jb2wgPSAzLCBucm93ID0gMykNCkQNCkRbLDFdIDwtIGMoMiw1LDEwKQ0KRFssMl0gPC0gYygzLC0xLDAtMykNCkRbLDNdIDwtIGMoMTAsOCw1MCkNCkQNCmIgPC0gbWF0cml4KGMoNSwxLjIsMTEpLCBuY29sID0gMSwgbnJvdyA9IDMpDQpiDQpgYGANCg0KIyMgMS5hDQpTb2x2aW4gYnkgW0NyYW1lcidzIFJ1bGVdKGh0dHBzOi8vZW4ud2lraXBlZGlhLm9yZy93aWtpL0NyYW1lciUyN3NfcnVsZSkNCg0KYGBge3J9DQpjMSA8LWMoMiw1LDEwKQ0KYzIgPC0gYygzLC0xLC0zKQ0KYzMgPC0gYygxMCw4LDUwKQ0KYzQgPC0gYyg1LCAxLjIsIDExKQ0KbSA8LSBjYmluZChjMSwgYzIsIGMzKQ0KbQ0KeDEgPC0gY2JpbmQoYzQsIGMyLCBjMykNCngxDQp4IDwtIGRldCh4MSkvZGV0KG0pDQp4ICM9IC0wLjA0NTc1MTYzDQp5MSA8LSBjYmluZChjMSwgYzQsIGMzKQ0KeTENCnkgPC0gZGV0KHkxKS9kZXQobSkNCnkgIz0gMC43Nzc3Nzc4DQp6MSA8LSBjYmluZChjMSwgYzIsIGM0KQ0KeiA8LSBkZXQoejEpL2RldChtKQ0KeiAjPSAwLjI3NTgxNw0KcHJpbnQgKCd4LHkseiA9IC0uMDQ1NywgMC43Nzc4LCAwLjI3NTgnKQ0KDQpgYGANCg0KIyMgMS5iIExpbmVhciBBbGdlYnJhIG1ldGhvZA0KYGBge3J9DQppbnZkIDwtIHNvbHZlKEQpDQp4eXogPC0gaW52ZCAlKiUgYzQNCnh5eg0KYGBgDQoNCiMjIDEuYyBWZXJpZnkgc29sdXRpb24NCmBgYHtyfQ0KZXExIDwtIHN1bShjKDIsMywxMCkqYyh4LHkseikpDQplcTENCmVxMiA8LSBzdW0obVsyLF0qYyh4LHkseikpDQplcTINCmVxMyA8LSBzdW0obVszLF0qYyh4LHkseikpDQplcTMNCmBgYA0KDQojIyAxLmQgTWF0cml4IEFyaXRobWF0aWMgYW5kIENvbW1hbmRzIFByYWN0aWNlDQojIyMgMS5kLmkpIFN0YW5kYXJkIERldmlhdGlvbiBvZiBlYWNoIGNvbHVtbiBvZiBEDQpgYGB7cn0NCmRldjEgPC0gc2QoYzEpDQpkZXYyIDwtIHNkKGMyKQ0KZGV2MyA8LSBzZChjMykNCmNhdChkZXYxLCBkZXYyLCBkZXYzKQ0KDQpgYGANCg0KIyMjIDEuZC5paSkgTWF0cml4IE11bHRpcGxpY2F0aW9uIEVsZW1lbnQtd2lzZQ0KYGBge3J9DQpFIDwtIG1hdHJpeChjKDIsNCw2LDgsMTAsMTIsMTQsMTYsMTgpLCBuY29sID0gMywgbnJvdyA9IDMpDQplbWQgPC0gRSpEDQplbWQNCmBgYA0KDQovL2VvZg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlN0YXQgMTI4IEhvbWV3b3JrIDcgUiBOb3RlYm9vayINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KYXV0aG9yOiAiRGVhbiBDaGlhbmciDQotLS0NCg0KIyMgMS4gQSBzeXN0ZW0gb2YgMyBlcXVhdGlvbnMgYW5kIDMgdW5rbm93bnMNCmBgYHtyfQ0KRCA8LSByYmluZChjKDIsMywxMCksYyg1LC0xLDgpLGMoMTAsLTMsNTApKQ0KRA0KYGBgDQoNCmBgYHtyfQ0KRCA8LSBtYXRyaXgoTkEsIG5jb2wgPSAzLCBucm93ID0gMykNCkQNCkRbLDFdIDwtIGMoMiw1LDEwKQ0KRFssMl0gPC0gYygzLC0xLDAtMykNCkRbLDNdIDwtIGMoMTAsOCw1MCkNCkQNCmBgYA0KDQpgYGB7cn0NCmIgPC0gbWF0cml4KGMoNSwxLjIsMTEpLCBuY29sID0gMSwgbnJvdyA9IDMpDQpiDQpgYGANCg0KIyMgMS5hDQpTb2x2aW4gYnkgW0NyYW1lcidzIFJ1bGVdKGh0dHBzOi8vZW4ud2lraXBlZGlhLm9yZy93aWtpL0NyYW1lciUyN3NfcnVsZSkNCg0KYGBge3J9DQpjMSA8LWMoMiw1LDEwKQ0KYzIgPC0gYygzLC0xLC0zKQ0KYzMgPC0gYygxMCw4LDUwKQ0KYzQgPC0gYyg1LCAxLjIsIDExKQ0KbSA8LSBjYmluZChjMSwgYzIsIGMzKQ0KbQ0KYGBgDQoNCmBgYHtyfQ0KeDEgPC0gY2JpbmQoYzQsIGMyLCBjMykNCngxDQp4IDwtIGRldCh4MSkvZGV0KG0pDQp4ICM9IC0wLjA0NTc1MTYzDQpgYGANCg0KYGBge3J9DQp5MSA8LSBjYmluZChjMSwgYzQsIGMzKQ0KeTENCnkgPC0gZGV0KHkxKS9kZXQobSkNCnkgIz0gMC43Nzc3Nzc4DQpgYGANCg0KYGBge3J9DQp6MSA8LSBjYmluZChjMSwgYzIsIGM0KQ0KejENCnogPC0gZGV0KHoxKS9kZXQobSkNCnogIz0gMC4yNzU4MTcNCnByaW50ICgneCx5LHogPSAtLjA0NTcsIDAuNzc3OCwgMC4yNzU4JykNCmBgYA0KDQojIyAxLmIgTGluZWFyIEFsZ2VicmEgbWV0aG9kDQpgYGB7cn0NCmludmQgPC0gc29sdmUoRCkNCnh5eiA8LSBpbnZkICUqJSBjNA0KeHl6DQpgYGANCg0KIyMgMS5jIFZlcmlmeSBzb2x1dGlvbg0KYGBge3J9DQplcTEgPC0gc3VtKGMoMiwzLDEwKSpjKHgseSx6KSkNCmVxMQ0KYGBgDQoNCmBgYHtyfQ0KZXEyIDwtIHN1bShtWzIsXSpjKHgseSx6KSkNCmVxMg0KYGBgDQoNCmBgYHtyfQ0KZXEzIDwtIHN1bShtWzMsXSpjKHgseSx6KSkNCmVxMw0KYGBgDQoNCiMjIDEuZCBNYXRyaXggQXJpdGhtYXRpYyBhbmQgQ29tbWFuZHMgUHJhY3RpY2UNCiMjIyAxLmQuaSkgU3RhbmRhcmQgRGV2aWF0aW9uIG9mIGVhY2ggY29sdW1uIG9mIEQNCmBgYHtyfQ0KZGV2MSA8LSBzZChjMSkNCmRldjENCmRldjIgPC0gc2QoYzIpDQpkZXYyDQpkZXYzIDwtIHNkKGMzKQ0KZGV2Mw0KY2F0KGRldjEsIGRldjIsIGRldjMpDQoNCmBgYA0KDQojIyMgMS5kLmlpKSBNYXRyaXggTXVsdGlwbGljYXRpb24gRWxlbWVudC13aXNlDQpgYGB7cn0NCkUgPC0gbWF0cml4KGMoMiw0LDYsOCwxMCwxMiwxNCwxNiwxOCksIG5jb2wgPSAzLCBucm93ID0gMykNCmVtZCA8LSBFKkQNCmVtZA0KYGBgDQoNCi8vZW9m</div>
 
 
 

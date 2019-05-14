@@ -4,16 +4,22 @@ output: html_notebook
 author: "Dean Chiang"
 ---
 
-## 1.
+## 1. A system of 3 equations and 3 unknowns
 ```{r}
 D <- rbind(c(2,3,10),c(5,-1,8),c(10,-3,50))
 D
+```
+
+```{r}
 D <- matrix(NA, ncol = 3, nrow = 3)
 D
 D[,1] <- c(2,5,10)
 D[,2] <- c(3,-1,0-3)
 D[,3] <- c(10,8,50)
 D
+```
+
+```{r}
 b <- matrix(c(5,1.2,11), ncol = 1, nrow = 3)
 b
 ```
@@ -28,19 +34,28 @@ c3 <- c(10,8,50)
 c4 <- c(5, 1.2, 11)
 m <- cbind(c1, c2, c3)
 m
+```
+
+```{r}
 x1 <- cbind(c4, c2, c3)
 x1
 x <- det(x1)/det(m)
 x #= -0.04575163
+```
+
+```{r}
 y1 <- cbind(c1, c4, c3)
 y1
 y <- det(y1)/det(m)
 y #= 0.7777778
+```
+
+```{r}
 z1 <- cbind(c1, c2, c4)
+z1
 z <- det(z1)/det(m)
 z #= 0.275817
 print ('x,y,z = -.0457, 0.7778, 0.2758')
-
 ```
 
 ## 1.b Linear Algebra method
@@ -54,8 +69,14 @@ xyz
 ```{r}
 eq1 <- sum(c(2,3,10)*c(x,y,z))
 eq1
+```
+
+```{r}
 eq2 <- sum(m[2,]*c(x,y,z))
 eq2
+```
+
+```{r}
 eq3 <- sum(m[3,]*c(x,y,z))
 eq3
 ```
@@ -64,8 +85,11 @@ eq3
 ### 1.d.i) Standard Deviation of each column of D
 ```{r}
 dev1 <- sd(c1)
+dev1
 dev2 <- sd(c2)
+dev2
 dev3 <- sd(c3)
+dev3
 cat(dev1, dev2, dev3)
 
 ```

@@ -20,7 +20,9 @@ date()
 
 ```{r}
 require(RSQLite)
-myconn = dbConnect(drv=SQLite(), dbname='/Users/dean/Downloads/data/uwm/database.sqlite3')
+dbpath <- '/Users/dean/Downloads/data/uwm/database.sqlite3'
+dbpath <- '/Users/dchiang/Downloads/data/uwm/database.sqlite3'
+myconn = dbConnect(drv=SQLite(), dbname=dbpath)
 str(myconn)
 ```
 
@@ -56,7 +58,7 @@ str(section.teachers)
 
 ```{r}
 library(plyr)
-sections.per.teacher <- count(section_teachers, 'instructor_id')
+sections.per.teacher <- count(section.teachers, 'instructor_id')
 str(sections.per.teacher)
 ```
 ```{r}
@@ -67,7 +69,8 @@ hist(sections.per.teacher$freq)
 ## Sections Per Term
 ### Join Course Offerings into Sections to Append Terms
 ```{r}
-sqlwhere2 <- 'SELECT * FROM sections INNER JOIN course_offerings \
+sqlwhere2 <- 'SELECT * FROM sections \
+INNER JOIN course_offerings \
 ON sections.course_offering_uuid=course_offerings.uuid'
 section.courses <- dbGetQuery(myconn, sqlwhere2)
 str(section.courses)
@@ -87,7 +90,8 @@ plot(sections.per.term$term_code, sections.per.term$freq)
 
 ### Join Section and Grades
 ```{r}
-sqlwhere3 <- 'SELECT * FROM grade_distributions INNER JOIN subject_memberships \
+sqlwhere3 <- 'SELECT * FROM grade_distributions \
+INNER JOIN subject_memberships \
 ON grade_distributions.course_offering_uuid=subject_memberships.course_offering_uuid'
 grade.subject <- dbGetQuery(myconn, sqlwhere3)
 str(grade.subject)
@@ -97,6 +101,28 @@ str(grade.subject)
 ```{r}
 course.per.subject <- count(grade.subject, 'subject_code')
 str(course.per.subject)
-View(course.per.subject)
+#View(course.per.subject)
+```
+
+```{r}
+hist(course.per.subject$freq)
+```
+
+```{r}
+plot(course.per.subject$subject_code, course.per.subject$freq)
+```
+
+```{r}
+require(ggplot2)
+
+```
+```{r}
+p1 <- ggplot(data = course.per.subject, aes(x = course.per.subject$freq))
+p1+geom_histogram(fill='gray', color = 'white')+theme_minimal()
+```
+```{r}
+p2 <- ggplot(data = grade.subject, aes(x = grade.subject$subject_code))
+#factor(grade.subject$subject_code), y=count(grade.subject$course_offering_uuid)$freq
+p2+geom_histogram(fill = 'gray', color = 'white')+theme_minimal()
 ```
 

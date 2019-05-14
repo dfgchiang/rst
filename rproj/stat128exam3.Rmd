@@ -1,0 +1,182 @@
+---
+title: "Stat 128 EXam 3 (Final) R Notebook"
+output: html_notebook
+author: "Dean Chiang"
+---
+```{r}
+date()
+```
+
+## 1. Normal distribution of hit songs is 220 s with stdev of 60 s
+```{r}
+
+```
+
+### 1.a. Percentage of hit songs over 5 minutes
+```{r}
+pct5 <- pnorm(300, mean = 220, sd=60)
+pct5
+
+```
+
+
+### 1.b. Percent hit songs between 3 and 4 min
+```{r}
+pct3m <- pnorm(180, mean = 220, sd = 60)
+pct4m <- pnorm(240, mean = 220, sd = 60)
+pct4m - pct3m
+```
+
+### 1.c. 25th Percentile of of length of hit songs
+```{r}
+pct25 <- qnorm(0.25, mean = 220, sd = 60)
+pct25
+```
+
+### 1.d. Heigth of the normal curve at x=200
+```{r}
+ht <- dnorm(200, mean = 220, sd = 60)
+ht
+```
+
+### 1.e. Randomly generate 10 hit song lengths
+```{r}
+hits <- rnorm(10, mean = 220, sd = 60)
+hits
+```
+
+
+## 2. Matrix calculation
+```{r}
+X <- matrix(c(7, 1, -6, 5, 2, 8, 3, 9, 10), ncol = 3, nrow = 3)
+X
+```
+
+### 2.a. Multiply each element of X by 5
+```{r}
+Y <- X * 5
+Y
+```
+
+### 2.c. Transpose of X multiplied by X
+```{r}
+Xt <- t(X)
+Xt
+XtX <- Xt %*% X
+XtX
+```
+
+### 2.d. Verify Inverse of X multiplied by X is the Identity matrix
+```{r}
+invx <- solve(X)
+idmat <- invx %*% X
+round(idmat)
+```
+
+## 3. 
+```{r}
+library(MASS)
+head(UScereal, 3)
+```
+
+### 3.a. Construct scatter plot displaying calories on x-axis and fiber on y-axis. Color code the dots to represent manufacturer.
+```{r}
+
+```
+
+### 3.b. Same as part (a) except facet on manufacturer
+```{r}
+
+```
+
+
+## 4. Exercise in SQLite
+```{r}
+str(state.x77)
+state_x77_new <- data.frame(state.x77)
+state_x77_new$state = row.names(state_x77_new)
+row.names(state_x77_new) <- NULL
+head(state_x77_new, 2)
+```
+
+```{r}
+state_region_new <- data.frame(state.region)
+state_region_new$state <- state_x77_new$state
+head(state_region_new, 3)
+```
+
+### 4.a. Set db connection
+```{r}
+library(RSQLite)
+
+```
+
+#### Create local database
+```{r}
+examconn = dbConnect(RSQLite::SQLite(), '/Users/dchiang/Downloads/data/state_db.sqlite')
+```
+#### Create tables
+```{r}
+dbWriteTable(examconn, 'state_x77_new', value = state_x77_new)
+dbWriteTable(examconn, 'state_region_new', value = state_region_new)
+
+```
+
+### 4.b. List tables
+```{r}
+tablelist <- dbListTables(examconn)
+tablelist
+```
+
+### 4.c. List fiels in state_x77_new table
+```{r}
+x77fields <- dbListFields(examconn, 'state_x77_new')
+x77fields
+```
+
+### 4.d. Select only Frost and Income fields from table
+```{r}
+sqlwhere1 <- 'SELECT Frost, Income FROM state_x77_new'
+frost.income <- dbGetQuery(examconn, sqlwhere1)
+head(frost.income, 3)
+```
+
+### 4.e. Join the 2 tables in state
+```{r}
+sqlwhere42 <- 'SELECT * FROM state_x77_new \
+INNER JOIN state_region_new \
+ON state_x77_new.state=state_region_new.state'
+state_x77_region <- dbGetQuery(examconn, sqlwhere42)
+## str(state_x77_region)
+head(state_x77_region, 3)
+```
+
+### 4. f. Counf of state per region in new joined table
+```{r}
+state_x77_region$state <- factor(state_x77_region$state)
+state_x77_region$region <- factor(state_x77_region$state.region)
+states.per.region <- count(state_x77_region, 'state.region')
+str(states.per.region)
+head(states.per.region, 5)
+```
+
+## 5. Regression (Extra Credit)
+
+### 5.a. Using the UScereal data in MASS package, build a multiple linear regression model to predict _sugars_ based on protein, fat, carbo, and calories. What is the coefficient of determination?
+```{r}
+library(MASS)
+summary(UScereal)
+sugarsm <- lm(sugars~protein+fat+carbo+calories, data = UScereal)
+summary(sugarsm)
+```
+r2 = 0.8941
+
+### 5.b. Use the model to predict the sugars for a cereal with protein = 5, fat = 1, carbo = 20, and calories = 150.
+```{r}
+
+```
+
+
+
+### 5.c. Give the coefficient of protein and interpretation in this context.
+
