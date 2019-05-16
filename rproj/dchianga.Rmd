@@ -1,0 +1,148 @@
+---
+title: "Stat 128 Sprint 2019 Term Project R Notebook"
+output: html_notebook
+author: 'Dean Chiang'
+---
+
+```{r}
+date()
+```
+# UWM Metadata
+
+## 1. Download Data
+
+1. Download data from
+[UW Madison Courses and Grades 2006-2017](https://www.kaggle.com/Madgrades/uw-madison-courses)
+(login required)
+2. Local database: [sqlite](/Users/dean/Downloads/data/uwm/database.sqlite3)
+3. Local data files: [csv](/Users/dean/Downloads/data/uw-madison-courses)
+
+## 2. Load Data
+
+```{r}
+require(RSQLite)
+dbpath <- '/Users/dchiang/Downloads/data/uwm/database.sqlite3'
+dbpath <- '~/Downloads/data/uwm/database.sqlite3'
+myconn = dbConnect(drv=SQLite(), dbname=dbpath)
+str(myconn)
+```
+
+### List of Tables in database
+
+```{r}
+tbls <- dbListTables(myconn)
+# class(tbls) # 'character'
+for (t in tbls) { print(t) }
+```
+
+### List of Fields per Table
+
+```{r}
+# dbListFields(myconn, 'course_offerings')
+i <- 0
+for (t in tbls) {
+  i <- i + 1
+  print('========')
+  print(tbls[i])
+  print('----------------')
+  fields <- dbListFields(myconn, tbls[i])
+  print(fields)
+}
+```
+
+## Join Sections to Teachers
+```{r}
+sqlwhere <- 'SELECT * FROM sections \
+INNER JOIN teachings \
+ON sections.uuid=teachings.section_uuid'
+section.teachers <- dbGetQuery(myconn, sqlwhere)
+str(section.teachers)
+```
+
+- [R function count()](https://www.rdocumentation.org/packages/plyr/versions/1.8.4/topics/count)
+- [R library plyr](https://www.rdocumentation.org/packages/plyr/versions/1.8.4)
+
+```{r}
+library(plyr)
+section.teachers$instructor_id <- factor(section.teachers$instructor_id)
+sections.per.teacher <- count(section.teachers, 'instructor_id')
+str(sections.per.teacher)
+```
+
+### Histogram of Sections Frequency Per Teacher
+```{r}
+hist(sections.per.teacher$freq)
+
+```
+
+## Sections Per Term
+
+### Join Course Offerings into Sections to Append Terms
+```{r}
+sqlwhere2 <- 'SELECT * FROM sections \
+INNER JOIN course_offerings \
+ON sections.course_offering_uuid=course_offerings.uuid'
+section.courses <- dbGetQuery(myconn, sqlwhere2)
+str(section.courses)
+```
+
+```{r}
+head(section.courses, 3)
+```
+
+### Calculate Sections per Term
+```{r}
+sections.per.term <- count(section.courses, 'term_code')# vars = c('uuid', 'term_code'))
+str(sections.per.term)
+```
+```{r}
+#hist(sections.per.term$freq)
+plot(sections.per.term$term_code, sections.per.term$freq)
+```
+
+## Determine number of courses over entire time period taught in each subject code
+
+### Join Section and Grades
+```{r}
+sqlwhere3 <- 'SELECT * FROM grade_distributions \
+INNER JOIN subject_memberships \
+ON grade_distributions.course_offering_uuid=subject_memberships.course_offering_uuid'
+grade.subject <- dbGetQuery(myconn, sqlwhere3)
+str(grade.subject)
+```
+
+### Count Frequency of Courses per Subject code
+```{r}
+course.per.subject <- count(grade.subject, 'subject_code')
+str(course.per.subject)
+#View(course.per.subject)
+```
+
+```{r}
+hist(course.per.subject$freq)
+```
+
+```{r}
+plot(course.per.subject$subject_code, course.per.subject$freq)
+```
+
+```{r}
+require(ggplot2)
+
+```
+```{r}
+p1 <- ggplot(data = course.per.subject, aes(x = course.per.subject$freq))
+p1+geom_histogram(fill='gray', color = 'white')+theme_minimal()
+```
+```{r}
+p2 <- ggplot(data = grade.subject, aes(x = grade.subject$subject_code))
+#factor(grade.subject$subject_code), y=count(grade.subject$course_offering_uuid)$freq
+p2+geom_histogram(fill = 'gray', color = 'white')+theme_minimal()
+```
+
+## Calculate the Average of the Course Grade per Section
+
+```{r}
+dbReadTable(myconn, 'grade_distributions')
+```
+
