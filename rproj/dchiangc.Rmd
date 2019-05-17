@@ -1,0 +1,151 @@
+---
+title: "Stat 128 Term Project R Notebook"
+output: html_notebook
+author: 'Dean Chiang'
+---
+
+# Question C
+
+```{r}
+date()
+```
+
+## Import Data: instructors.id, name, 18737 rows
+
+```{r}
+library(readr)
+instructors <- read_csv("C:/Users/dchiang/Downloads/uwm/instructors.csv")
+View(instructors)
+summary(instructors)
+```
+
+## Import Data: teachings.instructor_id, section_uuid, 315211 rows
+
+```{r}
+library(readr)
+teachings <- read_csv("C:/Users/dchiang/Downloads/uwm/teachings.csv")
+View(teachings)
+```
+
+## Import Data: sections.uuid, course_offering_uuid, 315602 rows
+
+```{r}
+library(readr)
+sections <- read_csv("C:/Users/dchiang/Downloads/uwm/sections.csv")
+View(sections)
+```
+
+## Import Data: grade_distributions.course_offering_uuid, grade_counts, 193262 rows
+
+```{r}
+library(readr)
+grades <- read_csv("C:/Users/dchiang/Downloads/uwm/grade_distributions.csv")
+View(grades)
+```
+
+## Calcuate GPA per course offering
+
+```{r}
+# total body count
+grades$sumcount <- grades$a_count + grades$ab_count + grades$b_count + grades$bc_count + grades$c_count + grades$d_count + grades$f_count + grades$s_count + grades$u_count + grades$cr_count + grades$n_count + grades$p_count + grades$i_count + grades$nw_count + grades$nr_count + grades$other_count
+summary(grades$sumcount)
+# Grade points total
+grades$gpsum <- grades$a_count*4 + grades$ab_count*3.5 + grades$b_count*3 + grades$bc_count*2.5 + grades$c_count*2 + grades$d_count*1 + grades$f_count*0 + grades$s_count*2 + grades$u_count*0 + grades$cr_count*2 + grades$n_count*0 + grades$p_count*2 # + grades$i_count + grades$nw_count + grades$nr_count + grades$other_count REST DONT COUNT
+summary(grades$gpsum)
+# GPA per row
+grades$gpa <- grades$gpsum / grades$sumcount
+summary(grades$gpa)
+```
+
+## Import Data: course_offerings.uuid, term_code, 81452 rows
+
+```{r}
+library(readr)
+course_offerings <- read_csv("C:/Users/dchiang/Downloads/uwm/course_offerings.csv")
+View(course_offerings)
+```
+
+## Merge Relevant data frames to get Instructor, Grades, and Terms together
+
+```{r}
+df1 <- merge(instructors, teachings, by.x = 'id', by.y = 'instructor_id')
+summary(df1)
+```
+```{r}
+df2 <- merge(df1, sections, by.x = 'section_uuid', by.y = 'uuid')
+summary(df2)
+df3 <- df2[c('section_uuid', 'id', 'name', 'course_offering_uuid')]
+summary(df3)
+```
+- [Delete columns](https://stackoverflow.com/questions/4605206/drop-data-frame-columns-by-name)
+- [Rename Columns](http://rprogramming.net/rename-columns-in-r/)
+
+```{r}
+df4 <- merge(df3, course_offerings, by.x = 'course_offering_uuid', by.y = 'uuid')
+summary(df4)
+names(df4) <- c('course_offering_uuid', 'section_uuid', 'teacher_id', 'teacher_name', 'course_uuid', 'term_code', 'course_name')
+head(df4, 5)
+```
+
+## Merge the instructor and term info into one big grades table 2076665 rows
+
+```{r}
+gpat <- grades[c('course_offering_uuid', 'gpa')]
+# head(gpat, 5)
+gpatt <- merge(gpat, df4, by.x = 'course_offering_uuid', by.y = 'course_offering_uuid')
+summary(gpatt)
+```
+
+### Does it matter merging tables one before another? No
+
+```{r}
+df5 <- merge(df4, gpat, by.x = 'course_offering_uuid', by.y = 'course_offering_uuid')
+summary(df5)
+```
+
+## Average GPA per Instructor per Term
+
+- [Export data](https://www.statmethods.net/input/exportingdata.html)
+
+```{r}
+write.csv(df5, 'C:\Users\dchiang\Downloads\data\gpa_instr_term.csv')
+```
+
+- [SQL Group by](https://stackoverflow.com/questions/27193373/what-is-the-r-equivalent-of-sql-select-from-table-group-by-c1-c2)
+
+```{r}
+# install.package('sqldf', dependencies = T)
+library(sqldf)
+df6 <- sqldf('SELECT * FROM df5 GROUP BY teacher_id, term_code')
+summary(df6)
+# Alternative: aggregate()
+# aggregate(df,by=list(df$c3,df$c4),FUN=head,1)
+```
+
+```{r}
+library(plyr)
+termcnt <- count(df6, vars = c('term_code'))
+nrow(insterm)
+instrcnt <- count(df6, 'teacher_id')
+nrow(instrcnt)
+termcodes <- count(course_offerings, 'term_code')
+nrow(termcodes) # only 22 unique terms
+```
+
+## Plot Average GPA per Term per Instructor
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+sub1 <- subset(df6, df6$teacher_id < 3056695)
+# FAIL--[which(df6$teacher_id < 3056695)]
+#gplot <- ggplot(data = df6, aes(x=teacher_id, y=term_code, color=gpa))
+gplot <- ggplot(data = sub1, aes(x=teacher_id, y=term_code, color=gpa))
+gplot+geom_point()
+```
+
+*CANNOT visually detect any pattern or trend.*
+
+//

@@ -1,0 +1,28 @@
+---
+title: "Stat 128 R Reference Notebook"
+output: html_notebook
+author: "Stat 128 Spring 2019 Section 1"
+---
+
+```{r}
+date()
+```
+
+1. Download term project data from
+[UW Madison Courses and Grades 2006-2017](https://www.kaggle.com/Madgrades/uw-madison-courses)
+(login required)
+2. Local database: [sqlite](/Users/dean/Downloads/data/uwm/database.sqlite3)
+3. Local data files: [csv](/Users/dean/Downloads/data/uw-madison-courses)
+- According to [UWM Busar's Office](http://www.bussvc.wisc.edu/bursar/termcode.html), academic year 2017 has the term codes 1174, 1176, 1182
+
+- [Delete columns](https://stackoverflow.com/questions/4605206/drop-data-frame-columns-by-name)
+- [Rename Columns](http://rprogramming.net/rename-columns-in-r/)
+
+- [Export data](https://www.statmethods.net/input/exportingdata.html)
+- [SQL Group by](https://stackoverflow.com/questions/27193373/what-is-the-r-equivalent-of-sql-select-from-table-group-by-c1-c2)
+
+- [Beginner’s Guide on Web Scraping in R (using rvest)](https://www.analyticsvidhya.com/blog/2017/03/beginners-guide-on-web-scraping-in-r-using-rvest-with-hands-on-knowledge/)
+
+
+
+_END OF FILE_

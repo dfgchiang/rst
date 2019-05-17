@@ -21,8 +21,8 @@ date()
 
 ```{r}
 require(RSQLite)
-dbpath <- '/Users/dchiang/Downloads/data/uwm/database.sqlite3'
 dbpath <- '~/Downloads/data/uwm/database.sqlite3'
+dbpath <- '/Users/dchiang/Downloads/data/uwm/database.sqlite3'
 myconn = dbConnect(drv=SQLite(), dbname=dbpath)
 str(myconn)
 ```
@@ -135,7 +135,7 @@ p1 <- ggplot(data = course.per.subject, aes(x = course.per.subject$freq))
 p1+geom_histogram(fill='gray', color = 'white')+theme_minimal()
 ```
 ```{r}
-p2 <- ggplot(data = grade.subject, aes(x = grade.subject$subject_code))
+p2 <- ggplot(data = grade.subject, aes(x = grade.csubject$subject_code))
 #factor(grade.subject$subject_code), y=count(grade.subject$course_offering_uuid)$freq
 p2+geom_histogram(fill = 'gray', color = 'white')+theme_minimal()
 ```
@@ -145,4 +145,37 @@ p2+geom_histogram(fill = 'gray', color = 'white')+theme_minimal()
 ```{r}
 dbReadTable(myconn, 'grade_distributions')
 ```
+
+### Count frequency of course_offering_uuid and section_number to see how many duplicates
+
+```{r}
+grades <- dbGetQuery(myconn, 'SELECT * FROM grade_distributions')
+summary(grades)
+str(grades)
+```
+### Add a Total Count column tallying numeric values from all other grades columns
+
+- [Add a column](https://discuss.analyticsvidhya.com/t/how-to-add-a-column-to-a-data-frame-in-r/3278/2)
+- [Data wrangling tasks](https://www.computerworld.com/article/2486425/business-intelligence-4-data-wrangling-tasks-in-r-for-advanced-beginners.html)
+- [Convert from character to numeric](https://stackoverflow.com/questions/37707060/converting-data-frame-column-from-character-to-numeric)
+
+```{r}
+grades$total <- as.numeric(grades$a_count) + as.numeric(grades$ab_count) + as.numeric(grades$b_count) + as.numeric(grades$bc_count) + as.numeric(grades$c_count) + as.numeric(grades$d_count) + as.numeric(grades$f_count) + as.numeric(grades$i_count) + as.numeric(grades$cr_count) + as.numeric(grades$n_count) + as.numeric(grades$s_count) + as.numeric(grades$u_count) + as.numeric(grades$p_count) + as.numeric(grades$nr_count) + as.numeric(grades$nw_count) + as.numeric(grades$other_count)
+str(grades)
+summary(grades$total)
+```
+
+### Calculate Grade Points Total per row of course-section
+
+```{r}
+grades$gptotal <- as.numeric(grades$a_count)*4 + as.numeric(grades$ab_count)*3.5 + as.numeric(grades$b_count)*3 + as.numeric(grades$bc_count)*2.5 + as.numeric(grades$c_count)*2 + as.numeric(grades$d_count)*1 + as.numeric(grades$f_count)*0 + as.numeric(grades$i_count)*0 + as.numeric(grades$cr_count)*2 + as.numeric(grades$s_count)*2 + as.numeric(grades$u_count) + as.numeric(grades$p_count)*2
+summary(grades$gptotal)
+```
+
+### Calculate GPA per course-section
+```{r}
+grades$gpa <- grades$gptotal / grades$total
+summary(grades$gpa)
+```
+
 
