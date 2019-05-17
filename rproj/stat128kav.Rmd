@@ -5,11 +5,9 @@ author: "Kristin Van Gaasbeck"
 ---
 
 
-# Stat 128 Term Project
+# Stat 128 Term Project Data Source
 
-**Data Source**
-
-- Download from [UW Madison Courses and Grades 2006-2017](https://www.kaggle.com/Madgrades/uw-madison-courses)
+1. Download from [UW Madison Courses and Grades 2006-2017](https://www.kaggle.com/Madgrades/uw-madison-courses)
 (login required)
 2. Local database: [sqlite: Mac OSX path](/Users/kvan/Downloads/data/uwm/database.sqlite3)
 3. Local data files: [csv: Windows path](C:\Users\kvan\Downloads\data\uw-madison-courses)
@@ -53,109 +51,6 @@ sum(freq.of.course.and.section$freq>1)
 #Or some sort of coding error. Visual inspection of these sections indicates they are identical in grade distribution
 #Since they are identical in grade distribution, we want to delete the duplicates to avoid overweighting the duplicates in our analysis below
 
-
-
-
-=======================================================================================
-
-=======================================================================================
-
-=======================================================================================
-## Question A (HEADING)
-
-```{r}
-# Click the green arrow on upper right corner to run the R code embedded
-# within the enclosing 3 back-tick marks ```
-date() # print out the current date
-print("Hello world!")
-var1 <- c(1:10)
-for (i in var1) {
-  print(i^2)
-}
-```
-
-```{r}
-# Break up large chunks of code for separate visible output
-plot(cars)
-```
-
-
-### Answers to Question A
-
-1. ANSWER 1 (This is an ordered or numbered list)
-2. ANSWER _UNDERLINE_ OR *UNDERLINE*
-3. ANSWER __BOLD__ **BOLD**
-
---------------------------------------------------------
-
-## Question B
-
-```{r}
-# Code for Q.B - comment still works within code block
-```
-
-### Answers to Question B
-
-- Part 1 (This is an unordered list)
-- ITEM 2
-    - Item 2.a
-- Item 3
-
-----------------------------------------------------------------------
-
-## Question C
-
-```{r}
-# Code for Q.C
-```
-
-### Answers to Question C
-
-1. answer 1
-2. answer 2
-3. answer 3
-
--------------------------------------------------------------------------
-
-## Question D
-
-```{r}
-# Code for Q.d
-```
-
-### Answers to Question D
-
-1. answer 1
-2. answer 2
-3. answer 3
-
-----------------------------------------------------------------------
-
-## Question E
-
-```{r}
-# Code for Q.E
-```
-
-### Answers to Question E
-
-1. answer 1
-2. answer 2
-3. answer 3
-
------------------------------------------------------------------------
-
-## Question F
-
-```{r}
-# Code for Q.F
-```
-
-### Answers to Question F
-
-1. answer 1
-2. answer 2
-3. answer 3
 
 ---------------------------------------------------------------------------
 

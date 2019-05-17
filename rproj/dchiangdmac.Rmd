@@ -14,8 +14,8 @@ date()
 
 ```{r}
 library(readr)
-instructors <- read_csv("C:/Users/dchiang/Downloads/uwm/instructors.csv")
-View(instructors)
+instructors <- read_csv("~/Downloads/data/uwm/instructors.csv")
+#View(instructors)
 summary(instructors)
 ```
 
@@ -23,24 +23,24 @@ summary(instructors)
 
 ```{r}
 library(readr)
-teachings <- read_csv("C:/Users/dchiang/Downloads/uwm/teachings.csv")
-View(teachings)
+teachings <- read_csv("~/Downloads/data/uwm/teachings.csv")
+#View(teachings)
 ```
 
 ## Import Data: sections.uuid, course_offering_uuid, 315602 rows
 
 ```{r}
 library(readr)
-sections <- read_csv("C:/Users/dchiang/Downloads/uwm/sections.csv")
-View(sections)
+sections <- read_csv("~/Downloads/data/uwm/sections.csv")
+#View(sections)
 ```
 
 ## Import Data: grade_distributions.course_offering_uuid, grade_counts, 193262 rows
 
 ```{r}
 library(readr)
-grades <- read_csv("C:/Users/dchiang/Downloads/uwm/grade_distributions.csv")
-View(grades)
+grades <- read_csv("~/Downloads/data/uwm/grade_distributions.csv")
+#View(grades)
 ```
 
 ## Calcuate GPA per course offering
@@ -61,8 +61,8 @@ summary(grades$gpa)
 
 ```{r}
 library(readr)
-course_offerings <- read_csv("C:/Users/dchiang/Downloads/uwm/course_offerings.csv")
-View(course_offerings)
+course_offerings <- read_csv("~/Downloads/data/uwm/course_offerings.csv")
+#View(course_offerings)
 ```
 
 ## Merge Relevant data frames to get Instructor, Grades, and Terms together
@@ -108,13 +108,13 @@ summary(df5)
 - [Export data](https://www.statmethods.net/input/exportingdata.html)
 
 ```{r}
-write.csv(df5, 'C:\Users\dchiang\Downloads\data\gpa_instr_term.csv')
+write.csv(df5, '~/Downloads/data/gpa_instr_term.csv')
 ```
 
 - [SQL Group by](https://stackoverflow.com/questions/27193373/what-is-the-r-equivalent-of-sql-select-from-table-group-by-c1-c2)
 
 ```{r}
-# install.package('sqldf', dependencies = T)
+# install.packages('sqldf', dependencies = T)
 library(sqldf)
 df6 <- sqldf('SELECT * FROM df5 GROUP BY teacher_id, term_code')
 summary(df6)
@@ -125,7 +125,7 @@ summary(df6)
 ```{r}
 library(plyr)
 termcnt <- count(df6, vars = c('term_code'))
-nrow(insterm)
+nrow(termcnt)
 instrcnt <- count(df6, 'teacher_id')
 nrow(instrcnt)
 termcodes <- count(course_offerings, 'term_code')
@@ -148,7 +148,10 @@ gplot <- ggplot(data = sub1, aes(x=teacher_id, y=term_code, color=gpa))
 gplot+geom_point()
 ```
 
+### Answer to Question C.
 *CANNOT visually detect any pattern or trend.*
+
+-----------------------------------------------------------------------------------
 
 # Question E.
 
@@ -158,11 +161,16 @@ gplot+geom_point()
 4. [Sort data](https://www.statmethods.net/management/sorting.html)
 5. [Sort function](https://stackoverflow.com/questions/19727029/how-do-i-get-a-list-sorted-by-frequency-in-r)
 
+## Extract 2017 records
+
 ```{r}
 gpa2017 <- subset(df6, df6$term_code == c(1174,1176,1182))
 summary(gpa2017)
 # year2017 has 316 rows
 ```
+
+### Count instructors per course 
+
 ```{r}
 fav2017cnt <- count(gpa2017, vars = c('course_name')) # , 'teacher_name'
 summary(fav2017cnt)
@@ -171,7 +179,7 @@ fav2017o <- fav2017cnt[order(fav2017cnt$freq, decreasing = T),]
 head(fav2017o, 10)
 ```
 
-#### PIck a subject to find instructors
+### PIck a subject to find instructors
 
 ```{r}
 favs1 <- subset(gpa2017, gpa2017$course_name == 'General Physics')
@@ -182,7 +190,7 @@ instrs1
 
 ### Find professors ratings at [ratemyprofessor](https://www.ratemyprofessors.com/campusRatings.jsp?sid=1256)
 
-#### Issues
+### Issues
 
 1. [Professor Personal Page] contains
 ```{html}
@@ -206,18 +214,30 @@ to see [this page]
 only a limited number of the professors are returned on 
 a dynamically generated side bar which does not show all 
 professors still (4433 professors found)
-4. But most challenging task is that the professor names 
-in the overall rating list are shown last name first 
+4. But most challenging task is matching the professor names. 
+In the overall rating list are shown last name first 
 and in proper case, while the instructor name in our data 
 consist of full (first then last) name in all all upper case.
+Often the names do not match exactly, such as MATTHEW HERNDON to Matt Herndon.
 
-#### Professor Matt Herndon of Physics Dept (rating: 2.0)
+### Using Prof. Matt Herndon of Physics Dept (rating: 2.0) as example
+
+Many scraper projects for rate-my-professor site exists in GitHub 
+and generally requires HTTP request to the RESTful API the rating site 
+provides without static page content scraping. 
+
+For example, data per professor can be retrieved as JSON through the REST URL call:
+
+[get](https://www.ratemyprofessors.com/filter/professor/?&page=1&filter=teacherlastname_sort_s+asc&query=MATT+HERNDON&queryoption=TEACHER&queryBy=schoolId&sid=1256)
+
+where _*sid*_ is the School ID for Univ of WI at Madison, and the client 
+may need to experiment with possible variation of professor name.
 
 ```{r}
 gpa.matt <- subset(df6, df6$teacher_name == 'MATTHEW HERNDON' & df6$course_name == 'General Physics')
 summary(gpa.matt)
-View(gpa.matt)
+head(gpa.matt, 20)
 # Visual inspection shows a increasing avg GPA
 ```
 
-_END OF FILE_
+//_END OF FILE_

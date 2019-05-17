@@ -9,7 +9,7 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="Dean Chiang" />
+<meta name="author" content="Kristin Van Gaasbeck" />
 
 
 <title>Stat 128 Spring 2019 Term Project R Notebook</title>
@@ -211,7 +211,7 @@ $(document).ready(function () {
 </style>
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("dchianga.Rmd");
+  window.initializeSourceEmbed("stat128kav.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
@@ -235,283 +235,149 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Stat 128 Spring 2019 Term Project R Notebook</h1>
-<h4 class="author"><em>Dean Chiang</em></h4>
+<h4 class="author"><em>Kristin Van Gaasbeck</em></h4>
 
 </div>
 
 
 <!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0ZSgpXG5gYGAifQ== -->
-<pre class="r"><code>date()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<div id="uwm-metadata" class="section level1">
-<h1>UWM Metadata</h1>
-<div id="download-data" class="section level2">
-<h2>1. Download Data</h2>
+<div id="stat-128-term-project-data-source" class="section level1">
+<h1>Stat 128 Term Project Data Source</h1>
 <ol style="list-style-type: decimal">
-<li>Download data from <a href="https://www.kaggle.com/Madgrades/uw-madison-courses">UW Madison Courses and Grades 2006-2017</a> (login required)</li>
-<li>Local database: <a href="/Users/dean/Downloads/data/uwm/database.sqlite3">sqlite</a></li>
-<li>Local data files: <a href="/Users/dean/Downloads/data/uw-madison-courses">csv</a></li>
+<li>Download from <a href="https://www.kaggle.com/Madgrades/uw-madison-courses">UW Madison Courses and Grades 2006-2017</a> (login required)</li>
+<li>Local database: <a href="/Users/kvan/Downloads/data/uwm/database.sqlite3">sqlite: Mac OSX path</a></li>
+<li>Local data files: <a href="C:\Users\kvan\Downloads\data\uw-madison-courses">csv: Windows path</a></li>
 </ol>
+<hr />
 </div>
-<div id="load-data" class="section level2">
-<h2>2. Load Data</h2>
+<div id="script-to-load-the-raw-data---we-may-not-need-all-of-these-files-later-on" class="section level1">
+<h1>Script to load the raw data - we may not need all of these files later on</h1>
+</div>
+<div id="imported-from-my-desktop-after-downloading-from-kaggle.com" class="section level1">
+<h1>Imported from my desktop, after downloading from Kaggle.com</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVxdWlyZShSU1FMaXRlKVxuZGJwYXRoIDwtICd+L0Rvd25sb2Fkcy9kYXRhL3V3bS9kYXRhYmFzZS5zcWxpdGUzJ1xuZGJwYXRoIDwtICcvVXNlcnMvZGNoaWFuZy9Eb3dubG9hZHMvZGF0YS91d20vZGF0YWJhc2Uuc3FsaXRlMydcbm15Y29ubiA9IGRiQ29ubmVjdChkcnY9U1FMaXRlKCksIGRibmFtZT1kYnBhdGgpXG5zdHIobXljb25uKVxuYGBgIn0= -->
-<pre class="r"><code>require(RSQLite)
-dbpath &lt;- '~/Downloads/data/uwm/database.sqlite3'
-dbpath &lt;- '/Users/dchiang/Downloads/data/uwm/database.sqlite3'
-myconn = dbConnect(drv=SQLite(), dbname=dbpath)
-str(myconn)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<div id="list-of-tables-in-database" class="section level3">
-<h3>List of Tables in database</h3>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGJscyA8LSBkYkxpc3RUYWJsZXMobXljb25uKVxuIyBjbGFzcyh0YmxzKSAjICdjaGFyYWN0ZXInXG5mb3IgKHQgaW4gdGJscykgeyBwcmludCh0KSB9XG5gYGAifQ== -->
-<pre class="r"><code>tbls &lt;- dbListTables(myconn)
-# class(tbls) # 'character'
-for (t in tbls) { print(t) }</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY291cnNlX29mZmVyaW5ncyA8LSByZWFkLmNzdihcIn4vRG93bmxvYWRzL2RhdGEvdXdtL2NvdXJzZV9vZmZlcmluZ3MuY3N2XCIpXG5jb3Vyc2VzIDwtIHJlYWQuY3N2KFwifi9Eb3dubG9hZHMvZGF0YS91d20vY291cnNlcy5jc3ZcIilcbmdyYWRlX2Rpc3RyaWJ1dGlvbnMgPC0gcmVhZC5jc3YoXCJ+L0Rvd25sb2Fkcy9kYXRhL3V3bS9ncmFkZV9kaXN0cmlidXRpb25zLmNzdlwiKVxuaW5zdHJ1Y3RvcnMgPC0gcmVhZC5jc3YoXCJ+L0Rvd25sb2Fkcy9kYXRhL3V3bS9pbnN0cnVjdG9ycy5jc3ZcIilcbnJvb21zIDwtIHJlYWQuY3N2KFwifi9Eb3dubG9hZHMvZGF0YS91d20vcm9vbXMuY3N2XCIpXG5zY2hlZHVsZXMgPC0gcmVhZC5jc3YoXCJ+L0Rvd25sb2Fkcy9kYXRhL3V3bS9zY2hlZHVsZXMuY3N2XCIpXG5zZWN0aW9ucyA8LSByZWFkLmNzdihcIn4vRG93bmxvYWRzL2RhdGEvdXdtL3NlY3Rpb25zLmNzdlwiKVxuc3ViamVjdF9tZW1iZXJzaGlwcyA8LSByZWFkLmNzdihcIn4vRG93bmxvYWRzL2RhdGEvdXdtL3N1YmplY3RfbWVtYmVyc2hpcHMuY3N2XCIpXG5zdWJqZWN0cyA8LSByZWFkLmNzdihcIn4vRG93bmxvYWRzL2RhdGEvdXdtL3N1YmplY3RzLmNzdlwiKVxudGVhY2hpbmdzIDwtIHJlYWQuY3N2KFwifi9Eb3dubG9hZHMvZGF0YS91d20vdGVhY2hpbmdzLmNzdlwiKVxuYGBgIn0= -->
+<pre class="r"><code>course_offerings &lt;- read.csv(&quot;~/Downloads/data/uwm/course_offerings.csv&quot;)
+courses &lt;- read.csv(&quot;~/Downloads/data/uwm/courses.csv&quot;)
+grade_distributions &lt;- read.csv(&quot;~/Downloads/data/uwm/grade_distributions.csv&quot;)
+instructors &lt;- read.csv(&quot;~/Downloads/data/uwm/instructors.csv&quot;)
+rooms &lt;- read.csv(&quot;~/Downloads/data/uwm/rooms.csv&quot;)
+schedules &lt;- read.csv(&quot;~/Downloads/data/uwm/schedules.csv&quot;)
+sections &lt;- read.csv(&quot;~/Downloads/data/uwm/sections.csv&quot;)
+subject_memberships &lt;- read.csv(&quot;~/Downloads/data/uwm/subject_memberships.csv&quot;)
+subjects &lt;- read.csv(&quot;~/Downloads/data/uwm/subjects.csv&quot;)
+teachings &lt;- read.csv(&quot;~/Downloads/data/uwm/teachings.csv&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
-<div id="list-of-fields-per-table" class="section level3">
-<h3>List of Fields per Table</h3>
+<div id="question-a-compute-average-gpa-of-each-section" class="section level1">
+<h1>Question a) Compute average GPA of each section</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBkYkxpc3RGaWVsZHMobXljb25uLCAnY291cnNlX29mZmVyaW5ncycpXG5pIDwtIDBcbmZvciAodCBpbiB0YmxzKSB7XG4gIGkgPC0gaSArIDFcbiAgcHJpbnQoJz09PT09PT09JylcbiAgcHJpbnQodGJsc1tpXSlcbiAgcHJpbnQoJy0tLS0tLS0tLS0tLS0tLS0nKVxuICBmaWVsZHMgPC0gZGJMaXN0RmllbGRzKG15Y29ubiwgdGJsc1tpXSlcbiAgcHJpbnQoZmllbGRzKVxufVxuYGBgIn0= -->
-<pre class="r"><code># dbListFields(myconn, 'course_offerings')
-i &lt;- 0
-for (t in tbls) {
-  i &lt;- i + 1
-  print('========')
-  print(tbls[i])
-  print('----------------')
-  fields &lt;- dbListFields(myconn, tbls[i])
-  print(fields)
-}</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ3JhZGVzLnNlY3Rpb25zIDwtIG1lcmdlKGdyYWRlX2Rpc3RyaWJ1dGlvbnMsc2VjdGlvbnMsYnkueD1jKCdjb3Vyc2Vfb2ZmZXJpbmdfdXVpZCcsICdzZWN0aW9uX251bWJlcicpLCBieS55PWMoJ2NvdXJzZV9vZmZlcmluZ191dWlkJywnbnVtYmVyJykpXG5zdW1tYXJ5KGdyYWRlcy5zZWN0aW9ucylcbmBgYCJ9 -->
+<pre class="r"><code>grades.sections &lt;- merge(grade_distributions,sections,by.x=c('course_offering_uuid', 'section_number'), by.y=c('course_offering_uuid','number'))
+summary(grades.sections)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgICAgICAgICAgICAgICAgICAgICAgY291cnNlX29mZmVyaW5nX3V1aWQgc2VjdGlvbl9udW1iZXIgICAgICBhX2NvdW50ICAgICAgIFxuIGM3MmVjOGU0LWExYTYtMzljMC1iMjVlLWUzYTgzNWJkZDVjODogICAxMjAgICAgTWluLiAgIDogIDEuMDAgICBNaW4uICAgOiAgMC4wMDAgIFxuIDFiYzgzMWIwLWVmMTQtM2I1NC05ZjE4LTc2OTliNWI0OTJiOTogICAxMTEgICAgMXN0IFF1LjogIDEuMDAgICAxc3QgUXUuOiAgMC4wMDAgIFxuIDUzOGNkMzJmLTA4OWItM2ViNi1hODMyLTc4Yjk3NGJlMTRmNDogICAxMDAgICAgTWVkaWFuIDogIDQuMDAgICBNZWRpYW4gOiAgMC4wMDAgIFxuIGUxMmUwYmFiLWFkZWYtMzk4Yi1iODM1LTZhMzk5OGNiM2IxMTogICAxMDAgICAgTWVhbiAgIDogMTkuMTkgICBNZWFuICAgOiAgNy45OTMgIFxuIDE1MmFmNGM2LTIwNjgtMzBiMi1iNjVjLTFmNjFkNGQ1Yzg2OTogICAgOTMgICAgM3JkIFF1LjogMjYuMDAgICAzcmQgUXUuOiAxMC4wMDAgIFxuIDAzZjA1ZTJkLTMxYTMtMzJkMS05M2E1LTUzMTgzZDIyNGQxYTogICAgOTAgICAgTWF4LiAgIDo0MjIuMDAgICBNYXguICAgOjcwNC4wMDAgIFxuIChPdGhlcikgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDoyMTY3ODUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuICAgIGFiX2NvdW50ICAgICAgICAgIGJfY291bnQgICAgICAgICAgIGJjX2NvdW50ICAgICAgICAgIGNfY291bnQgICAgICAgXG4gTWluLiAgIDogIDAuMDAwICAgTWluLiAgIDogIDAuMDAwICAgTWluLiAgIDogIDAuMDAwICAgTWluLiAgIDogIDAuMDAwICBcbiAxc3QgUXUuOiAgMC4wMDAgICAxc3QgUXUuOiAgMC4wMDAgICAxc3QgUXUuOiAgMC4wMDAgICAxc3QgUXUuOiAgMC4wMDAgIFxuIE1lZGlhbiA6ICAwLjAwMCAgIE1lZGlhbiA6ICAwLjAwMCAgIE1lZGlhbiA6ICAwLjAwMCAgIE1lZGlhbiA6ICAwLjAwMCAgXG4gTWVhbiAgIDogIDMuOTk0ICAgTWVhbiAgIDogIDMuOTc4ICAgTWVhbiAgIDogIDEuNDM3ICAgTWVhbiAgIDogIDEuNDIyICBcbiAzcmQgUXUuOiAgNC4wMDAgICAzcmQgUXUuOiAgMi4wMDAgICAzcmQgUXUuOiAgMC4wMDAgICAzcmQgUXUuOiAgMC4wMDAgIFxuIE1heC4gICA6MjM0LjAwMCAgIE1heC4gICA6MjE5LjAwMCAgIE1heC4gICA6MTI1LjAwMCAgIE1heC4gICA6MTU3LjAwMCAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcbiAgICBkX2NvdW50ICAgICAgICAgICBmX2NvdW50ICAgICAgICAgICBzX2NvdW50ICAgICAgICAgICAgdV9jb3VudCAgICAgICAgXG4gTWluLiAgIDogMC4wMDAwICAgTWluLiAgIDogMC4wMDAwICAgTWluLiAgIDogIDAuMDAwMCAgIE1pbi4gICA6MC4wMDAwMDAgIFxuIDFzdCBRdS46IDAuMDAwMCAgIDFzdCBRdS46IDAuMDAwMCAgIDFzdCBRdS46ICAwLjAwMDAgICAxc3QgUXUuOjAuMDAwMDAwICBcbiBNZWRpYW4gOiAwLjAwMDAgICBNZWRpYW4gOiAwLjAwMDAgICBNZWRpYW4gOiAgMC4wMDAwICAgTWVkaWFuIDowLjAwMDAwMCAgXG4gTWVhbiAgIDogMC4zNzQ5ICAgTWVhbiAgIDogMC4xODc3ICAgTWVhbiAgIDogIDAuNjQzNyAgIE1lYW4gICA6MC4wMDM5NDcgIFxuIDNyZCBRdS46IDAuMDAwMCAgIDNyZCBRdS46IDAuMDAwMCAgIDNyZCBRdS46ICAwLjAwMDAgICAzcmQgUXUuOjAuMDAwMDAwICBcbiBNYXguICAgOjYyLjAwMDAgICBNYXguICAgOjM3LjAwMDAgICBNYXguICAgOjE3Ny4wMDAwICAgTWF4LiAgIDo2LjAwMDAwMCAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuICAgIGNyX2NvdW50ICAgICAgICAgICAgbl9jb3VudCAgICAgICAgICAgICBwX2NvdW50ICAgICAgICAgICAgaV9jb3VudCAgICAgICAgXG4gTWluLiAgIDogMC4wMDAwMDAgICBNaW4uICAgOiAwLjAwMDAwMCAgIE1pbi4gICA6IDAuMDAwMDAgICBNaW4uICAgOiAwLjAwMDAwICBcbiAxc3QgUXUuOiAwLjAwMDAwMCAgIDFzdCBRdS46IDAuMDAwMDAwICAgMXN0IFF1LjogMC4wMDAwMCAgIDFzdCBRdS46IDAuMDAwMDAgIFxuIE1lZGlhbiA6IDAuMDAwMDAwICAgTWVkaWFuIDogMC4wMDAwMDAgICBNZWRpYW4gOiAwLjAwMDAwICAgTWVkaWFuIDogMC4wMDAwMCAgXG4gTWVhbiAgIDogMC4wMDUwMjMgICBNZWFuICAgOiAwLjAwNTE4NCAgIE1lYW4gICA6IDAuMDI1NTMgICBNZWFuICAgOiAwLjA3MjQ4ICBcbiAzcmQgUXUuOiAwLjAwMDAwMCAgIDNyZCBRdS46IDAuMDAwMDAwICAgM3JkIFF1LjogMC4wMDAwMCAgIDNyZCBRdS46IDAuMDAwMDAgIFxuIE1heC4gICA6MjMuMDAwMDAwICAgTWF4LiAgIDoxNi4wMDAwMDAgICBNYXguICAgOjM1LjAwMDAwICAgTWF4LiAgIDo4MS4wMDAwMCAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcbiAgICBud19jb3VudCAgICAgICAgICAgbnJfY291bnQgICAgICAgICAgb3RoZXJfY291bnQgICAgICBcbiBNaW4uICAgOiAwLjAwMDAwICAgTWluLiAgIDogIDAuMDAwMDAgICBNaW4uICAgOiAwLjAwMDAwICBcbiAxc3QgUXUuOiAwLjAwMDAwICAgMXN0IFF1LjogIDAuMDAwMDAgICAxc3QgUXUuOiAwLjAwMDAwICBcbiBNZWRpYW4gOiAwLjAwMDAwICAgTWVkaWFuIDogIDAuMDAwMDAgICBNZWRpYW4gOiAwLjAwMDAwICBcbiBNZWFuICAgOiAwLjAxNDA2ICAgTWVhbiAgIDogIDAuMDI5ODQgICBNZWFuICAgOiAwLjAxNDE5ICBcbiAzcmQgUXUuOiAwLjAwMDAwICAgM3JkIFF1LjogIDAuMDAwMDAgICAzcmQgUXUuOiAwLjAwMDAwICBcbiBNYXguICAgOjI1LjAwMDAwICAgTWF4LiAgIDoxNzcuMDAwMDAgICBNYXguICAgOjE0LjAwMDAwICBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdXVpZCAgICAgICAgc2VjdGlvbl90eXBlXG4gMDAwMDBmZDUtOWY2MS0zNjU2LThjOTgtMWJjOTA2ZDMyMTA3OiAgICAgMSAgIERJUzogIDU3MSAgIFxuIDAwMDA0ZTc1LWVhMWQtMzJhMS1iN2FjLWZmZTRlZTc2MjAxOTogICAgIDEgICBGTEQ6MTU1MjYgICBcbiAwMDAxMjliOS00OWVkLTM3ZDAtYjRmOC1mMzNhNDVkY2JkYmM6ICAgICAxICAgSU5EOjgxNzI2ICAgXG4gMDAwMTNiZmMtY2JkOS0zODg5LWEwZDgtZGNlZDRhMTQ3ZDk2OiAgICAgMSAgIExBQjoxNjM4MiAgIFxuIDAwMDE3MGU0LTY5ZTYtMzZjMC05Yjk3LTgwYmM0ODhkYzU0YTogICAgIDEgICBMRUM6ODc4OTQgICBcbiAwMDAxNzZkZS1kOTBjLTNmM2UtYTEyZS1lYTVkODQ5ZmNmN2Q6ICAgICAxICAgU0VNOjE1MzAwICAgXG4gKE90aGVyKSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOjIxNzM5MyAgICAgICAgICAgICAgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByb29tX3V1aWQgICAgIFxuIG51bGwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDoxMDE2NDkgIFxuIDA0MzY4YTU2LWM5NTktM2U0Yi04YjNkLWY0Y2MzNTM4ZmVhNTogIDM2MTIgIFxuIDg2ZDFkZWJmLTNmM2EtMzliNy1iYzBkLTk3NmE0ZmEzMzg2MjogIDEzNTggIFxuIGU2ODQ4YjFlLWM5YTItM2E5Mi05YWM4LTdkZTZkNjFiZjg3ODogICA5MTIgIFxuIGVlZTg5MzEzLTk3MTItMzBmNy1hYzMwLWFiYjZlNjE1Nzg4MzogICA2NTAgIFxuIDE1OWRlZDdiLTc0NDMtMzliYi1iZDU4LTE3NGNkOWRiMjgzOTogICA2MjEgIFxuIChPdGhlcikgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDoxMDg1OTcgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2NoZWR1bGVfdXVpZCAgXG4gZjJkNjZhNGQtMGMwOC0zYjQ4LWFiZjYtNjQ5ZmZmZDdhZTkwOjkyMzcwICBcbiA3MzlhYjU0YS0xN2U4LTM0MjgtYjY0YS01YjYwNjQwYTM1ZmY6IDc0NDYgIFxuIGIzNmJiZWM5LTVmNTQtM2FmMi05ZjIzLWUyMTc1ODZhYmJkZDogNDk4MSAgXG4gZjIzM2JhYjAtZDNjZi0zODk5LTk3YWEtMGZiZTFkYjE0ZjAwOiA0ODQ1ICBcbiBiMTlkMDZhMC0wYzg1LTNlMTUtOTFlNS1iZDMwYTIxMDc0ZWE6IDQ3MDQgIFxuIGYyNzM4NTNlLWZhNmQtMzhiYS04NzA3LTYzYmI3ZDE2ZDhjZDogMzUzNSAgXG4gKE90aGVyKSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOjk5NTE4ICBcbiJ9 -->
+<pre><code>                           course_offering_uuid section_number      a_count       
+ c72ec8e4-a1a6-39c0-b25e-e3a835bdd5c8:   120    Min.   :  1.00   Min.   :  0.000  
+ 1bc831b0-ef14-3b54-9f18-7699b5b492b9:   111    1st Qu.:  1.00   1st Qu.:  0.000  
+ 538cd32f-089b-3eb6-a832-78b974be14f4:   100    Median :  4.00   Median :  0.000  
+ e12e0bab-adef-398b-b835-6a3998cb3b11:   100    Mean   : 19.19   Mean   :  7.993  
+ 152af4c6-2068-30b2-b65c-1f61d4d5c869:    93    3rd Qu.: 26.00   3rd Qu.: 10.000  
+ 03f05e2d-31a3-32d1-93a5-53183d224d1a:    90    Max.   :422.00   Max.   :704.000  
+ (Other)                             :216785                                      
+    ab_count          b_count           bc_count          c_count       
+ Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000  
+ 1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000  
+ Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.000  
+ Mean   :  3.994   Mean   :  3.978   Mean   :  1.437   Mean   :  1.422  
+ 3rd Qu.:  4.000   3rd Qu.:  2.000   3rd Qu.:  0.000   3rd Qu.:  0.000  
+ Max.   :234.000   Max.   :219.000   Max.   :125.000   Max.   :157.000  
+                                                                        
+    d_count           f_count           s_count            u_count        
+ Min.   : 0.0000   Min.   : 0.0000   Min.   :  0.0000   Min.   :0.000000  
+ 1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.:  0.0000   1st Qu.:0.000000  
+ Median : 0.0000   Median : 0.0000   Median :  0.0000   Median :0.000000  
+ Mean   : 0.3749   Mean   : 0.1877   Mean   :  0.6437   Mean   :0.003947  
+ 3rd Qu.: 0.0000   3rd Qu.: 0.0000   3rd Qu.:  0.0000   3rd Qu.:0.000000  
+ Max.   :62.0000   Max.   :37.0000   Max.   :177.0000   Max.   :6.000000  
+                                                                          
+    cr_count            n_count             p_count            i_count        
+ Min.   : 0.000000   Min.   : 0.000000   Min.   : 0.00000   Min.   : 0.00000  
+ 1st Qu.: 0.000000   1st Qu.: 0.000000   1st Qu.: 0.00000   1st Qu.: 0.00000  
+ Median : 0.000000   Median : 0.000000   Median : 0.00000   Median : 0.00000  
+ Mean   : 0.005023   Mean   : 0.005184   Mean   : 0.02553   Mean   : 0.07248  
+ 3rd Qu.: 0.000000   3rd Qu.: 0.000000   3rd Qu.: 0.00000   3rd Qu.: 0.00000  
+ Max.   :23.000000   Max.   :16.000000   Max.   :35.00000   Max.   :81.00000  
+                                                                              
+    nw_count           nr_count          other_count      
+ Min.   : 0.00000   Min.   :  0.00000   Min.   : 0.00000  
+ 1st Qu.: 0.00000   1st Qu.:  0.00000   1st Qu.: 0.00000  
+ Median : 0.00000   Median :  0.00000   Median : 0.00000  
+ Mean   : 0.01406   Mean   :  0.02984   Mean   : 0.01419  
+ 3rd Qu.: 0.00000   3rd Qu.:  0.00000   3rd Qu.: 0.00000  
+ Max.   :25.00000   Max.   :177.00000   Max.   :14.00000  
+                                                          
+                                   uuid        section_type
+ 00000fd5-9f61-3656-8c98-1bc906d32107:     1   DIS:  571   
+ 00004e75-ea1d-32a1-b7ac-ffe4ee762019:     1   FLD:15526   
+ 000129b9-49ed-37d0-b4f8-f33a45dcbdbc:     1   IND:81726   
+ 00013bfc-cbd9-3889-a0d8-dced4a147d96:     1   LAB:16382   
+ 000170e4-69e6-36c0-9b97-80bc488dc54a:     1   LEC:87894   
+ 000176de-d90c-3f3e-a12e-ea5d849fcf7d:     1   SEM:15300   
+ (Other)                             :217393               
+                                room_uuid     
+ null                                :101649  
+ 04368a56-c959-3e4b-8b3d-f4cc3538fea5:  3612  
+ 86d1debf-3f3a-39b7-bc0d-976a4fa33862:  1358  
+ e6848b1e-c9a2-3a92-9ac8-7de6d61bf878:   912  
+ eee89313-9712-30f7-ac30-abb6e6157883:   650  
+ 159ded7b-7443-39bb-bd58-174cd9db2839:   621  
+ (Other)                             :108597  
+                              schedule_uuid  
+ f2d66a4d-0c08-3b48-abf6-649fffd7ae90:92370  
+ 739ab54a-17e8-3428-b64a-5b60640a35ff: 7446  
+ b36bbec9-5f54-3af2-9f23-e217586abbdd: 4981  
+ f233bab0-d3cf-3899-97aa-0fbe1db14f00: 4845  
+ b19d06a0-0c85-3e15-91e5-bd30a21074ea: 4704  
+ f273853e-fa6d-38ba-8707-63bb7d16d8cd: 3535  
+ (Other)                             :99518  </code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
-</div>
-<div id="join-sections-to-teachers" class="section level2">
-<h2>Join Sections to Teachers</h2>
+<div id="there-are-duplicates-when-matching-the-course_offering_uuid-and-section_number." class="section level1">
+<h1>There are duplicates when matching the course_offering_uuid and section_number.</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3Fsd2hlcmUgPC0gJ1NFTEVDVCAqIEZST00gc2VjdGlvbnMgXFxcbklOTkVSIEpPSU4gdGVhY2hpbmdzIFxcXG5PTiBzZWN0aW9ucy51dWlkPXRlYWNoaW5ncy5zZWN0aW9uX3V1aWQnXG5zZWN0aW9uLnRlYWNoZXJzIDwtIGRiR2V0UXVlcnkobXljb25uLCBzcWx3aGVyZSlcbnN0cihzZWN0aW9uLnRlYWNoZXJzKVxuYGBgIn0= -->
-<pre class="r"><code>sqlwhere &lt;- 'SELECT * FROM sections \
-INNER JOIN teachings \
-ON sections.uuid=teachings.section_uuid'
-section.teachers &lt;- dbGetQuery(myconn, sqlwhere)
-str(section.teachers)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShwbHlyKSAgI3VzZWZ1bCBmb3Igb3JnYW5pemluZyBhbmQgYnJlYWtpbmcgZG93biBkYXRhIGZvciBhbmFseXNpc1xuZnJlcS5vZi5jb3Vyc2UuYW5kLnNlY3Rpb24gPSBjb3VudChncmFkZXMuc2VjdGlvbnMsIHZhcnM9YygnY291cnNlX29mZmVyaW5nX3V1aWQnLCAnc2VjdGlvbl9udW1iZXInKSlcbnN1bShmcmVxLm9mLmNvdXJzZS5hbmQuc2VjdGlvbiRmcmVxPjEpIFxuYGBgIn0= -->
+<pre class="r"><code>library(plyr)  #useful for organizing and breaking down data for analysis
+freq.of.course.and.section = count(grades.sections, vars=c('course_offering_uuid', 'section_number'))
+sum(freq.of.course.and.section$freq&gt;1) </code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<ul>
-<li><a href="https://www.rdocumentation.org/packages/plyr/versions/1.8.4/topics/count">R function count()</a></li>
-<li><a href="https://www.rdocumentation.org/packages/plyr/versions/1.8.4">R library plyr</a></li>
-</ul>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShwbHlyKVxuc2VjdGlvbi50ZWFjaGVycyRpbnN0cnVjdG9yX2lkIDwtIGZhY3RvcihzZWN0aW9uLnRlYWNoZXJzJGluc3RydWN0b3JfaWQpXG5zZWN0aW9ucy5wZXIudGVhY2hlciA8LSBjb3VudChzZWN0aW9uLnRlYWNoZXJzLCAnaW5zdHJ1Y3Rvcl9pZCcpXG5zdHIoc2VjdGlvbnMucGVyLnRlYWNoZXIpXG5gYGAifQ== -->
-<pre class="r"><code>library(plyr)
-section.teachers$instructor_id &lt;- factor(section.teachers$instructor_id)
-sections.per.teacher &lt;- count(section.teachers, 'instructor_id')
-str(sections.per.teacher)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<div id="histogram-of-sections-frequency-per-teacher" class="section level3">
-<h3>Histogram of Sections Frequency Per Teacher</h3>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGlzdChzZWN0aW9ucy5wZXIudGVhY2hlciRmcmVxKVxuXG5gYGAifQ== -->
-<pre class="r"><code>hist(sections.per.teacher$freq)
-</code></pre>
-<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDE3NTA3XG4ifQ== -->
+<pre><code>[1] 17507</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
+<div id="duplicates-possibly-a-non-traditional-format-for-the-class-such-as-co-taught-or-field-work-with-multiple-supervisers" class="section level1">
+<h1>17,507 duplicates; possibly a non-traditional format for the class such as co-taught or field work with multiple supervisers;</h1>
 </div>
-<div id="sections-per-term" class="section level2">
-<h2>Sections Per Term</h2>
-<div id="join-course-offerings-into-sections-to-append-terms" class="section level3">
-<h3>Join Course Offerings into Sections to Append Terms</h3>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3Fsd2hlcmUyIDwtICdTRUxFQ1QgKiBGUk9NIHNlY3Rpb25zIFxcXG5JTk5FUiBKT0lOIGNvdXJzZV9vZmZlcmluZ3MgXFxcbk9OIHNlY3Rpb25zLmNvdXJzZV9vZmZlcmluZ191dWlkPWNvdXJzZV9vZmZlcmluZ3MudXVpZCdcbnNlY3Rpb24uY291cnNlcyA8LSBkYkdldFF1ZXJ5KG15Y29ubiwgc3Fsd2hlcmUyKVxuc3RyKHNlY3Rpb24uY291cnNlcylcbmBgYCJ9 -->
-<pre class="r"><code>sqlwhere2 &lt;- 'SELECT * FROM sections \
-INNER JOIN course_offerings \
-ON sections.course_offering_uuid=course_offerings.uuid'
-section.courses &lt;- dbGetQuery(myconn, sqlwhere2)
-str(section.courses)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGVhZChzZWN0aW9uLmNvdXJzZXMsIDMpXG5gYGAifQ== -->
-<pre class="r"><code>head(section.courses, 3)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
+<div id="or-some-sort-of-coding-error.-visual-inspection-of-these-sections-indicates-they-are-identical-in-grade-distribution" class="section level1">
+<h1>Or some sort of coding error. Visual inspection of these sections indicates they are identical in grade distribution</h1>
 </div>
-<div id="calculate-sections-per-term" class="section level3">
-<h3>Calculate Sections per Term</h3>
+<div id="since-they-are-identical-in-grade-distribution-we-want-to-delete-the-duplicates-to-avoid-overweighting-the-duplicates-in-our-analysis-below" class="section level1">
+<h1>Since they are identical in grade distribution, we want to delete the duplicates to avoid overweighting the duplicates in our analysis below</h1>
+<hr />
+<p><em>END OF FILE</em> | 20190516 | Kristin Van Gaasbeck</p>
 <!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2VjdGlvbnMucGVyLnRlcm0gPC0gY291bnQoc2VjdGlvbi5jb3Vyc2VzLCAndGVybV9jb2RlJykjIHZhcnMgPSBjKCd1dWlkJywgJ3Rlcm1fY29kZScpKVxuc3RyKHNlY3Rpb25zLnBlci50ZXJtKVxuYGBgIn0= -->
-<pre class="r"><code>sections.per.term &lt;- count(section.courses, 'term_code')# vars = c('uuid', 'term_code'))
-str(sections.per.term)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2hpc3Qoc2VjdGlvbnMucGVyLnRlcm0kZnJlcSlcbnBsb3Qoc2VjdGlvbnMucGVyLnRlcm0kdGVybV9jb2RlLCBzZWN0aW9ucy5wZXIudGVybSRmcmVxKVxuYGBgIn0= -->
-<pre class="r"><code>#hist(sections.per.term$freq)
-plot(sections.per.term$term_code, sections.per.term$freq)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-</div>
-<div id="determine-number-of-courses-over-entire-time-period-taught-in-each-subject-code" class="section level2">
-<h2>Determine number of courses over entire time period taught in each subject code</h2>
-<div id="join-section-and-grades" class="section level3">
-<h3>Join Section and Grades</h3>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3Fsd2hlcmUzIDwtICdTRUxFQ1QgKiBGUk9NIGdyYWRlX2Rpc3RyaWJ1dGlvbnMgXFxcbklOTkVSIEpPSU4gc3ViamVjdF9tZW1iZXJzaGlwcyBcXFxuT04gZ3JhZGVfZGlzdHJpYnV0aW9ucy5jb3Vyc2Vfb2ZmZXJpbmdfdXVpZD1zdWJqZWN0X21lbWJlcnNoaXBzLmNvdXJzZV9vZmZlcmluZ191dWlkJ1xuZ3JhZGUuc3ViamVjdCA8LSBkYkdldFF1ZXJ5KG15Y29ubiwgc3Fsd2hlcmUzKVxuc3RyKGdyYWRlLnN1YmplY3QpXG5gYGAifQ== -->
-<pre class="r"><code>sqlwhere3 &lt;- 'SELECT * FROM grade_distributions \
-INNER JOIN subject_memberships \
-ON grade_distributions.course_offering_uuid=subject_memberships.course_offering_uuid'
-grade.subject &lt;- dbGetQuery(myconn, sqlwhere3)
-str(grade.subject)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="count-frequency-of-courses-per-subject-code" class="section level3">
-<h3>Count Frequency of Courses per Subject code</h3>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY291cnNlLnBlci5zdWJqZWN0IDwtIGNvdW50KGdyYWRlLnN1YmplY3QsICdzdWJqZWN0X2NvZGUnKVxuc3RyKGNvdXJzZS5wZXIuc3ViamVjdClcbiNWaWV3KGNvdXJzZS5wZXIuc3ViamVjdClcbmBgYCJ9 -->
-<pre class="r"><code>course.per.subject &lt;- count(grade.subject, 'subject_code')
-str(course.per.subject)
-#View(course.per.subject)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGlzdChjb3Vyc2UucGVyLnN1YmplY3QkZnJlcSlcbmBgYCJ9 -->
-<pre class="r"><code>hist(course.per.subject$freq)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChjb3Vyc2UucGVyLnN1YmplY3Qkc3ViamVjdF9jb2RlLCBjb3Vyc2UucGVyLnN1YmplY3QkZnJlcSlcbmBgYCJ9 -->
-<pre class="r"><code>plot(course.per.subject$subject_code, course.per.subject$freq)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVxdWlyZShnZ3Bsb3QyKVxuXG5gYGAifQ== -->
-<pre class="r"><code>require(ggplot2)
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucDEgPC0gZ2dwbG90KGRhdGEgPSBjb3Vyc2UucGVyLnN1YmplY3QsIGFlcyh4ID0gY291cnNlLnBlci5zdWJqZWN0JGZyZXEpKVxucDErZ2VvbV9oaXN0b2dyYW0oZmlsbD0nZ3JheScsIGNvbG9yID0gJ3doaXRlJykrdGhlbWVfbWluaW1hbCgpXG5gYGAifQ== -->
-<pre class="r"><code>p1 &lt;- ggplot(data = course.per.subject, aes(x = course.per.subject$freq))
-p1+geom_histogram(fill='gray', color = 'white')+theme_minimal()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucDIgPC0gZ2dwbG90KGRhdGEgPSBncmFkZS5zdWJqZWN0LCBhZXMoeCA9IGdyYWRlLmNzdWJqZWN0JHN1YmplY3RfY29kZSkpXG4jZmFjdG9yKGdyYWRlLnN1YmplY3Qkc3ViamVjdF9jb2RlKSwgeT1jb3VudChncmFkZS5zdWJqZWN0JGNvdXJzZV9vZmZlcmluZ191dWlkKSRmcmVxXG5wMitnZW9tX2hpc3RvZ3JhbShmaWxsID0gJ2dyYXknLCBjb2xvciA9ICd3aGl0ZScpK3RoZW1lX21pbmltYWwoKVxuYGBgIn0= -->
-<pre class="r"><code>p2 &lt;- ggplot(data = grade.subject, aes(x = grade.csubject$subject_code))
-#factor(grade.subject$subject_code), y=count(grade.subject$course_offering_uuid)$freq
-p2+geom_histogram(fill = 'gray', color = 'white')+theme_minimal()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-</div>
-<div id="calculate-the-average-of-the-course-grade-per-section" class="section level2">
-<h2>Calculate the Average of the Course Grade per Section</h2>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGJSZWFkVGFibGUobXljb25uLCAnZ3JhZGVfZGlzdHJpYnV0aW9ucycpXG5gYGAifQ== -->
-<pre class="r"><code>dbReadTable(myconn, 'grade_distributions')</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<div id="count-frequency-of-course_offering_uuid-and-section_number-to-see-how-many-duplicates" class="section level3">
-<h3>Count frequency of course_offering_uuid and section_number to see how many duplicates</h3>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ3JhZGVzIDwtIGRiR2V0UXVlcnkobXljb25uLCAnU0VMRUNUICogRlJPTSBncmFkZV9kaXN0cmlidXRpb25zJylcbnN1bW1hcnkoZ3JhZGVzKVxuc3RyKGdyYWRlcylcbmBgYCJ9 -->
-<pre class="r"><code>grades &lt;- dbGetQuery(myconn, 'SELECT * FROM grade_distributions')
-summary(grades)
-str(grades)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="add-a-total-count-column-tallying-numeric-values-from-all-other-grades-columns" class="section level3">
-<h3>Add a Total Count column tallying numeric values from all other grades columns</h3>
-<ul>
-<li><a href="https://discuss.analyticsvidhya.com/t/how-to-add-a-column-to-a-data-frame-in-r/3278/2">Add a column</a></li>
-<li><a href="https://www.computerworld.com/article/2486425/business-intelligence-4-data-wrangling-tasks-in-r-for-advanced-beginners.html">Data wrangling tasks</a></li>
-<li><a href="https://stackoverflow.com/questions/37707060/converting-data-frame-column-from-character-to-numeric">Convert from character to numeric</a></li>
-</ul>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ3JhZGVzJHRvdGFsIDwtIGFzLm51bWVyaWMoZ3JhZGVzJGFfY291bnQpICsgYXMubnVtZXJpYyhncmFkZXMkYWJfY291bnQpICsgYXMubnVtZXJpYyhncmFkZXMkYl9jb3VudCkgKyBhcy5udW1lcmljKGdyYWRlcyRiY19jb3VudCkgKyBhcy5udW1lcmljKGdyYWRlcyRjX2NvdW50KSArIGFzLm51bWVyaWMoZ3JhZGVzJGRfY291bnQpICsgYXMubnVtZXJpYyhncmFkZXMkZl9jb3VudCkgKyBhcy5udW1lcmljKGdyYWRlcyRpX2NvdW50KSArIGFzLm51bWVyaWMoZ3JhZGVzJGNyX2NvdW50KSArIGFzLm51bWVyaWMoZ3JhZGVzJG5fY291bnQpICsgYXMubnVtZXJpYyhncmFkZXMkc19jb3VudCkgKyBhcy5udW1lcmljKGdyYWRlcyR1X2NvdW50KSArIGFzLm51bWVyaWMoZ3JhZGVzJHBfY291bnQpICsgYXMubnVtZXJpYyhncmFkZXMkbnJfY291bnQpICsgYXMubnVtZXJpYyhncmFkZXMkbndfY291bnQpICsgYXMubnVtZXJpYyhncmFkZXMkb3RoZXJfY291bnQpXG5zdHIoZ3JhZGVzKVxuc3VtbWFyeShncmFkZXMkdG90YWwpXG5gYGAifQ== -->
-<pre class="r"><code>grades$total &lt;- as.numeric(grades$a_count) + as.numeric(grades$ab_count) + as.numeric(grades$b_count) + as.numeric(grades$bc_count) + as.numeric(grades$c_count) + as.numeric(grades$d_count) + as.numeric(grades$f_count) + as.numeric(grades$i_count) + as.numeric(grades$cr_count) + as.numeric(grades$n_count) + as.numeric(grades$s_count) + as.numeric(grades$u_count) + as.numeric(grades$p_count) + as.numeric(grades$nr_count) + as.numeric(grades$nw_count) + as.numeric(grades$other_count)
-str(grades)
-summary(grades$total)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="calculate-grade-points-total-per-row-of-course-section" class="section level3">
-<h3>Calculate Grade Points Total per row of course-section</h3>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ3JhZGVzJGdwdG90YWwgPC0gYXMubnVtZXJpYyhncmFkZXMkYV9jb3VudCkqNCArIGFzLm51bWVyaWMoZ3JhZGVzJGFiX2NvdW50KSozLjUgKyBhcy5udW1lcmljKGdyYWRlcyRiX2NvdW50KSozICsgYXMubnVtZXJpYyhncmFkZXMkYmNfY291bnQpKjIuNSArIGFzLm51bWVyaWMoZ3JhZGVzJGNfY291bnQpKjIgKyBhcy5udW1lcmljKGdyYWRlcyRkX2NvdW50KSoxICsgYXMubnVtZXJpYyhncmFkZXMkZl9jb3VudCkqMCArIGFzLm51bWVyaWMoZ3JhZGVzJGlfY291bnQpKjAgKyBhcy5udW1lcmljKGdyYWRlcyRjcl9jb3VudCkqMiArIGFzLm51bWVyaWMoZ3JhZGVzJHNfY291bnQpKjIgKyBhcy5udW1lcmljKGdyYWRlcyR1X2NvdW50KSArIGFzLm51bWVyaWMoZ3JhZGVzJHBfY291bnQpKjJcbnN1bW1hcnkoZ3JhZGVzJGdwdG90YWwpXG5gYGAifQ== -->
-<pre class="r"><code>grades$gptotal &lt;- as.numeric(grades$a_count)*4 + as.numeric(grades$ab_count)*3.5 + as.numeric(grades$b_count)*3 + as.numeric(grades$bc_count)*2.5 + as.numeric(grades$c_count)*2 + as.numeric(grades$d_count)*1 + as.numeric(grades$f_count)*0 + as.numeric(grades$i_count)*0 + as.numeric(grades$cr_count)*2 + as.numeric(grades$s_count)*2 + as.numeric(grades$u_count) + as.numeric(grades$p_count)*2
-summary(grades$gptotal)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="calculate-gpa-per-course-section" class="section level3">
-<h3>Calculate GPA per course-section</h3>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ3JhZGVzJGdwYSA8LSBncmFkZXMkZ3B0b3RhbCAvIGdyYWRlcyR0b3RhbFxuc3VtbWFyeShncmFkZXMkZ3BhKVxuYGBgIn0= -->
-<pre class="r"><code>grades$gpa &lt;- grades$gptotal / grades$total
-summary(grades$gpa)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-</div>
-</div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiU3RhdCAxMjggU3ByaW5nIDIwMTkgVGVybSBQcm9qZWN0IFIgTm90ZWJvb2siCm91dHB1dDogaHRtbF9ub3RlYm9vawphdXRob3I6ICdEZWFuIENoaWFuZycKLS0tCgpgYGB7cn0KZGF0ZSgpCmBgYAojIFVXTSBNZXRhZGF0YQoKIyMgMS4gRG93bmxvYWQgRGF0YQoKMS4gRG93bmxvYWQgZGF0YSBmcm9tCltVVyBNYWRpc29uIENvdXJzZXMgYW5kIEdyYWRlcyAyMDA2LTIwMTddKGh0dHBzOi8vd3d3LmthZ2dsZS5jb20vTWFkZ3JhZGVzL3V3LW1hZGlzb24tY291cnNlcykKKGxvZ2luIHJlcXVpcmVkKQoyLiBMb2NhbCBkYXRhYmFzZTogW3NxbGl0ZV0oL1VzZXJzL2RlYW4vRG93bmxvYWRzL2RhdGEvdXdtL2RhdGFiYXNlLnNxbGl0ZTMpCjMuIExvY2FsIGRhdGEgZmlsZXM6IFtjc3ZdKC9Vc2Vycy9kZWFuL0Rvd25sb2Fkcy9kYXRhL3V3LW1hZGlzb24tY291cnNlcykKCiMjIDIuIExvYWQgRGF0YQoKYGBge3J9CnJlcXVpcmUoUlNRTGl0ZSkKZGJwYXRoIDwtICd+L0Rvd25sb2Fkcy9kYXRhL3V3bS9kYXRhYmFzZS5zcWxpdGUzJwpkYnBhdGggPC0gJy9Vc2Vycy9kY2hpYW5nL0Rvd25sb2Fkcy9kYXRhL3V3bS9kYXRhYmFzZS5zcWxpdGUzJwpteWNvbm4gPSBkYkNvbm5lY3QoZHJ2PVNRTGl0ZSgpLCBkYm5hbWU9ZGJwYXRoKQpzdHIobXljb25uKQpgYGAKCiMjIyBMaXN0IG9mIFRhYmxlcyBpbiBkYXRhYmFzZQoKYGBge3J9CnRibHMgPC0gZGJMaXN0VGFibGVzKG15Y29ubikKIyBjbGFzcyh0YmxzKSAjICdjaGFyYWN0ZXInCmZvciAodCBpbiB0YmxzKSB7IHByaW50KHQpIH0KYGBgCgojIyMgTGlzdCBvZiBGaWVsZHMgcGVyIFRhYmxlCgpgYGB7cn0KIyBkYkxpc3RGaWVsZHMobXljb25uLCAnY291cnNlX29mZmVyaW5ncycpCmkgPC0gMApmb3IgKHQgaW4gdGJscykgewogIGkgPC0gaSArIDEKICBwcmludCgnPT09PT09PT0nKQogIHByaW50KHRibHNbaV0pCiAgcHJpbnQoJy0tLS0tLS0tLS0tLS0tLS0nKQogIGZpZWxkcyA8LSBkYkxpc3RGaWVsZHMobXljb25uLCB0YmxzW2ldKQogIHByaW50KGZpZWxkcykKfQpgYGAKCiMjIEpvaW4gU2VjdGlvbnMgdG8gVGVhY2hlcnMKYGBge3J9CnNxbHdoZXJlIDwtICdTRUxFQ1QgKiBGUk9NIHNlY3Rpb25zIFwKSU5ORVIgSk9JTiB0ZWFjaGluZ3MgXApPTiBzZWN0aW9ucy51dWlkPXRlYWNoaW5ncy5zZWN0aW9uX3V1aWQnCnNlY3Rpb24udGVhY2hlcnMgPC0gZGJHZXRRdWVyeShteWNvbm4sIHNxbHdoZXJlKQpzdHIoc2VjdGlvbi50ZWFjaGVycykKYGBgCgotIFtSIGZ1bmN0aW9uIGNvdW50KCldKGh0dHBzOi8vd3d3LnJkb2N1bWVudGF0aW9uLm9yZy9wYWNrYWdlcy9wbHlyL3ZlcnNpb25zLzEuOC40L3RvcGljcy9jb3VudCkKLSBbUiBsaWJyYXJ5IHBseXJdKGh0dHBzOi8vd3d3LnJkb2N1bWVudGF0aW9uLm9yZy9wYWNrYWdlcy9wbHlyL3ZlcnNpb25zLzEuOC40KQoKYGBge3J9CmxpYnJhcnkocGx5cikKc2VjdGlvbi50ZWFjaGVycyRpbnN0cnVjdG9yX2lkIDwtIGZhY3RvcihzZWN0aW9uLnRlYWNoZXJzJGluc3RydWN0b3JfaWQpCnNlY3Rpb25zLnBlci50ZWFjaGVyIDwtIGNvdW50KHNlY3Rpb24udGVhY2hlcnMsICdpbnN0cnVjdG9yX2lkJykKc3RyKHNlY3Rpb25zLnBlci50ZWFjaGVyKQpgYGAKCiMjIyBIaXN0b2dyYW0gb2YgU2VjdGlvbnMgRnJlcXVlbmN5IFBlciBUZWFjaGVyCmBgYHtyfQpoaXN0KHNlY3Rpb25zLnBlci50ZWFjaGVyJGZyZXEpCgpgYGAKCiMjIFNlY3Rpb25zIFBlciBUZXJtCgojIyMgSm9pbiBDb3Vyc2UgT2ZmZXJpbmdzIGludG8gU2VjdGlvbnMgdG8gQXBwZW5kIFRlcm1zCmBgYHtyfQpzcWx3aGVyZTIgPC0gJ1NFTEVDVCAqIEZST00gc2VjdGlvbnMgXApJTk5FUiBKT0lOIGNvdXJzZV9vZmZlcmluZ3MgXApPTiBzZWN0aW9ucy5jb3Vyc2Vfb2ZmZXJpbmdfdXVpZD1jb3Vyc2Vfb2ZmZXJpbmdzLnV1aWQnCnNlY3Rpb24uY291cnNlcyA8LSBkYkdldFF1ZXJ5KG15Y29ubiwgc3Fsd2hlcmUyKQpzdHIoc2VjdGlvbi5jb3Vyc2VzKQpgYGAKCmBgYHtyfQpoZWFkKHNlY3Rpb24uY291cnNlcywgMykKYGBgCgojIyMgQ2FsY3VsYXRlIFNlY3Rpb25zIHBlciBUZXJtCmBgYHtyfQpzZWN0aW9ucy5wZXIudGVybSA8LSBjb3VudChzZWN0aW9uLmNvdXJzZXMsICd0ZXJtX2NvZGUnKSMgdmFycyA9IGMoJ3V1aWQnLCAndGVybV9jb2RlJykpCnN0cihzZWN0aW9ucy5wZXIudGVybSkKYGBgCmBgYHtyfQojaGlzdChzZWN0aW9ucy5wZXIudGVybSRmcmVxKQpwbG90KHNlY3Rpb25zLnBlci50ZXJtJHRlcm1fY29kZSwgc2VjdGlvbnMucGVyLnRlcm0kZnJlcSkKYGBgCgojIyBEZXRlcm1pbmUgbnVtYmVyIG9mIGNvdXJzZXMgb3ZlciBlbnRpcmUgdGltZSBwZXJpb2QgdGF1Z2h0IGluIGVhY2ggc3ViamVjdCBjb2RlCgojIyMgSm9pbiBTZWN0aW9uIGFuZCBHcmFkZXMKYGBge3J9CnNxbHdoZXJlMyA8LSAnU0VMRUNUICogRlJPTSBncmFkZV9kaXN0cmlidXRpb25zIFwKSU5ORVIgSk9JTiBzdWJqZWN0X21lbWJlcnNoaXBzIFwKT04gZ3JhZGVfZGlzdHJpYnV0aW9ucy5jb3Vyc2Vfb2ZmZXJpbmdfdXVpZD1zdWJqZWN0X21lbWJlcnNoaXBzLmNvdXJzZV9vZmZlcmluZ191dWlkJwpncmFkZS5zdWJqZWN0IDwtIGRiR2V0UXVlcnkobXljb25uLCBzcWx3aGVyZTMpCnN0cihncmFkZS5zdWJqZWN0KQpgYGAKCiMjIyBDb3VudCBGcmVxdWVuY3kgb2YgQ291cnNlcyBwZXIgU3ViamVjdCBjb2RlCmBgYHtyfQpjb3Vyc2UucGVyLnN1YmplY3QgPC0gY291bnQoZ3JhZGUuc3ViamVjdCwgJ3N1YmplY3RfY29kZScpCnN0cihjb3Vyc2UucGVyLnN1YmplY3QpCiNWaWV3KGNvdXJzZS5wZXIuc3ViamVjdCkKYGBgCgpgYGB7cn0KaGlzdChjb3Vyc2UucGVyLnN1YmplY3QkZnJlcSkKYGBgCgpgYGB7cn0KcGxvdChjb3Vyc2UucGVyLnN1YmplY3Qkc3ViamVjdF9jb2RlLCBjb3Vyc2UucGVyLnN1YmplY3QkZnJlcSkKYGBgCgpgYGB7cn0KcmVxdWlyZShnZ3Bsb3QyKQoKYGBgCmBgYHtyfQpwMSA8LSBnZ3Bsb3QoZGF0YSA9IGNvdXJzZS5wZXIuc3ViamVjdCwgYWVzKHggPSBjb3Vyc2UucGVyLnN1YmplY3QkZnJlcSkpCnAxK2dlb21faGlzdG9ncmFtKGZpbGw9J2dyYXknLCBjb2xvciA9ICd3aGl0ZScpK3RoZW1lX21pbmltYWwoKQpgYGAKYGBge3J9CnAyIDwtIGdncGxvdChkYXRhID0gZ3JhZGUuc3ViamVjdCwgYWVzKHggPSBncmFkZS5jc3ViamVjdCRzdWJqZWN0X2NvZGUpKQojZmFjdG9yKGdyYWRlLnN1YmplY3Qkc3ViamVjdF9jb2RlKSwgeT1jb3VudChncmFkZS5zdWJqZWN0JGNvdXJzZV9vZmZlcmluZ191dWlkKSRmcmVxCnAyK2dlb21faGlzdG9ncmFtKGZpbGwgPSAnZ3JheScsIGNvbG9yID0gJ3doaXRlJykrdGhlbWVfbWluaW1hbCgpCmBgYAoKIyMgQ2FsY3VsYXRlIHRoZSBBdmVyYWdlIG9mIHRoZSBDb3Vyc2UgR3JhZGUgcGVyIFNlY3Rpb24KCmBgYHtyfQpkYlJlYWRUYWJsZShteWNvbm4sICdncmFkZV9kaXN0cmlidXRpb25zJykKYGBgCgojIyMgQ291bnQgZnJlcXVlbmN5IG9mIGNvdXJzZV9vZmZlcmluZ191dWlkIGFuZCBzZWN0aW9uX251bWJlciB0byBzZWUgaG93IG1hbnkgZHVwbGljYXRlcwoKYGBge3J9CmdyYWRlcyA8LSBkYkdldFF1ZXJ5KG15Y29ubiwgJ1NFTEVDVCAqIEZST00gZ3JhZGVfZGlzdHJpYnV0aW9ucycpCnN1bW1hcnkoZ3JhZGVzKQpzdHIoZ3JhZGVzKQpgYGAKIyMjIEFkZCBhIFRvdGFsIENvdW50IGNvbHVtbiB0YWxseWluZyBudW1lcmljIHZhbHVlcyBmcm9tIGFsbCBvdGhlciBncmFkZXMgY29sdW1ucwoKLSBbQWRkIGEgY29sdW1uXShodHRwczovL2Rpc2N1c3MuYW5hbHl0aWNzdmlkaHlhLmNvbS90L2hvdy10by1hZGQtYS1jb2x1bW4tdG8tYS1kYXRhLWZyYW1lLWluLXIvMzI3OC8yKQotIFtEYXRhIHdyYW5nbGluZyB0YXNrc10oaHR0cHM6Ly93d3cuY29tcHV0ZXJ3b3JsZC5jb20vYXJ0aWNsZS8yNDg2NDI1L2J1c2luZXNzLWludGVsbGlnZW5jZS00LWRhdGEtd3JhbmdsaW5nLXRhc2tzLWluLXItZm9yLWFkdmFuY2VkLWJlZ2lubmVycy5odG1sKQotIFtDb252ZXJ0IGZyb20gY2hhcmFjdGVyIHRvIG51bWVyaWNdKGh0dHBzOi8vc3RhY2tvdmVyZmxvdy5jb20vcXVlc3Rpb25zLzM3NzA3MDYwL2NvbnZlcnRpbmctZGF0YS1mcmFtZS1jb2x1bW4tZnJvbS1jaGFyYWN0ZXItdG8tbnVtZXJpYykKCmBgYHtyfQpncmFkZXMkdG90YWwgPC0gYXMubnVtZXJpYyhncmFkZXMkYV9jb3VudCkgKyBhcy5udW1lcmljKGdyYWRlcyRhYl9jb3VudCkgKyBhcy5udW1lcmljKGdyYWRlcyRiX2NvdW50KSArIGFzLm51bWVyaWMoZ3JhZGVzJGJjX2NvdW50KSArIGFzLm51bWVyaWMoZ3JhZGVzJGNfY291bnQpICsgYXMubnVtZXJpYyhncmFkZXMkZF9jb3VudCkgKyBhcy5udW1lcmljKGdyYWRlcyRmX2NvdW50KSArIGFzLm51bWVyaWMoZ3JhZGVzJGlfY291bnQpICsgYXMubnVtZXJpYyhncmFkZXMkY3JfY291bnQpICsgYXMubnVtZXJpYyhncmFkZXMkbl9jb3VudCkgKyBhcy5udW1lcmljKGdyYWRlcyRzX2NvdW50KSArIGFzLm51bWVyaWMoZ3JhZGVzJHVfY291bnQpICsgYXMubnVtZXJpYyhncmFkZXMkcF9jb3VudCkgKyBhcy5udW1lcmljKGdyYWRlcyRucl9jb3VudCkgKyBhcy5udW1lcmljKGdyYWRlcyRud19jb3VudCkgKyBhcy5udW1lcmljKGdyYWRlcyRvdGhlcl9jb3VudCkKc3RyKGdyYWRlcykKc3VtbWFyeShncmFkZXMkdG90YWwpCmBgYAoKIyMjIENhbGN1bGF0ZSBHcmFkZSBQb2ludHMgVG90YWwgcGVyIHJvdyBvZiBjb3Vyc2Utc2VjdGlvbgoKYGBge3J9CmdyYWRlcyRncHRvdGFsIDwtIGFzLm51bWVyaWMoZ3JhZGVzJGFfY291bnQpKjQgKyBhcy5udW1lcmljKGdyYWRlcyRhYl9jb3VudCkqMy41ICsgYXMubnVtZXJpYyhncmFkZXMkYl9jb3VudCkqMyArIGFzLm51bWVyaWMoZ3JhZGVzJGJjX2NvdW50KSoyLjUgKyBhcy5udW1lcmljKGdyYWRlcyRjX2NvdW50KSoyICsgYXMubnVtZXJpYyhncmFkZXMkZF9jb3VudCkqMSArIGFzLm51bWVyaWMoZ3JhZGVzJGZfY291bnQpKjAgKyBhcy5udW1lcmljKGdyYWRlcyRpX2NvdW50KSowICsgYXMubnVtZXJpYyhncmFkZXMkY3JfY291bnQpKjIgKyBhcy5udW1lcmljKGdyYWRlcyRzX2NvdW50KSoyICsgYXMubnVtZXJpYyhncmFkZXMkdV9jb3VudCkgKyBhcy5udW1lcmljKGdyYWRlcyRwX2NvdW50KSoyCnN1bW1hcnkoZ3JhZGVzJGdwdG90YWwpCmBgYAoKIyMjIENhbGN1bGF0ZSBHUEEgcGVyIGNvdXJzZS1zZWN0aW9uCmBgYHtyfQpncmFkZXMkZ3BhIDwtIGdyYWRlcyRncHRvdGFsIC8gZ3JhZGVzJHRvdGFsCnN1bW1hcnkoZ3JhZGVzJGdwYSkKYGBgCgoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiU3RhdCAxMjggU3ByaW5nIDIwMTkgVGVybSBQcm9qZWN0IFIgTm90ZWJvb2siCm91dHB1dDogaHRtbF9ub3RlYm9vawphdXRob3I6ICJLcmlzdGluIFZhbiBHYWFzYmVjayIKLS0tCgoKIyBTdGF0IDEyOCBUZXJtIFByb2plY3QgRGF0YSBTb3VyY2UKCjEuIERvd25sb2FkIGZyb20gW1VXIE1hZGlzb24gQ291cnNlcyBhbmQgR3JhZGVzIDIwMDYtMjAxN10oaHR0cHM6Ly93d3cua2FnZ2xlLmNvbS9NYWRncmFkZXMvdXctbWFkaXNvbi1jb3Vyc2VzKQoobG9naW4gcmVxdWlyZWQpCjIuIExvY2FsIGRhdGFiYXNlOiBbc3FsaXRlOiBNYWMgT1NYIHBhdGhdKC9Vc2Vycy9rdmFuL0Rvd25sb2Fkcy9kYXRhL3V3bS9kYXRhYmFzZS5zcWxpdGUzKQozLiBMb2NhbCBkYXRhIGZpbGVzOiBbY3N2OiBXaW5kb3dzIHBhdGhdKEM6XFVzZXJzXGt2YW5cRG93bmxvYWRzXGRhdGFcdXctbWFkaXNvbi1jb3Vyc2VzKQoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gCgojU2NyaXB0IHRvIGxvYWQgdGhlIHJhdyBkYXRhIC0gd2UgbWF5IG5vdCBuZWVkIGFsbCBvZiB0aGVzZSBmaWxlcyBsYXRlciBvbgojSW1wb3J0ZWQgZnJvbSBteSBkZXNrdG9wLCBhZnRlciBkb3dubG9hZGluZyBmcm9tIEthZ2dsZS5jb20KCmBgYHtyfQpjb3Vyc2Vfb2ZmZXJpbmdzIDwtIHJlYWQuY3N2KCJ+L0Rvd25sb2Fkcy9kYXRhL3V3bS9jb3Vyc2Vfb2ZmZXJpbmdzLmNzdiIpCmNvdXJzZXMgPC0gcmVhZC5jc3YoIn4vRG93bmxvYWRzL2RhdGEvdXdtL2NvdXJzZXMuY3N2IikKZ3JhZGVfZGlzdHJpYnV0aW9ucyA8LSByZWFkLmNzdigifi9Eb3dubG9hZHMvZGF0YS91d20vZ3JhZGVfZGlzdHJpYnV0aW9ucy5jc3YiKQppbnN0cnVjdG9ycyA8LSByZWFkLmNzdigifi9Eb3dubG9hZHMvZGF0YS91d20vaW5zdHJ1Y3RvcnMuY3N2IikKcm9vbXMgPC0gcmVhZC5jc3YoIn4vRG93bmxvYWRzL2RhdGEvdXdtL3Jvb21zLmNzdiIpCnNjaGVkdWxlcyA8LSByZWFkLmNzdigifi9Eb3dubG9hZHMvZGF0YS91d20vc2NoZWR1bGVzLmNzdiIpCnNlY3Rpb25zIDwtIHJlYWQuY3N2KCJ+L0Rvd25sb2Fkcy9kYXRhL3V3bS9zZWN0aW9ucy5jc3YiKQpzdWJqZWN0X21lbWJlcnNoaXBzIDwtIHJlYWQuY3N2KCJ+L0Rvd25sb2Fkcy9kYXRhL3V3bS9zdWJqZWN0X21lbWJlcnNoaXBzLmNzdiIpCnN1YmplY3RzIDwtIHJlYWQuY3N2KCJ+L0Rvd25sb2Fkcy9kYXRhL3V3bS9zdWJqZWN0cy5jc3YiKQp0ZWFjaGluZ3MgPC0gcmVhZC5jc3YoIn4vRG93bmxvYWRzL2RhdGEvdXdtL3RlYWNoaW5ncy5jc3YiKQoKYGBgCgojUXVlc3Rpb24gYSkgQ29tcHV0ZSBhdmVyYWdlIEdQQSBvZiBlYWNoIHNlY3Rpb24KCmBgYHtyfQpncmFkZXMuc2VjdGlvbnMgPC0gbWVyZ2UoZ3JhZGVfZGlzdHJpYnV0aW9ucyxzZWN0aW9ucyxieS54PWMoJ2NvdXJzZV9vZmZlcmluZ191dWlkJywgJ3NlY3Rpb25fbnVtYmVyJyksIGJ5Lnk9YygnY291cnNlX29mZmVyaW5nX3V1aWQnLCdudW1iZXInKSkKc3VtbWFyeShncmFkZXMuc2VjdGlvbnMpCmBgYAoKI1RoZXJlIGFyZSBkdXBsaWNhdGVzIHdoZW4gbWF0Y2hpbmcgdGhlIGNvdXJzZV9vZmZlcmluZ191dWlkIGFuZCBzZWN0aW9uX251bWJlci4KCmBgYHtyfQpsaWJyYXJ5KHBseXIpICAjdXNlZnVsIGZvciBvcmdhbml6aW5nIGFuZCBicmVha2luZyBkb3duIGRhdGEgZm9yIGFuYWx5c2lzCmZyZXEub2YuY291cnNlLmFuZC5zZWN0aW9uID0gY291bnQoZ3JhZGVzLnNlY3Rpb25zLCB2YXJzPWMoJ2NvdXJzZV9vZmZlcmluZ191dWlkJywgJ3NlY3Rpb25fbnVtYmVyJykpCnN1bShmcmVxLm9mLmNvdXJzZS5hbmQuc2VjdGlvbiRmcmVxPjEpIAoKYGBgCgojMTcsNTA3IGR1cGxpY2F0ZXM7IHBvc3NpYmx5IGEgbm9uLXRyYWRpdGlvbmFsIGZvcm1hdCBmb3IgdGhlIGNsYXNzIHN1Y2ggYXMgY28tdGF1Z2h0IG9yIGZpZWxkIHdvcmsgd2l0aCBtdWx0aXBsZSBzdXBlcnZpc2VyczsgCiNPciBzb21lIHNvcnQgb2YgY29kaW5nIGVycm9yLiBWaXN1YWwgaW5zcGVjdGlvbiBvZiB0aGVzZSBzZWN0aW9ucyBpbmRpY2F0ZXMgdGhleSBhcmUgaWRlbnRpY2FsIGluIGdyYWRlIGRpc3RyaWJ1dGlvbgojU2luY2UgdGhleSBhcmUgaWRlbnRpY2FsIGluIGdyYWRlIGRpc3RyaWJ1dGlvbiwgd2Ugd2FudCB0byBkZWxldGUgdGhlIGR1cGxpY2F0ZXMgdG8gYXZvaWQgb3ZlcndlaWdodGluZyB0aGUgZHVwbGljYXRlcyBpbiBvdXIgYW5hbHlzaXMgYmVsb3cKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCipFTkQgT0YgRklMRSogfCAyMDE5MDUxNiB8IEtyaXN0aW4gVmFuIEdhYXNiZWNrCg==</div>
 
 
 

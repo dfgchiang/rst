@@ -1,5 +1,5 @@
 ---
-title: "Stat 128 Sprint 2019 Term Project R Notebook"
+title: "Stat 128 Spring 2019 Term Project R Notebook"
 output: html_notebook
 author: 'Dean Chiang'
 ---

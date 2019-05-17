@@ -243,31 +243,45 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0ZSgpXG5gYGAifQ== -->
-<pre class="r"><code>date()</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGF0ZSgpXG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r date()</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiVGh1IE1heSAxNiAxNToxMjowMiAyMDE5XCJcbiJ9 -->
-<pre><code>[1] &quot;Thu May 16 15:12:02 2019&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFxcVGh1IE1heSAxNiAxNToxMjowMiAyMDE5XFxcbiJ9 -->
+<pre><code>[1] \Thu May 16 15:12:02 2019\</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<div id="project-references" class="section level2">
+<h2>Project References</h2>
 <ol style="list-style-type: decimal">
 <li>Download term project data from <a href="https://www.kaggle.com/Madgrades/uw-madison-courses">UW Madison Courses and Grades 2006-2017</a> (login required)</li>
 <li>Local database: <a href="/Users/dean/Downloads/data/uwm/database.sqlite3">sqlite</a></li>
 <li>Local data files: <a href="/Users/dean/Downloads/data/uw-madison-courses">csv</a></li>
-</ol>
+<li>According to <a href="http://www.bussvc.wisc.edu/bursar/termcode.html">UWM Busar’s Office</a>, academic year 2017 has the term codes 1174, 1176, 1182</li>
+<li>Rate my professor url rest api: University of Wisconsin - Madison sid: <a href="https://www.ratemyprofessors.com/campusRatings.jsp?sid=1256" class="uri">https://www.ratemyprofessors.com/campusRatings.jsp?sid=1256</a>
 <ul>
-<li><p>According to <a href="http://www.bussvc.wisc.edu/bursar/termcode.html">UWM Busar’s Office</a>, academic year 2017 has the term codes 1174, 1176, 1182</p></li>
+<li>Search professor name by <a href="https://www.ratemyprofessors.com/search.jsp?query=matt+herndon" class="uri">https://www.ratemyprofessors.com/search.jsp?query=matt+herndon</a></li>
+<li>GET JSON REST API Result: <a href="http://www.ratemyprofessors.com/filter/professor/" class="uri">http://www.ratemyprofessors.com/filter/professor/</a>?&amp;page=1&amp;filter=teacherlastname_sort_s+asc&amp;query=MATT+HERNDON&amp;queryoption=TEACHER&amp;queryBy=schoolId&amp;sid=1256</li>
+</ul></li>
+</ol>
+</div>
+<div id="documentation-and-resources" class="section level2">
+<h2>Documentation and Resources</h2>
+<ul>
+<li><a href="https://www.rdocumentation.org/packages/plyr/versions/1.8.4/topics/count">R function count()</a></li>
+<li><p><a href="https://www.rdocumentation.org/packages/plyr/versions/1.8.4">R library plyr</a></p></li>
 <li><a href="https://stackoverflow.com/questions/4605206/drop-data-frame-columns-by-name">Delete columns</a></li>
 <li><p><a href="http://rprogramming.net/rename-columns-in-r/">Rename Columns</a></p></li>
-<li><a href="https://www.statmethods.net/input/exportingdata.html">Export data</a></li>
+<li><p><a href="https://www.statmethods.net/input/exportingdata.html">Export data</a></p></li>
 <li><p><a href="https://stackoverflow.com/questions/27193373/what-is-the-r-equivalent-of-sql-select-from-table-group-by-c1-c2">SQL Group by</a></p></li>
 <li><p><a href="https://www.analyticsvidhya.com/blog/2017/03/beginners-guide-on-web-scraping-in-r-using-rvest-with-hands-on-knowledge/">Beginner’s Guide on Web Scraping in R (using rvest)</a></p></li>
 </ul>
 <p><em>END OF FILE</em></p>
 <!-- rnb-text-end -->
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlN0YXQgMTI4IFIgUmVmZXJlbmNlIE5vdGVib29rIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQphdXRob3I6ICJTdGF0IDEyOCBTcHJpbmcgMjAxOSBTZWN0aW9uIDEiDQotLS0NCg0KYGBge3J9DQpkYXRlKCkNCmBgYA0KDQoxLiBEb3dubG9hZCB0ZXJtIHByb2plY3QgZGF0YSBmcm9tDQpbVVcgTWFkaXNvbiBDb3Vyc2VzIGFuZCBHcmFkZXMgMjAwNi0yMDE3XShodHRwczovL3d3dy5rYWdnbGUuY29tL01hZGdyYWRlcy91dy1tYWRpc29uLWNvdXJzZXMpDQoobG9naW4gcmVxdWlyZWQpDQoyLiBMb2NhbCBkYXRhYmFzZTogW3NxbGl0ZV0oL1VzZXJzL2RlYW4vRG93bmxvYWRzL2RhdGEvdXdtL2RhdGFiYXNlLnNxbGl0ZTMpDQozLiBMb2NhbCBkYXRhIGZpbGVzOiBbY3N2XSgvVXNlcnMvZGVhbi9Eb3dubG9hZHMvZGF0YS91dy1tYWRpc29uLWNvdXJzZXMpDQotIEFjY29yZGluZyB0byBbVVdNIEJ1c2FyJ3MgT2ZmaWNlXShodHRwOi8vd3d3LmJ1c3N2Yy53aXNjLmVkdS9idXJzYXIvdGVybWNvZGUuaHRtbCksIGFjYWRlbWljIHllYXIgMjAxNyBoYXMgdGhlIHRlcm0gY29kZXMgMTE3NCwgMTE3NiwgMTE4Mg0KDQotIFtEZWxldGUgY29sdW1uc10oaHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvNDYwNTIwNi9kcm9wLWRhdGEtZnJhbWUtY29sdW1ucy1ieS1uYW1lKQ0KLSBbUmVuYW1lIENvbHVtbnNdKGh0dHA6Ly9ycHJvZ3JhbW1pbmcubmV0L3JlbmFtZS1jb2x1bW5zLWluLXIvKQ0KDQotIFtFeHBvcnQgZGF0YV0oaHR0cHM6Ly93d3cuc3RhdG1ldGhvZHMubmV0L2lucHV0L2V4cG9ydGluZ2RhdGEuaHRtbCkNCi0gW1NRTCBHcm91cCBieV0oaHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMjcxOTMzNzMvd2hhdC1pcy10aGUtci1lcXVpdmFsZW50LW9mLXNxbC1zZWxlY3QtZnJvbS10YWJsZS1ncm91cC1ieS1jMS1jMikNCg0KLSBbQmVnaW5uZXLigJlzIEd1aWRlIG9uIFdlYiBTY3JhcGluZyBpbiBSICh1c2luZyBydmVzdCldKGh0dHBzOi8vd3d3LmFuYWx5dGljc3ZpZGh5YS5jb20vYmxvZy8yMDE3LzAzL2JlZ2lubmVycy1ndWlkZS1vbi13ZWItc2NyYXBpbmctaW4tci11c2luZy1ydmVzdC13aXRoLWhhbmRzLW9uLWtub3dsZWRnZS8pDQoNCg0KDQpfRU5EIE9GIEZJTEVfDQo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiU3RhdCAxMjggUiBSZWZlcmVuY2UgTm90ZWJvb2siCm91dHB1dDogaHRtbF9ub3RlYm9vawphdXRob3I6ICJTdGF0IDEyOCBTcHJpbmcgMjAxOSBTZWN0aW9uIDEiCi0tLQoKYGBge3J9CmRhdGUoKQpgYGAKCiMjIFByb2plY3QgUmVmZXJlbmNlcwoKMS4gRG93bmxvYWQgdGVybSBwcm9qZWN0IGRhdGEgZnJvbQpbVVcgTWFkaXNvbiBDb3Vyc2VzIGFuZCBHcmFkZXMgMjAwNi0yMDE3XShodHRwczovL3d3dy5rYWdnbGUuY29tL01hZGdyYWRlcy91dy1tYWRpc29uLWNvdXJzZXMpCihsb2dpbiByZXF1aXJlZCkKMi4gTG9jYWwgZGF0YWJhc2U6IFtzcWxpdGVdKC9Vc2Vycy9kZWFuL0Rvd25sb2Fkcy9kYXRhL3V3bS9kYXRhYmFzZS5zcWxpdGUzKQozLiBMb2NhbCBkYXRhIGZpbGVzOiBbY3N2XSgvVXNlcnMvZGVhbi9Eb3dubG9hZHMvZGF0YS91dy1tYWRpc29uLWNvdXJzZXMpCjQuIEFjY29yZGluZyB0byBbVVdNIEJ1c2FyJ3MgT2ZmaWNlXShodHRwOi8vd3d3LmJ1c3N2Yy53aXNjLmVkdS9idXJzYXIvdGVybWNvZGUuaHRtbCksIGFjYWRlbWljIHllYXIgMjAxNyBoYXMgdGhlIHRlcm0gY29kZXMgMTE3NCwgMTE3NiwgMTE4Mgo1LiBSYXRlIG15IHByb2Zlc3NvciB1cmwgcmVzdCBhcGk6IApVbml2ZXJzaXR5IG9mIFdpc2NvbnNpbiAtIE1hZGlzb24gc2lkOgpodHRwczovL3d3dy5yYXRlbXlwcm9mZXNzb3JzLmNvbS9jYW1wdXNSYXRpbmdzLmpzcD9zaWQ9MTI1NgogICAgLSBTZWFyY2ggcHJvZmVzc29yIG5hbWUgYnkgCmh0dHBzOi8vd3d3LnJhdGVteXByb2Zlc3NvcnMuY29tL3NlYXJjaC5qc3A/cXVlcnk9bWF0dCtoZXJuZG9uCiAgICAtIEdFVCBKU09OIFJFU1QgQVBJIFJlc3VsdDogCmh0dHA6Ly93d3cucmF0ZW15cHJvZmVzc29ycy5jb20vZmlsdGVyL3Byb2Zlc3Nvci8/JnBhZ2U9MSZmaWx0ZXI9dGVhY2hlcmxhc3RuYW1lX3NvcnRfcythc2MmcXVlcnk9TUFUVCtIRVJORE9OJnF1ZXJ5b3B0aW9uPVRFQUNIRVImcXVlcnlCeT1zY2hvb2xJZCZzaWQ9MTI1NgoKIyMgRG9jdW1lbnRhdGlvbiBhbmQgUmVzb3VyY2VzCgotIFtSIGZ1bmN0aW9uIGNvdW50KCldKGh0dHBzOi8vd3d3LnJkb2N1bWVudGF0aW9uLm9yZy9wYWNrYWdlcy9wbHlyL3ZlcnNpb25zLzEuOC40L3RvcGljcy9jb3VudCkKLSBbUiBsaWJyYXJ5IHBseXJdKGh0dHBzOi8vd3d3LnJkb2N1bWVudGF0aW9uLm9yZy9wYWNrYWdlcy9wbHlyL3ZlcnNpb25zLzEuOC40KQoKLSBbRGVsZXRlIGNvbHVtbnNdKGh0dHBzOi8vc3RhY2tvdmVyZmxvdy5jb20vcXVlc3Rpb25zLzQ2MDUyMDYvZHJvcC1kYXRhLWZyYW1lLWNvbHVtbnMtYnktbmFtZSkKLSBbUmVuYW1lIENvbHVtbnNdKGh0dHA6Ly9ycHJvZ3JhbW1pbmcubmV0L3JlbmFtZS1jb2x1bW5zLWluLXIvKQoKLSBbRXhwb3J0IGRhdGFdKGh0dHBzOi8vd3d3LnN0YXRtZXRob2RzLm5ldC9pbnB1dC9leHBvcnRpbmdkYXRhLmh0bWwpCgotIFtTUUwgR3JvdXAgYnldKGh0dHBzOi8vc3RhY2tvdmVyZmxvdy5jb20vcXVlc3Rpb25zLzI3MTkzMzczL3doYXQtaXMtdGhlLXItZXF1aXZhbGVudC1vZi1zcWwtc2VsZWN0LWZyb20tdGFibGUtZ3JvdXAtYnktYzEtYzIpCgotIFtCZWdpbm5lcuKAmXMgR3VpZGUgb24gV2ViIFNjcmFwaW5nIGluIFIgKHVzaW5nIHJ2ZXN0KV0oaHR0cHM6Ly93d3cuYW5hbHl0aWNzdmlkaHlhLmNvbS9ibG9nLzIwMTcvMDMvYmVnaW5uZXJzLWd1aWRlLW9uLXdlYi1zY3JhcGluZy1pbi1yLXVzaW5nLXJ2ZXN0LXdpdGgtaGFuZHMtb24ta25vd2xlZGdlLykKCgoKX0VORCBPRiBGSUxFXwo=</div>
 
 
 
