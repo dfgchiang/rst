@@ -1,0 +1,51 @@
+---
+title: "Stat 128 References"
+author: "Dean Chiang"
+date: "February 6, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## To Run the Document
+
+Choose File/Knit Document... and then see the result in chosen output pane.
+
+## References
+
+1. [R Markdown Introduction](https://rmarkdown.rstudio.com/lesson-1.html)
+2. [R Markdown Cheat Sheet pdf](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)
+3. [R Markdown Reference Guide pdf](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+4. [Assignment Operators](https://csgillespie.wordpress.com/2010/11/16/assignment-operators-in-r-vs/)
+5. [R Program to Print the Fibonacci Sequence](https://www.datamentor.io/r-programming/examples/fibonacci-sequence/)
+6. [Standard Deviation](http://www.r-tutor.com/elementary-statistics/numerical-measures/standard-deviation)
+7. [Fibonacci numbers](https://en.wikipedia.org/wiki/Fibonacci_number)
+8. [How to prompt user input](https://stackoverflow.com/questions/44012056/r-how-do-i-prompt-the-user-for-input-from-the-console)
+9. [rvest: easy web scraping with R](https://blog.rstudio.com/2014/11/24/rvest-easy-web-scraping-with-r/)
+9. [magrittr](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
+10. [html_nodes](https://www.rdocumentation.org/packages/rvest/versions/0.3.2/topics/html_nodes)
+11. []()
+
+

@@ -1,0 +1,30 @@
+---
+title: "A Simple Analysis of the Iris Data"
+author: "Dean Chiang"
+date: "April 22, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Summary of the Data
+
+Here is a summary of the iris data:
+
+```{r}
+summary(iris)
+
+```
+
+## A Pretty Graph
+
+Here is a nice plot of the iris data:
+
+```{r}
+hist(iris$Petal.Length)
+
+```
+

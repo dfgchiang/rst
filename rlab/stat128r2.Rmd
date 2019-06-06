@@ -1,0 +1,201 @@
+---
+title: "Stat 128 References 2 R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook.
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+# Week 4 Types of Data
+
+## IFELSE test
+```{r}
+ifelse(c(1,2,3,5,7) > 5, "yes", "no")
+```
+
+
+## SCATTER PLOT MATRIX
+```{r}
+library(MASS)
+library(lattice)
+splom(Pima.tr[,1:7])
+```
+
+
+## PLOTTING
+```{r}
+x.coord <- c(0,1,5)
+y.coord <- c(-3,2,7)
+plot(x.coord,y.coord, type = 'b', ylab = 'Years on earth',
+     xlab = 'Height of aliens', main = 'My Graph',
+     ylim = c(0,10))
+
+```
+
+
+## CURVES
+```{r}
+myfun <- function(x){
+  x^3 - x*3
+}
+curve(myfun, from = -4, to= 4)
+# Add to existing curve
+curve(2^x*5, from = 1, to = 5, add= TRUE)
+points(1,7)
+points(1,1) # , 'hello'
+```
+
+
+## Factors and Tables
+
+### Factor
+
+```{r}
+party <- c('r', 'd','d', 'r', 'd','oth','d', 'r', 'r')
+class(party)
+?factor
+party <- factor(party) #, levels=c('d','r','oth')
+class(party)
+str(party)
+
+gender <- c(1,1,2,2,1,2,1,1,1)
+class(gender)
+# summary on this categorical data does not make sense
+gender <- factor(gender, levels = c(1,2), labels = c('male', 'female'))
+class(gender)
+summary(gender)
+```
+
+### Table
+= frequency distributions for categorical variables; e.g.
+table(factor~type vector) or table(data_frame$factor_column)
+```{r}
+table(mtcars$vs)
+```
+```{r}
+# Extracts the columns vs and am
+mtcars.cat <- mtcars[,8:9]
+table(mtcars.cat)
+```
+
+### split(x, f) - Split a data frame into subgroups based on factors
+```{r}
+mtcars.vs <- split(mtcars, mtcars$vs)
+by(mtcars, mtcars$vs, summary)
+```
+
+```{r}
+by(mtcars, mtcars$vs, function(m){lm(m[,1]~m[,4])})
+
+```
+
+### Boxplot(y ~ group)
+```{r}
+boxplot(mtcars$mpg ~ mtcars$am)
+```
+
+
+# Week 5
+
+## Matrices
+```{r}
+mx1 <- matrix(1:9, nrow = 3, ncol = 3)
+mx1
+mx2 <- matrix(1:9, nrow = 3, byrow = T)
+mx2
+```
+
+You must set up a blank matrix before you can add values to it
+```{r}
+mx3 <- matrix(NA, nrow = 2, ncol = 2)
+mx3[1,2] <- 6
+mx3
+```
+
+### Matrix Operations
+- transpose a matrix = t(matrix)
+- find determinant = det(matrix)
+- find the inverse = solve(matrix)
+
+## Summary of a dataset: sumary(ds)
+```{r}
+summary(mtcars)
+```
+## Structure brief output: str()
+```{r}
+str(mtcars)
+
+```
+
+## Factor out a varaible: factor(dataset$column_name, levels=concatenated_vector, lables=concatenated_strings)
+```{r}
+mtcars$am <- factor(mtcars$am, levels = c(0,1), labels = c("automatic", "manual"))
+summary(mtcars$am)
+table(mtcars$am)
+```
+
+### Factor another column
+```{r}
+mtcars$vs <- factor(mtcars$vs, levels = c(0,1), labels = 
+                      c("v-shape", "straight"))
+summary(mtcars$vs)
+table(mtcars$vs)
+table(mtcars$am, mtcars$vs)
+```
+
+## Split or Chunking data: split(ds, column)
+```{r}
+geardata <- split(mtcars, mtcars$gear) # chunk
+geardata[[1]]
+```
+
+## Plot the data and Fit a Linear Model: lm(formula, ds)
+- [lm():  Fitting Liner Models](https://www.rdocumentation.org/packages/stats/versions/3.5.3/topics/lm)
+- [abline(): Add straight line to a plot](https://www.rdocumentation.org/packages/graphics/versions/3.5.3/topics/abline)
+```{r}
+plot(mtcars$disp, mtcars$mpg)
+mymodel <- lm(mpg ~ disp, data = mtcars)
+abline(mymodel) # draw line requires a plot first
+str(mymodel)
+# same as abline(a = 29.59, b = -0.041)
+```
+
+## By() - Apply A Function To A Data Frame Split By Factors
+
+Function by is an object-oriented wrapper for tapply applied to data frames.
+
+```{r}
+by(mtcars, mtcars$gear, summary)
+by(mtcars, mtcars$vs, function(m) lm(m[,1]~m[,4]))
+by(mtcars, mtcars$vs, function(x) lm(mpg~disp, data=x))
+```
+## By function
+```{r}
+byfun <- function(x, y, z) lm(x~y, data=x)
+# by(mtcars, mtcars$vs, byfun(mtcars, mpg, disp)) #FAIL
+```
+
+# Week 6
+## Linear Model example - Homework related to Final
+```{r}
+hw <- c(90,35, 100, 77, 80)
+final <- c(86,27,91,65,81)
+plot(hw, final)
+mymodel <- lm(final~hw)
+summary(mymodel)
+abline(mymodel)
+# --- Model ---
+# final = 1.025*hw+8.832
+```
+

@@ -1,0 +1,117 @@
+---
+title: "Stat 128 Exam 2 20190415 R Notebook"
+output: html_notebook
+author: Dean Chiang
+---
+
+# Q1
+```{r}
+library(readr)
+heart <- read_csv("~/Downloads/heart.csv")
+View(heart)
+```
+# 1.a.
+```{r}
+complete.cases(heart)
+summary(heart)
+str(heart)
+nrow(is.na(heart))
+```
+# 1.b
+```{r}
+summary(heart)
+# 54% has heart disease
+```
+
+# 1.c
+```{r}
+heart$sex <- factor(heart$sex, , levels = c(1,2), labels = c('male', 'female'))
+heart$fbs <- factor(heart$fbs)
+heart$exang <- factor(heart$exang)
+heart$restecg <- factor(heart$restecg)
+heart$thal <- factor(heart$thal)
+heart$target <- factor(heart$target)
+str(heart)
+```
+
+# 1.d
+```{r}
+set.seed(415)
+```
+
+# 1.e
+```{r}
+cvgroup <- c(rep(1, 150), rep(2, 153))
+cvrandom <- sample(cvgroup, size = nrow(heart))
+heart$cvgroup <- cvrandom
+View(heart)
+randorder <- sample(1:303,303)
+tg <- c(rep(2, 303))
+heart$ran <- 2
+heart$ran[randorder <= 150] <- 1
+table(heart$ran)
+heart.tr <- subset(heart, ran == 1)
+str(heart.tr)
+heart.te <- subset(heart, ran == 2)
+str(heart.te)
+```
+
+# 1.f
+```{r}
+library(tree)
+hearttree <- tree(target~.-ran, data = heart.tr )
+summary(hearttree)
+# Misclassification error rate: 0.06667 = 7 / 105
+plot(hearttree)
+text(hearttree)
+heartpred <- predict(hearttree, newdata = heart.te, type = 'class')
+summary(heartpred)
+#rbind(heartpred, heart.te$target)
+table(heartpred, heart.te$target)
+# predicted misclassification rate = 
+(48+7)/(56+48+7+42)
+= 0.359
+```
+
+# 1.g
+```{r}
+heart.cv <- cv.tree(hearttree, , FUN=prune.misclass, K=10)
+heart.cv
+# Best number of terminal nodes = 7
+```
+# 1.h
+```{r}
+heart.prune <- prune.misclass(hearttree, best = 7)
+summary(heart.prune)
+
+```
+
+# 1.i
+```{r}
+library(randomForest)
+heartforest <- randomForest(target~.-ran, data = heart, na.action = na.omit)
+heartforest
+#  estimate of  error rate: 20.29%
+# Yes, outperforms single tree prediction
+```
+# 1.j
+```{r}
+importance(heartforest)
+
+```
+
+# Q2.a
+```{r}
+url <- 'https://www.csus.edu/indiv/n/norrisa/statcomp/'
+library(readr)
+comhist <- read_csv("~/Downloads/CompanyHistory.csv")
+View(comhist)
+cominfo <- read_csv("~/Downloads/CompanyInfo.csv")
+View(cominfo)
+```
+# 2.b
+```{r}
+comm <- merge(comhist, cominfo, by = 'Company', all = T)
+View(comm)
+```
+# scatter plot of employees, new column of revenue in yen; 

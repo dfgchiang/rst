@@ -1,0 +1,27 @@
+---
+title: "Stat 128 Homework 5 R Notebook"
+output: html_notebook
+author: 'Dean Chiang'
+---
+
+## Q1.
+
+```{r}
+library(MASS)
+?birthwt
+View(birthwt)
+class(birthwt)
+dim(birthwt)
+# head(birthwt)
+# tail(birthwt)
+summary(birthwt)
+str(birthwt)
+
+```
+
+### 1.a
+```{r}
+library(ggplot2)
+p1a <- ggplot(data = birthwt, aes(x=bwt))
+```
+

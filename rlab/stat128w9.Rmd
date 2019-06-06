@@ -1,0 +1,77 @@
+---
+title: "Stat 128 Week 9 Class R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+```{r}
+mydata <- c(3,8,7,6,3,2,9,10)
+?sample
+set.seed(33)
+bs1 <- sample(mydata, size=length(mydata), replace = TRUE)
+bs1
+bs2 <- sample(mydata, size=length(mydata), replace = TRUE)
+bs2
+
+```
+## Bootstrap
+
+Bootstrap = construct some more data from what we have;
+to simulate more sample from what we have;
+to avoid overfitting if there is a weird observation
+
+## Random Forest
+
+Random Forest = a forest of trees from random samples
+
+```{r}
+library(randomForest)
+library(MASS)
+View(Pima.tr)
+
+```
+
+When you draw a bootstrap sample about 1/3 is left out of sample;
+so those become your test data.
+Bag error is the error from running all the sample 
+through the treesleft out
+
+```{r}
+set.seed(387)
+pimaforest <- randomForest(type~., data = Pima.tr)
+pimaforest
+str(pimaforest)
+head(pimaforest$err.rate[,1])
+plot(pimaforest$err.rate[,1], type='l')
+
+```
+
+mtry = tuning parameter; default is not always the best;
+use loop to run different mtry values
+
+```{r}
+oob.error <- numeric(7)
+for (i in 1:7){
+  forest2 <- randomForest(type~., data = Pima.tr, mtry = i, ntree = 300)
+  oob.error[i] <- forest2$err.rate[300,1]
+  #test.set.error[i] <- sum(preds != Pima.te, )
+}
+oob.error
+importance(pimaforest)
+varImpPlot(pimaforest)
+
+```
+

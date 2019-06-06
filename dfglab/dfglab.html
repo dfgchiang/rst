@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<!--
+20190308 dchiang
+-->
+<html>
+    <head>
+        <title>dfglab</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="dfgchiang">
+        <meta name="description" content="">
+        <meta name="generator" content="biosgis-20190308">
+        <meta name="robots" content="noindex, nofollow, noarchive">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://js.arcgis.com/4.10/esri/css/main.css">
+        <script src="https://js.arcgis.com/4.10/"></script>
+        <script src="https://dfgchiang.github.io/js/abc.js"></script>
+        <style>
+            body {
+                font-family: Consolas, Monaco, monospace;
+                font-size: 123%;
+                line-height: 150%;
+                padding: 1%;
+            }
+            aside {
+                position: relative;
+                border: 1px solid silver;
+                box-shadow: gray -5px 5px 5px;
+                float: right;
+                padding: 1%;
+                z-index: 200;
+            }
+            details {
+                margin: 1px 2px 3px 4px;
+                padding-left: 1%;
+            }
+            summary {
+                font-size: larger;
+                font-weight: bold;
+            }
+            footer {
+                position: relative;
+                border-top: 1px solid silver;
+                font-size: smaller;
+                padding: 1%;
+            }
+            h1 {
+                margin-top: 0;
+            }
+            h2 {
+                border-top: 1px solid floralwhite;
+            }
+            h3 {
+                margin-top: 0;
+            }
+            header {
+                position: relative;
+                border-bottom: 1px solid silver;
+                padding: 1%;
+            }
+            main {
+                position: relative;
+                border: 1px solid silver;
+                padding: 1%;
+            }
+            nav {
+                position: relative;
+                border-bottom: 1px solid silver;
+                padding: 1px;
+            }
+            nav ul {
+                display: inline;
+                margin: 0;
+                padding: 0;
+            }
+            nav li {
+                border-right: 1px solid silver;
+                display: inline;
+                margin: 0;
+                padding: 2px 8px;
+            }
+            nav li:hover {
+                background-color: azure;
+            }
+            pre {
+                background-color: ghostwhite;
+                border-left: 4px solid gainsboro;
+                font-size: smaller;
+                line-height: 110%;
+                padding: 5px;
+            }
+            .togl {
+                background-color: floralwhite;
+                border: 1px solid silver;
+                cursor: default;
+                font-size: 200%;
+                padding: 0 8px;
+            }
+            .togl:hover {
+                background-color: aliceblue;
+            }
+        </style>
+        <script>
+            window.addEventListener('load', function () {
+                om = poplinks();
+                $('ocab').onkeyup = function (event) {
+                    var kc = event.which || event.keyCode;
+                    if (kc === 13) {
+                        gocab(parseInt($('ocab').value));
+                    }
+                }
+            });
+            function gocab(id) {
+                window.open("https://cdfwsp.wildlife.ca.gov/sites/DTD/OCAB/Lists/Change%20Request/Custom_ReadOnly_DispForm2.aspx?ID=" + id, "ocabtab");
+            }
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1>DFG Lab</h1>
+        </header>
+        <nav>
+            <ul>
+                <li>
+                </li>
+                <li>
+                    <a href="https://wildlife.ca.gov/Conservation">Conservation</a>
+                </li>
+                <li>
+                    <a href="https://ftp.wildlife.ca.gov/">FTP</a>
+                </li>
+                <li>
+                    <a href="http://dfgintranet/portal/">Intranet</a>
+                </li>
+                <li>
+                    <a href="https://cdfwsp.wildlife.ca.gov/sites/DTD/OCAB/SitePages/Home.aspx">OCAB</a>
+                    <input type="text" id="ocab" value="">
+                </li>
+                <li>
+                    <a href="https://outlook.office365.com/owa/">Office</a>
+                </li>
+                <li>
+                    <a href="https://map.dfg.ca.gov/stats/">ViewerStats</a>
+                </li>
+            </ul>
+        </nav>
+        <aside>
+            <a href="http://hqtfs:8080/tfs/appdev/BIOS/BIOS%20Team/_git/bios6" title="TFS"></a>
+            <a href="https://portal.azure.com/#@cdfw.onmicrosoft.com/dashboard" title="Azure"></a>
+            <a href="https://www.arcgis.com" title="AGOL"></a>
+            <a href="https://developers.arcgis.com" title="ArcDev"></a>
+            <a href="https://desktop.arcgis.com/en/" title="ArcDesktop"></a>
+            <a href="https://esri.github.io/" title="Esri on GitHub"></a>
+            <a href="https://r-arcgis.github.io/" title="R – ArcGIS"></a>
+            <a href="https://data-cdfw.opendata.arcgis.com/" title="CDFW Open Data"></a>
+            <a href="https://data.cnra.ca.gov/" title="CNRA Open Data"></a>
+            <a href="https://data.ca.gov/" data-title="California Open Data Portal"></a>
+            <a href="https://github.com/Office-of-Digital-Innovation" title="github/cdt.ca.gov"></a>
+        </aside>
+        <span class="togl" onclick="togglex(document.getElementsByTagName('aside')[0])" style="float: right; position: relative; z-index: 210;">&equiv;</span>
+        <main>
+            <h2>
+                Local
+                <a href="http://localhost/apps">Apps</a>
+                <a href="http://localhost/code">Code</a>
+                <a href="http://localhost/gis">GIS</a>
+                <a href="http://localhost:8675/bios?viewer=ace&al=ace3:4&bl=Oceans&zl=10#msgx">Aceview</a>
+                <a href="http://localhost:8675/bios?al=ds69&bl=Oceans&dslist=1234&zl=10#msgx">Bios</a>
+                <a href="http://localhost:8675/bios?viewer=fishing#msgx">Fishingview</a>
+            </h2>
+            <details>
+                <summary>Files</summary>
+                <ol>
+                    <li>
+                        <a href="../lab/alist.html"></a>
+                    </li>
+                    <li>
+                        <a href="bios6vs.html"></a>
+                    </li>
+                    <li>
+                        <a href="biosnext.html"></a>
+                    </li>
+                    <li>
+                        <a href="biosref.html"></a>
+                    </li>
+                </ol>
+            </details>
+            <h2>
+                Apps
+                <a href="https://apps.wildlife.ca.gov/bios?viewer=ace&al=ace3:4&bl=Oceans&zl=10#msgx">Aceview</a>
+                <a href="https://apps.wildlife.ca.gov/bios?al=ds69&bl=Oceans&dslist=1234&zl=10#msgx">Bios</a>
+                <a href="https://apps.wildlife.ca.gov/bios?tool=cnddbQuick#msgx">CNDDBQuickView</a>
+                <a href="https://apps.wildlife.ca.gov/bios?viewer=fishing#msgx">Fishingview</a>
+                <a href="https://apps.wildlife.ca.gov/rarefind/view/rarefind.aspx">Rarefind</a>
+            </h2>
+            <h3>
+                Appsdev
+                <a href="https://appsdev.wildlife.ca.gov/bios?viewer=ace&al=ace3:4&bl=Oceans&zl=10#msgx">ACE</a>
+                <a href="https://appsdev.wildlife.ca.gov/bios?al=ds31&bl=Oceans&dslist=443&zl=10#msgx">Bios</a>
+                <a href="https://appsdev.wildlife.ca.gov/bios6?al=ds26&bl=oceans&dslist=69,1234&zl=10#msgx">Bios6</a>
+                <a href="https://appsdev.wildlife.ca.gov/bios?tool=cnddbQuick#msgx">CNDDBQuickView</a>
+                <a href="https://appsdev.wildlife.ca.gov/bios?viewer=fishing#msgx">Fishing</a>
+                <a href="https://appsdev.wildlife.ca.gov/rarefind/view/rarefind.aspx">Rarefind</a>
+            </h3>
+            <h2>
+                Map
+                <a href="https://map.dfg.ca.gov/arcgis">AGS</a>
+                <a href="https://map.dfg.ca.gov/ace/?msg=on">ACE</a>
+                <a href="https://map.dfg.ca.gov/bios/?msg=on">Bios</a>
+                <a href="https://map.dfg.ca.gov/imaps/cwhr">CWHR</a>
+                <a href="https://map.dfg.ca.gov/imaps/delta">Delta</a>
+                <a href="https://map.dfg.ca.gov/fishing/?msg=on">Fishing</a>
+                <a href="https://map.dfg.ca.gov/lands/?msg=on">Lands</a>
+                <a href="https://map.dfg.ca.gov/marine/?msg=on">Marine</a>
+                <a href="https://map.dfg.ca.gov/rarefind">RareFind</a>
+                <a href="https://map.dfg.ca.gov/stats/">Stats</a>
+            </h2>
+            <h2>
+                CDFW
+                <a href="https://dnn-dfginter.ad.dfg.ca.gov/Data/Dean">DNN</a>
+                <a href="https://ftp.wildlife.ca.gov/">FTP</a>
+                <a href="https://helpdesk.wildlife.ca.gov/CherwellPortal/it">Helpdesk</a>
+                <a href="http://dfgintranet/portal/">Intranet</a>
+                <a href="https://outlook.office365.com/owa/">Mail</a>
+                <a href="https://cdfwsp.wildlife.ca.gov/sites/DTD/OCAB/SitePages/Home.aspx">
+                    OCAB</a>
+                <a href="https://cdfwsp.wildlife.ca.gov/">SP</a>
+                <a href="https://timereporting.ad.dfg.ca.gov/hrapp/admin/Home.aep">
+                    Timesheet</a>
+                <a href="http://www.sco.ca.gov/calaters.html">CalATERS</a>
+                <a href="http://www.caltravelstore.com/">CalTravelStore</a>
+            </h2>
+            <h2>
+                Cloud
+                <a href="http://www.arcgis.com/">AGOL</a>
+                <a href="https://developers.arcgis.com">ArcDev</a>
+                <a href="https://anaconda.org/">Anaconda</a>
+                <a href="https://portal.azure.com/#dashboard">Azure</a>
+                <a href="https://my.esri.com/welcome">MyEsri</a>
+                <a href="https://cdfw-my.sharepoint.com/personal/dean_chiang_wildlife_ca_gov/" title="OneNote">OneDrive</a>
+                <a href="https://outlook.office365.com/owa/">OWA</a>
+                <a href="https://cdfw.sharepoint.com/SitePages/Home.aspx">SharePoint</a>
+            </h2>
+            <h2>
+                Git
+                <a href="http://hqtfs:8080/tfs/appdev/BIOS/BIOS%20Team/_git/bios6">TFS</a>
+                <a href="https://bitbucket.org/">Bitbucket</a>
+                <a href="https://github.com/">GitHub</a>
+                <a href="https://gitlab.com/">GitLab</a>
+                <a href="https://visualstudio.com/" title="Azure DevOps, aka Visual Studio Team Services">VSTS</a>
+            </h2>
+            <details>
+                <summary>Dirs</summary>
+                <a href="https://bitbucket.org/dfgchiang"></a>
+                <a href="https://github.com/aiosgit"></a>
+                <a href="https://github.com/biosgis"></a>
+                <a href="https://github.com/dfgchiang"></a>
+                <a href="https://github.com/r9gis"></a>
+                <a href="https://gitlab.com/biosgis"></a>
+                <a href="https://github.com/esri"></a>
+                <a href="https://dfgchiang.visualstudio.com/_projects"></a>
+                <a href="https://r9gis.visualstudio.com/_projects"></a>
+            </details>
+            <details>
+                <summary>Pages</summary>
+                <a href="https://aiosgit.github.io"></a>
+                <a href="https://biosgis.github.io"></a>
+                <a href="https://biosgis.gitlab.io/bella"></a>
+                <a href="https://biosgis.gitlab.io/habitrak"></a>
+                <a href="https://dfgchiang.bitbucket.io"></a>
+                <a href="https://dfgchiang.github.io"></a>
+                <a href="https://r9gis.github.io"></a>
+                <a href="https://esri.github.io"></a>
+            </details>
+            <details>
+                <summary>Websites</summary>
+                <a href="https://biosbeta.azurewebsites.net"></a>
+                <a href="https://biosgis.azurewebsites.net"></a>
+                <a href="https://bioslist.azurewebsites.net"></a>
+                <a href="https://dfgchiang.azurewebsites.net"></a>
+            </details>
+        </main>
+        <footer>
+            <a href="mail:dfgchiang@gmail.com">dfgchiang</a>
+            <script>
+                document.write('&copy; ' + document.lastModified);
+                document.write(' &rect; Window Size: ' + window.innerWidth + 'x' + window.innerHeight);
+                document.write(' &marker; Screen Size: ' + window.screen.width + 'x' + window.screen.height);
+                document.write(' &diams; Browser Client: ' + navigator.userAgent + ' on ' + navigator.platform);
+                document.write(' &bull; URL Referer: ' + document.referrer);
+            </script>
+            <a href="./" style="text-decoration: none; color: silver;" target="_blank">&square;</a>
+            Build on
+            <a href="https://developers.arcgis.com/javascript/">esri-arcgis-jsapi</a>
+        </footer>
+    </body>
+</html>

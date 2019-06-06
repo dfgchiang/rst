@@ -1,0 +1,41 @@
+---
+title: "Stat 128 Project R Notebook"
+output: html_notebook
+author: 'Dean Chiang'
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+# Stat 128 Spring 2019 Student Project Dchiang
+
+Data source
+
+- [20 Most Recent Public BIOS Data Layers](https://www.wildlife.ca.gov/Data/BIOS/Latest-Datasets)
+- [HTML metadata](https://map.dfg.ca.gov/metadata/ds0069.html) - but this download is for file geodatabase and LYR file only
+- [CNRA open data page](https://data.cnra.ca.gov/organization/california-department-of-fish-and-wildlife/portal/data)
+- [CDFW ArcGIS open data page](http://data-cdfw.opendata.arcgis.com/datasets/california-fish-passage-assessment-database-ds69-1) where the data can be downloaded as shapefile  (include dbf) or csv.
+- [csv download link](http://data-cdfw.opendata.arcgis.com/datasets/1df90a95e4c348f1bd06326fd96ced78_0)
+- [Open DataGeoService](https://tiles.arcgis.com/tiles/Uq9r85Potqm3MfRV/arcgis/rest/services/biosds69_cmu/MapServer/0/query?outFields=*&where=1%3D1)
+- [Open Data GeoJSON](https://opendata.arcgis.com/datasets/b10f4d39932f4c18b619003038c6585a_0.geojson)
+- [AGOL Feature Layer item](https://www.arcgis.com/home/item.html?id=1df90a95e4c348f1bd06326fd96ced78)
+- [AGOL FeatureServer](https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/biosds69_fmu/FeatureServer/0)
+- [AGOL Tile Layer item](https://www.arcgis.com/home/item.html?id=b10f4d39932f4c18b619003038c6585a)
+- [AGOL Cached MapServer](https://tiles.arcgis.com/tiles/Uq9r85Potqm3MfRV/arcgis/rest/services/biosds69_cmu/MapServer)
+- [Geo service](https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/biosds69_fmu/FeatureServer/0/query?outFields=*&where=1%3D1)
+- [GeoJSON](https://opendata.arcgis.com/datasets/1df90a95e4c348f1bd06326fd96ced78_0.geojson)
+- Data downloaded as [csv](C:/Users/dchiang/Downloads/California_Fish_Passage_Assessment_Database_ds69.csv) and [shapefile](~/Downloads/California_Fish_Passage_Assessment_Database_ds69.zip)
+
+```{r}
+library(readr)
+biosds69 <- read_csv("~/Downloads/biosds69.csv")
+View(biosds69)
+class(biosds69)
+head(biosds69)
+tail(biosds69)
+str(biosds69)
+summary(biosds69)
+dim(biosds69)
+```
+

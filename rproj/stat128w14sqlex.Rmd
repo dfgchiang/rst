@@ -1,0 +1,23 @@
+---
+title: "Stat 128 Week 14 SQL Exercise R Notebook"
+output: html_notebook
+author: "Dean Chiang"
+---
+
+[Download UW Madison Grades data]()
+
+## Import database into R
+
+```{r}
+# install.packages('RSQLite', dependencies = T)
+library(RSQLite)
+myconn <- dbConnect(drv=SQLite(), dbname='C:\\Users\\dchiang\\Downloads\\uwm\\database.sqlite3')
+str(myconn)
+```
+
+## Determine by year (term) how many total sections are taught at UW Madison,
+then create a graph of Year (Y) vs Number of Sections (N)
+
+
+## Determine Number of Course over the entire time period taught in each subject code 
+*Hint* Use 

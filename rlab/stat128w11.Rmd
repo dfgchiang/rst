@@ -1,0 +1,213 @@
+---
+title: "Stat 128 Week 11 Class R Notebook"
+output: html_notebook
+fontsize: 150%
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+e
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+## Plotting
+plot line y = 025x -1
+from 0 to 2*pi
+
+```{r}
+y <- function(x){}
+xvals <- seq(from = 0, to = 2*pi, by = 0.1)
+xvals
+plot(x=xvals, y=0.25*xvals-1, type='l', ylim = c(-1.5,1.5))
+points(x=xvals, y=sin(xvals), type='l', col='orangered', lwd=3)
+points(x=xvals, y=cos(xvals), type='l', col='pink', lwd=3)
+
+```
+
+## GGPLOT
+?ggplot2
+install.packages('ggplot2', dependencies = TRUE)
+
+
+```{r}
+library(ggplot2)
+class(mtcars)
+p0 <- ggplot(data=mtcars, aes(x=mpg))
+p0+geom_dotplot(color='red', fill='blue')+theme_classic()+ylab('proportion')
+p0+geom_histogram(fill='yellow', color='red')+theme_minimal()
+mtcars$cyl=factor(mtcars$cyl)
+mtcars$am=factor(mtcars$am)
+p1 <- ggplot(data=mtcars, aes(x=mpg, y=disp, color=cyl, shape=am))
+p1+geom_point()
+```
+
+```{r}
+a <- ggplot(mpg, aes(x=hwy))
+a+geom_histogram(binwidth = 5, color = 'red', fill = 'white')+theme_bw()+ggtitle('My Graph')+xlab('highway MPG')
+```
+
+```{r}
+a+geom_density(alpha = .2, fill = 'steelblue')
+```
+
+### Scatter Plot of Hwy MPG vs Displacement
+
+```{r}
+#View(mtcars)
+mtcars$am <- factor(mtcars$am)
+#b <- ggplot(mtcars, aes(x=mpg, y = disp))
+#b+geom_point(aes(color=cyl))
+#b+geom_point(aes(color=cyl, shape = am))
+#b+geom_point(aes()+geom_smooth(method = 'lm'))
+mtcars$cyl <- factor(mtcars$cyl)
+b <- ggplot(mtcars, aes(x=mpg, y = disp, color = cyl))
+b+geom_point(aes()+geom_smooth(method = 'lm'))
+
+```
+
+### Density Plot for mpg, separate density for each num cyl
+
+```{r}
+myplot <- ggplot(mtcars, aes(x=mpg, fill = cyl))
+#myplot+geom_density(alpha = .5, color = 'white')+theme_bw()
+require(RColorBrewer)
+display.brewer.all()
+myplot+geom_density(alpha = .5, color = 'white')+theme_bw()+scale_fill_brewer(palette = 'Y10rd')
+#display.brewer.pal()
+```
+
+### Faceted or paned plot
+of mpg vs displ
+separate plot for each # cyl
+
+```{r}
+d <- ggplot(mtcars, aes(x=mpg, y=disp, color = cyl))+geom_point()+facet_grid(am~cyl)+theme_minimal()
+d
+```
+
+### Michelle's favorite graph - longitudinal plots for each chick
+
+```{r}
+chick1 <- subset(ChickWeight, Chick = 1)
+e <- ggplot(chick1, aes(x=Time, y=weight))
+e+geom_line()
+
+```
+```{r}
+f <- ggplot(ChickWeight, aes(x=Time, y=weight, color=Diet))
+#f+geom_line(aes(group=Chick),size=1)
+f+geom_line(aes(group=Chick),size=1)+facet_grid(.~Diet)
+
+```
+
+### Exporting graph
+```{r}
+#?png
+png(filename = '~/Documents/mychickweights.png')
+f <- ggplot(ChickWeight, aes(x=Time, y=weight, color=Diet))
+f+geom_line(aes(group=Chick),size=1)
+#f+geom_line(aes(group=Chick),size=1)+facet_grid(.~Diet)
+dev.off()
+```
+
+## Normal Distribution Calculations
+
+Binomial Experiment
+
+1. Fixed number of independent and identical trials
+  - 10 tosses of coinst
+  - check 20 randomly selected people for blood type
+2. Outcome of each trial falls into 1 of 2 categories - success or failure
+3. Probability remains the same from trial to trial
+ 
+If you sampling without replacement and sample size is very small
+it is not a binomial experiment.
+
+```{r}
+set.seed(1)
+round20 <- sample(c(-1,1), size = 20, replace = T)
+round20
+netwin <- cumsum(round20)
+netwin
+
+```
+
+```{r}
+meanlife <- 1400
+stdlife <- 200
+set.seed(1)
+cum.round20 <- NULL
+cum.reps <- 1000
+for (i in 1:cum.reps)
+{
+  net.winnings <- sample(c(-1,1), size = 20, replace = T)
+  #net.winnings
+  cum.winnings <- cumsum(net.winnings)
+  cum.round20[i] <- cum.winnings[20]
+  #cum.winnings
+}
+#cum.round20
+hist(cum.round20)
+mean(cum.round20)
+```
+
+For a normal curve with mean of 1 and height of 5
+....
+dbinnom(x=S, siez=n, prob=P)=P(x=5) = height of curve
+n=10
+P=.5
+P(X <= 1) = pnorm(1, 2, 5)
+where 2 is mean and 5 is sd
+p(x=1)=0
+....
+#### Quantile 
+given the area find the cutoff value of 40 percentile
+for sample with mean of 7 and standard deviation of 1.1
+....
+qnorm( 0.4, m=7, p=1.1)
+....
+
+```{r}
+# toss fair coin 10 times, x=# of heads
+# P(x=0)
+dbinom(x=6, size=10, prob = 0.5)
+#= dnorm(6, 10, 0.5)
+# P(x=6)
+pbinom(6,10,.5)
+# Find the first quartile of binomial
+qbinom(0.25, size = 10, prob = 0.5)
+# Random generation, toss a coin 10x
+set.seed(2)
+rbinom(20, size = 10, prob = 0.5)
+dnorm(3, mean = 5, sd=2)
+```
+
+## Class Exercise
+
+```{r}
+set.seed(20)
+# 1.
+rnorm(20, mean = 100, sd = 15)
+# 2.
+pnorm(89, 100, 15)
+pnorm(89, 100, 15, lower.tail = FALSE)
+1-pnorm(89, 100, 15)
+# 3. 
+(1-pnorm(110, 100, 15))-(1-pnorm(140, 100, 15))
+pnorm(140, 100, 15)-pnorm(110, 100, 15)
+# 4. Quantile for percentile
+qnorm(.9, 100, 15)
+# 5. 
+dnorm(100, 100, 15) # this should be higher since it is the mean
+dnorm(107, 100, 15)
+
+```
+

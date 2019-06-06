@@ -1,0 +1,118 @@
+---
+title: "Stat 128 Class Week 12 R Notebook"
+output: html_notebook
+author: "Dean Chiang"
+---
+
+## Exam 2 Review
+
+1a.
+
+sum(complete.cases(heart))
+
+1f.
+
+predict(mytree, newdata = mytest)
+
+
+## Solution to Exam # 2 Problem 3
+
+```{r}
+set.seed(489)
+
+mu = 100
+stdev = 15
+
+# 1b
+mysamp <- rnorm(5, mean=100, sd=15)
+mysamp
+
+# 1c
+margin.of.error <- 1.96*15/sqrt(5)
+
+lowerbd <- mean(mysamp) - margin.of.error
+upperbd <- mean(mysamp) + margin.of.error
+lowerbd
+upperbd
+paste(lowerbd, '< mu <', upperbd)
+mean(mysamp)
+
+# 1c
+# Interval deos contain mu = 100
+
+# 1d
+# repeat conf. int 1000 times
+mysamps <- rnorm(5000, mean=100, sd=15)
+mysamps
+
+mysamps.matrix <= matrix(mysamps, nrows=1000, ncol=5)
+apply(mysamps.matrix, MARGIN=1, RUN = mean)
+samp.means <- apply(mysamps.matrix, MARGIN=1, RUN = mean)
+
+hist(samp.means)
+
+lowerbds1000 <- samp.mean - margin.of.error
+# does not matter one is vector and another scalar
+upperbds1000 <- samp.mean - margin.of.error
+myconfints <- data.frame(lower=lowerbd1000, upper=upperbd1000)
+View(myconfints)
+samp.mean[44]
+
+## Logical test
+contains.mu <- sum(lowerbdds1000 < 100 & upperbds1000 > 100)
+
+## Confidence Level
+myconfint$contains.mu <- sum(lowerbdds1000 < 100 & upperbds1000 > 100)
+sum(myconfints$contains.mu)/1000
+
+```
+
+#Math functions
+```{r}
+?integrate
+myfun <- function(x) {x^2}
+
+newfun <- my
+integrate(myfun, lower=1, upper = 3)
+
+
+```
+
+# In Class Exercises
+
+## 2a.
+```{r}
+dbinom(x=18, size=18, .95)
+
+```
+## 2b.
+```{r}
+dbinom(x=16, size = 18, prob = .95)
+```
+
+## 3a.
+```{r}
+
+```
+
+## 5a.
+```{r}
+1 - pnorm(q=1800, mean = 1400, sd=200)
+
+```
+
+## 5b.
+```{r}
+qnorm(.3, mean = 1400, sd = 200)
+
+```
+
+## 5d.
+```{r}
+dnorm(1500, 1400, 200)
+curve(dnorm(x, mean=1400, sd=200), from = 800, to = 2000)
+
+```
+
+
+

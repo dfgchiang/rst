@@ -1,0 +1,29 @@
+UWM Dataset Metadata
+
+[Grades and GPA](https://registrar.wisc.edu/grades-and-gpa/)
+
+{
+"a": 4,
+"ab": 3.5,
+"b": 3,
+"bc": 2.5,
+"c": 2,
+"d": 1,
+"f": 0, //FAIL
+"s": 2, //SATISFACTORY, PASS
+"u": 0, //UNSATISFACTORY, NO PASS
+"cr": 2, //CREDIT
+"n": 0, //NO CREDIT
+"def": NA, //DEFERRED
+"ex": NA, //EXCUSED
+"pe": NA, //PERMANENTLY EXCUSED
+"dr": NA, //DROPPED
+"i": NA, //INCOMPLETE
+"pi": NA, //PERMANENT INCOMPLETE
+"nr": NA, //NO REPORT
+"nw": NA, //NO WORK
+"p": NA, //PROGRESSA
+"q": NA, //QUESTION ON CREDITS OR HONORS
+"r": NA, //REGISTERED
+"w": NA //WITHDREW
+}
