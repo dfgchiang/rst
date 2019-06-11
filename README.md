@@ -12,5 +12,7 @@ R programming Student homework for CSUS STAT 128 class
 
 20190211 leaflab/ = dir for Leaflet.js practice.
 
-20190606 Reproduced repo with R ignore file to ignore .RData
-  too large to copy to repo.
+20190606 Reproduced repo with R ignore file to ignore .RData and history files
+  under rproj/ folder too large to copy to github repo.
+
+//
